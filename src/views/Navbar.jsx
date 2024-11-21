@@ -12,36 +12,6 @@ const Navbar = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		setTimeout(() => {
-			document.body.style.overflow = navShow ? "hidden" : "auto";
-			return () => {
-				document.body.style.overflow = "auto";
-			};
-		}, 200);
-	}, [navShow]);
-
-	const controlNavbar = () => {
-		if (window.scrollY > 200) {
-			setShow(
-				window.scrollY > lastScrollY && !navShow
-					? "-translate-y-[100px]"
-					: "shadow-sm",
-			);
-		} else {
-			setShow("translate-y-0");
-		}
-		setBlur(window.scrollY > 40);
-		setLastScrollY(window.scrollY);
-	};
-
-	useEffect(() => {
-		window.addEventListener("scroll", controlNavbar);
-		return () => {
-			window.removeEventListener("scroll", controlNavbar);
-		};
-	}, [lastScrollY]);
-
 	const navLinks = [
 		{ path: "/", name: "Home" },
 		{ path: "/services", name: "Services" },
@@ -51,154 +21,137 @@ const Navbar = () => {
 		{ path: "/payments", name: "Payments" },
 	];
 
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 200) {
+				setShow(
+					window.scrollY > lastScrollY && !navShow
+						? "-translate-y-[100px]"
+						: "shadow-sm",
+				);
+			} else {
+				setShow("translate-y-0");
+			}
+			setBlur(window.scrollY > 40);
+			setLastScrollY(window.scrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [lastScrollY, navShow]);
+
+	useEffect(() => {
+		document.body.style.overflow = navShow ? "hidden" : "auto";
+		return () => {
+			document.body.style.overflow = "auto";
+		};
+	}, [navShow]);
+
+	const handleNavLinkClick = path => {
+		// You can handle navigation link click logic here if needed
+		navigate(path);
+	};
+
+	const renderNavLinks = isMobile => (
+		<div
+			className={`text-lg font-semibold ${
+				isMobile ? "flex-col gap-7" : "flex gap-7"
+			}`}
+		>
+			{navLinks.map((link, index) => (
+				<div key={index}>
+					<Link
+						to={link.path}
+						onClick={() => handleNavLinkClick(link.path)}
+						className='hover:text-primary'
+					>
+						{link.name}
+					</Link>
+				</div>
+			))}
+		</div>
+	);
+
 	return (
 		<div
-			className={`fixed h-[85px] md:h-[95px] z-50 top-0 left-0 right-0 transition-transform duration-300 ${show} ${
-				blur && "backdrop-blur-md bg-[#ffffff76] py-6"
-			} py-7`}
+			className={`fixed h-[85px] md:h-[95px] z-40 top-0 left-0 right-0 transition-transform duration-300 ${show} ${
+				blur ? "backdrop-blur-md bg-[#ffffff76] py-6" : "py-7"
+			}`}
 		>
 			<nav className='container mx-auto md:flex items-center justify-between w-full relative'>
 				<div className='flex items-center justify-between max-md:w-full max-md:px-5'>
-					<Link to={"/"} className='flex items-center gap-1'>
+					<Link to='/' className='flex items-center gap-1'>
 						<img
 							src={logo}
-							alt=''
+							alt='GameTopUp Zone logo'
 							className='w-[50px] rounded-full object-cover'
 						/>
 						<h2 className='text-xl font-bold'>GameTopUp Zone</h2>
 					</Link>
 					<div className='md:hidden'>
-						{!navShow ? (
-							<FiMenu
-								size={30}
-								onClick={() => setNavShow(true)}
-								className='text-primary'
-							/>
-						) : (
+						{navShow ? (
 							<IoClose
 								size={30}
 								onClick={() => setNavShow(false)}
-								className='text-primary'
+								className='text-primary cursor-pointer'
+								aria-label='Close navigation'
+							/>
+						) : (
+							<FiMenu
+								size={30}
+								onClick={() => setNavShow(true)}
+								className='text-primary cursor-pointer'
+								aria-label='Open navigation'
 							/>
 						)}
 					</div>
 				</div>
 
+				{/* Mobile Navigation */}
 				<div
-					className={`md:hidden relative z-[7] backdrop-blur-sm flex flex-col items-center gap-10 mt-20 transition-all duration-300 ease-linear bg-white/90 h-screen ${
+					className={`md:hidden absolute top-0 right-0 left-0 backdrop-blur-sm flex flex-col items-center gap-10 mt-20 transition-all duration-300 ease-linear bg-white/90 h-screen ${
 						navShow ? "translate-x-0" : "-translate-x-full"
 					}`}
 				>
-					<div className='text-lg font-semibold flex flex-col gap-7 items-center'>
-						{navLinks?.map((link, index) => (
-							<div key={index}>
-								{["#services", "#about"].includes(link?.path) ? (
-									<a
-										href={link.path}
-										onClick={() => handleNavLinkClick(link.path)}
-									>
-										{link.name}
-									</a>
-								) : (
-									<Link to={link?.path} key={index}>
-										{link?.name}
-									</Link>
-								)}
-							</div>
-						))}
-						{/* {navLinks?.map((link, index) => (
-							<div key={index}>
-								{["#services", "#about"].includes(link?.path) ? (
-									<a
-										key={index}
-										href={link?.path}
-										// href={
-										// 	location?.pathname === "/"
-										// 		? link.path.split("/")[1]
-										// 		: link?.path
-										// }
-									>
-										{link?.name}
-									</a>
-								) : (
-									<Link to={link?.path} key={index}>
-										{link?.name}
-									</Link>
-								)}
-							</div>
-						))} */}
-					</div>
+					{renderNavLinks(true)}
 
 					<Link
-						to={"/login"}
+						to='/login'
 						className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
 					>
 						LOGIN
 					</Link>
 				</div>
 
+				{/* Desktop Navigation */}
 				<div className='text-lg font-medium hidden md:flex gap-7 items-center'>
-					{/* {navLinks.map(link => (
-						<li key={link?.path}>
-							{["#services", "#about"].includes(link?.path) ? (
-								<a href={link?.path} onClick={handleScroll}>
-									{link?.name}
-								</a>
-							) : (
-								<Link to={link?.path}>{link?.name}</Link>
-							)}
-						</li>
-					))} */}
-					{/* {navLinks.map((link, index) => (
-						<div key={index}>
-							<a href={link.path} onClick={() => handleNavLinkClick(link.path)}>
-								{link.name}
-							</a>
-						</div>
-					))} */}
+					{renderNavLinks(false)}
 
-					{navLinks?.map((link, index) => (
-						<div key={index}>
-							{["#services", "#about"].includes(link?.path) ? (
-								<a
-									href={link.path}
-									onClick={() => handleNavLinkClick(link.path)}
+					<div className='flex items-center gap-3'>
+						{localStorage.getItem("authToken") ? (
+							<Link
+								to='/user'
+								className='uppercase bg-primary text-white_c px-8 py-4 rounded-full text-sm hidden md:block'
+							>
+								Dashboard
+							</Link>
+						) : (
+							<>
+								<Link
+									to='/register'
+									className='bg-black text-white_c px-7 md:px-8 py-3 md:py-4 rounded-full text-sm'
 								>
-									{link.name}
-								</a>
-							) : (
-								<Link to={link?.path} key={link?.path}>
-									{link?.name}
+									REGISTER
 								</Link>
-							)}
-						</div>
-					))}
-				</div>
-				<div className='flex items-center gap-3'>
-					{localStorage.getItem("authToken") ? (
-						<Link
-							to={"/user"}
-							className='uppercase max-md:hidden bg-primary text-white_c px-8 py-4 rounded-full text-sm'
-						>
-							Dashboard
-						</Link>
-					) : (
-						<>
-							<Link
-								to={"/register"}
-								className='bg-black text-white_c px-7 md:px-8 py-3 md:py-4 rounded-full text-sm'
-							>
-								REGISTER
-							</Link>
-
-							<Link
-								to={"/login"}
-								className='max-md:hidden bg-primary text-white_c px-8 py-4 rounded-full text-sm'
-							>
-								LOGIN
-							</Link>
-						</>
-					)}
+								<Link
+									to='/login'
+									className='bg-primary text-white_c px-8 py-4 rounded-full text-sm hidden md:block'
+								>
+									LOGIN
+								</Link>
+							</>
+						)}
+					</div>
 				</div>
 			</nav>
 		</div>

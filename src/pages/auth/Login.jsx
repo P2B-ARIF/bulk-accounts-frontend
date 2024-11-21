@@ -6,14 +6,13 @@ import {
 	FormLabel,
 	Heading,
 	Input,
-	Link,
 	Stack,
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useLogin from "../../hook/useLogin";
 
 export default function Login() {
@@ -22,15 +21,18 @@ export default function Login() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
 	let form = location.state?.from?.pathname || "/";
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 
 		// Extract email and password using `name` attributes
-		const formData = new FormData(e.target);
-		const email = formData.get("email");
-		const password = formData.get("password");
+		// const formData = new FormData(e.target);
+		// const email = formData.get("email");
+		// const password = formData.get("password");
 
 		// Ensure both email and password are present
 		if (!email || !password) {
@@ -56,14 +58,14 @@ export default function Login() {
 		<Flex minHeight='100vh' width='full' align='center' justifyContent='center'>
 			<Box
 				borderRadius='lg'
-				m={{ base: 5, md: 16, lg: 10 }}
-				p={{ base: 5, lg: 16 }}
+				m={{ base: 0, md: 16, lg: 10 }}
+				p={{ base: 0, lg: 16 }}
 			>
 				<Flex>
 					{/* Left Column - Login Form */}
 					<Box
 						bg={useColorModeValue("white", "gray.800")}
-						p={8}
+						p={{ base: 4, md: 8 }}
 						maxWidth='md'
 						borderWidth={1}
 						borderRadius='lg'
@@ -77,19 +79,23 @@ export default function Login() {
 						</Box>
 
 						<Box my={8} textAlign='left'>
-							<form onSubmit={handleSubmit}>
-								<FormControl isRequired>
+							<form>
+								<FormControl>
 									<FormLabel>Email address</FormLabel>
 									<Input
+										value={email}
+										onChange={e => setEmail(e.target.value)}
 										type='email'
 										name='email' // Added name attribute
 										placeholder='your-email@example.com'
 									/>
 								</FormControl>
 
-								<FormControl mt={4} isRequired>
+								<FormControl mt={4}>
 									<FormLabel>Password</FormLabel>
 									<Input
+										value={password}
+										onChange={e => setPassword(e.target.value)}
 										type='password'
 										name='password' // Added name attribute
 										placeholder='Enter your password'
@@ -98,6 +104,7 @@ export default function Login() {
 
 								<Stack spacing={10} mt={10}>
 									<Button
+										onClick={handleSubmit}
 										bg={"blue.400"}
 										color={"white"}
 										_hover={{
@@ -118,7 +125,7 @@ export default function Login() {
 						<Stack pt={6}>
 							<Text align={"center"}>
 								Don&apos;t have an account?{" "}
-								<Link color={"blue.400"} href='/register'>
+								<Link color={"blue.400"} to={"/register"}>
 									Register
 								</Link>
 							</Text>
