@@ -6,7 +6,7 @@ import MaintenanceToggle from "../../../components/dashboard/MaintenanceToggle";
 const Maintenance = () => {
 	const [message, setMessage] = useState("");
 	return (
-		<div className='p-5 space-y-3'>
+		<div className='md:p-5 space-y-3'>
 			<div className='flex items-center justify-between'>
 				<h3 className='font-medium'>Maintenance</h3>
 				{/* <span>Status: ON</span> */}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logo } from "../assets/images/ImageWrap";
 
 const Navbar = () => {
@@ -9,8 +9,6 @@ const Navbar = () => {
 	const [lastScrollY, setLastScrollY] = useState(0);
 	const [show, setShow] = useState("translate-y-0");
 	const [blur, setBlur] = useState(false);
-	const location = useLocation();
-	const navigate = useNavigate();
 
 	const navLinks = [
 		{ path: "/", name: "Home" },
@@ -21,6 +19,7 @@ const Navbar = () => {
 		{ path: "/payments", name: "Payments" },
 	];
 
+	// Handle scroll behavior for navbar
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY > 200) {
@@ -40,37 +39,25 @@ const Navbar = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, [lastScrollY, navShow]);
 
+	// Toggle body overflow on mobile menu open/close
 	useEffect(() => {
 		document.body.style.overflow = navShow ? "hidden" : "auto";
-		return () => {
-			document.body.style.overflow = "auto";
-		};
+		return () => (document.body.style.overflow = "auto");
 	}, [navShow]);
 
-	const handleNavLinkClick = path => {
-		// You can handle navigation link click logic here if needed
-		navigate(path);
-	};
-
-	const renderNavLinks = isMobile => (
-		<div
-			className={`text-lg font-semibold ${
-				isMobile ? "flex-col gap-7" : "flex gap-7"
-			}`}
-		>
-			{navLinks.map((link, index) => (
-				<div key={index}>
-					<Link
-						to={link.path}
-						onClick={() => handleNavLinkClick(link.path)}
-						className='hover:text-primary'
-					>
-						{link.name}
-					</Link>
-				</div>
-			))}
-		</div>
-	);
+	const renderNavLinks = isMobile =>
+		navLinks.map((link, index) => (
+			<Link
+				to={link.path}
+				key={index}
+				className={`hover:text-primary whitespace-nowrap ${
+					isMobile ? "text-center block text-xl" : "inline-block"
+				}`}
+				onClick={() => isMobile && setNavShow(false)}
+			>
+				{link.name}
+			</Link>
+		));
 
 	return (
 		<div
@@ -79,8 +66,9 @@ const Navbar = () => {
 			}`}
 		>
 			<nav className='container mx-auto md:flex items-center justify-between w-full relative'>
-				<div className='flex items-center justify-between max-md:w-full max-md:px-5'>
-					<Link to='/' className='flex items-center gap-1'>
+				{/* Logo Section */}
+				<div className='flex items-center justify-between w-full px-5 md:px-0'>
+					<Link to='/' className='flex items-center gap-2'>
 						<img
 							src={logo}
 							alt='GameTopUp Zone logo'
@@ -88,7 +76,8 @@ const Navbar = () => {
 						/>
 						<h2 className='text-xl font-bold'>GameTopUp Zone</h2>
 					</Link>
-					<div className='md:hidden'>
+					{/* Mobile Menu Toggle */}
+					<div className='md:hidden absolute top-5 right-10 z-60'>
 						{navShow ? (
 							<IoClose
 								size={30}
@@ -109,29 +98,27 @@ const Navbar = () => {
 
 				{/* Mobile Navigation */}
 				<div
-					className={`md:hidden absolute top-0 right-0 left-0 backdrop-blur-sm flex flex-col items-center gap-10 mt-20 transition-all duration-300 ease-linear bg-white/90 h-screen ${
+					className={`fixed top-0 left-0 right-0 h-screen flex flex-col items-center justify-center bg-white z-50 transition-transform duration-300 ease-in-out ${
 						navShow ? "translate-x-0" : "-translate-x-full"
 					}`}
 				>
 					{renderNavLinks(true)}
 
-					<Link
-						to='/login'
-						className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
-					>
-						LOGIN
-					</Link>
-				</div>
+					<div className='md:hidden absolute top-5 right-5 z-60'>
+						<IoClose
+							size={30}
+							onClick={() => setNavShow(false)}
+							className='text-primary cursor-pointer'
+							aria-label='Close navigation'
+						/>
+					</div>
 
-				{/* Desktop Navigation */}
-				<div className='text-lg font-medium hidden md:flex gap-7 items-center'>
-					{renderNavLinks(false)}
-
-					<div className='flex items-center gap-3'>
+					<div className='mt-10 flex flex-col items-center gap-5'>
 						{localStorage.getItem("authToken") ? (
 							<Link
 								to='/user'
-								className='uppercase bg-primary text-white_c px-8 py-4 rounded-full text-sm hidden md:block'
+								className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+								onClick={() => setNavShow(false)}
 							>
 								Dashboard
 							</Link>
@@ -139,13 +126,45 @@ const Navbar = () => {
 							<>
 								<Link
 									to='/register'
-									className='bg-black text-white_c px-7 md:px-8 py-3 md:py-4 rounded-full text-sm'
+									className='bg-black text-white_c px-7 py-3 rounded-full text-sm'
+									onClick={() => setNavShow(false)}
 								>
 									REGISTER
 								</Link>
 								<Link
 									to='/login'
-									className='bg-primary text-white_c px-8 py-4 rounded-full text-sm hidden md:block'
+									className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+									onClick={() => setNavShow(false)}
+								>
+									LOGIN
+								</Link>
+							</>
+						)}
+					</div>
+				</div>
+
+				{/* Desktop Navigation */}
+				<div className='hidden md:flex items-center gap-7'>
+					{renderNavLinks(false)}
+					<div className='flex items-center gap-3'>
+						{localStorage.getItem("authToken") ? (
+							<Link
+								to='/user'
+								className='uppercase bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+							>
+								Dashboard
+							</Link>
+						) : (
+							<>
+								<Link
+									to='/register'
+									className='bg-black text-white_c px-7 py-3 rounded-full text-sm'
+								>
+									REGISTER
+								</Link>
+								<Link
+									to='/login'
+									className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
 								>
 									LOGIN
 								</Link>

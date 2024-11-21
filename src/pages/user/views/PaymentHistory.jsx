@@ -44,16 +44,16 @@ const PaymentHistory = () => {
 		<Box
 			borderWidth='1px'
 			borderRadius='lg'
-			overflow='hidden'
+			overflow='auto'
 			bg={bgColor}
 			borderColor={borderColor}
 			boxShadow='lg'
-			ml={5}
+			ml={{ base: 0, md: 5 }}
 			mt={5}
 		>
-			<Box p={6}>
+			<Box p={{ base: 3, md: 6 }}>
 				<Heading
-					size='md'
+					size={{ base: "sm", md: "md" }}
 					mb={4}
 					color={useColorModeValue("gray.700", "white")}
 				>

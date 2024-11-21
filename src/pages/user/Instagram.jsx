@@ -37,7 +37,7 @@ const Instagram = () => {
 
 	return (
 		<section>
-			<h1 className='text-lg font-bold md:pl-5 mb-3'>Facebook Work Station</h1>
+			<h1 className='text-lg font-bold md:pl-5 mb-3'>Instagram Work Station</h1>
 			<div className='space-y-5 md:m-3 lg:m-4 xl:m-5'>
 				<div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 '>
 					{rateSummary &&

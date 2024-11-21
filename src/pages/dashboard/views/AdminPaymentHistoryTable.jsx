@@ -22,12 +22,13 @@ const AdminPaymentHistoryTable = ({ payments }) => {
 		<Box
 			borderWidth='1px'
 			borderRadius='lg'
-			overflow='hidden'
+			overflow='auto'
 			bg={bgColor}
 			borderColor={borderColor}
 			boxShadow='lg'
-			m='5'
-			p='5'
+			m={{ base: 0, md: 5 }}
+			p={{ base: 2, md: 5 }}
+			mt={{ base: 5, md: 0 }}
 		>
 			<h4 className='text-slate-800 text-lg font-semibold'>Payment History</h4>
 			<Table variant='simple' size='md'>

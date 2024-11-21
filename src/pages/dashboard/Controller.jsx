@@ -27,24 +27,24 @@ const Controller = () => {
 	}, []);
 
 	return (
-		<section className='mb-10'>
-			<h1 className='text-lg font-bold pl-5'>Controller </h1>
+		<section className='mb-8'>
+			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
 
-			<div className='grid grid-cols-2'>
+			<div className='grid md:grid-cols-2 mt-5 space-y-5'>
 				<Message />
 				<Maintenance />
 			</div>
 
-			<div className='p-5 space-y-5'>
+			<div className='md:p-5 mt-10 space-y-5'>
 				<SocialPackage />
 			</div>
 
-			<div className='flex justify-around gap-2 p-5'>
+			<div className='md:flex justify-around gap-2 md:p-5 space-y-5'>
 				<UpdatePassword />
 				<UserBlock />
 			</div>
 
-			<div className='grid grid-cols-2 gap-5 lg:m-5'>
+			<div className='grid md:grid-cols-2 gap-x-5 space-y-5 mt-5 lg:m-5'>
 				<AccountDownload />
 				<AccountAction />
 			</div>

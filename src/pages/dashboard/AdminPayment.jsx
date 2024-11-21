@@ -30,9 +30,9 @@ const AdminPayment = () => {
 
 	return (
 		<section>
-			<h1 className='text-lg font-bold pl-5'>Admin Payment</h1>
+			<h1 className='text-lg font-bold md:pl-5'>Admin Payment</h1>
 
-			<div className='m-5 p-5 rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-lg'>
+			<div className='md:m-5 mt-5 p-3 md:p-5 rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-lg'>
 				<h4 className='text-lg font-semibold mb-3'>Pending Payments</h4>
 				<div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4'>
 					<div className='rounded-lg bg-card text-card-foreground shadow-md p-5 transition-all duration-300 hover:shadow-lg'>

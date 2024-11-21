@@ -23,7 +23,7 @@ const Message = () => {
 	}, [response]);
 
 	return (
-		<div className='p-5 space-y-3'>
+		<div className='md:p-5 space-y-3'>
 			<h3 className='font-medium'>Message</h3>
 
 			<Textarea
