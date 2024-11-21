@@ -1,0 +1,63 @@
+// TODO FOR SERVER
+
+User Facebook/
+Stats => Today Task, Last 7 Days Task, Last 30 Days Task, Total Task, Balance,
+#done=> package => {accountType, accountFormat, rate, time, active, message, fileUrl},
+Upload Account => {accountType, accountFormat, rate, uid, mail, pass, twofa} all work in redux toolkit
+
+
+widthdaw => userid, useremail, accountType, amount, accountName, accountName, notes,
+
+history => last 30 accounts status
+date, accountType , accountFormat, rate
+
+User Instagram/
+
+user payments => last day withdroaw, last 7 days  widthdaw, last 30 days widthdaw, total balance 
+history => last 30 times withdraw status, 
+date, accountType , accountNumber, accountName, total account,  amount, status, 
+if approved see the proved. 
+
+
+admin dashboard
+
+dashboard stats --------------------------------
+today task, yesterday task, totol earn, total users, orders, total facebook account, total instagram, account, resolved facebook, resolved instagram, facebook die, instagram die. 
+last 30 days task, total task, balance,
+
+
+
+message --------------------------------
+active, message, creaAtd, updated,
+
+
+
+
+
+register --------------------------------
+name, email, number, gender, password, => role
+
+register --------------------------------
+ email, password,
+
+ user total data --------------------------------
+ name, email, number, gender, password, created,
+
+
+
+
+
+
+ FILE FORMAT --------------------------------
+
+ Facebook account
+    1. uid, email, pass, 2fa  => 30fnd+2fa > 5tk
+    2. uid, email, pass, cookie => 30fnd+cookie > 
+    3. uid, email, pass, cookie => 00fnd+cookie > 2.7tk
+    4. uid, email, pass, 2fa => 00fnd+2fa > 2.7tk
+
+
+
+ instagram account
+
+   1. uid, email, pass, 2fa => 00fnd+2fa > 2.8tk

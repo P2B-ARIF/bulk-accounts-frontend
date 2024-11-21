@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,900&display=swap");
+
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,900&family=Rubik:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,900&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Exo 2", sans-serif ;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+:root {
+	--sky: #058ff2;
+	--white: #fff;
+	--black: #111111;
+	--dark: #171822;
+	--gray: #8a8a8a;
+	--smoke: #cecece;
+	--lightSmoke: #d9d9d9;
+}
