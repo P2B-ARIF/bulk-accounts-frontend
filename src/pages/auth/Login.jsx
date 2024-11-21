@@ -10,7 +10,7 @@ import {
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useLogin from "../../hook/useLogin";
@@ -21,18 +21,15 @@ export default function Login() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
 	let form = location.state?.from?.pathname || "/";
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 
 		// Extract email and password using `name` attributes
-		// const formData = new FormData(e.target);
-		// const email = formData.get("email");
-		// const password = formData.get("password");
+		const formData = new FormData(e.target);
+		const email = formData.get("email");
+		const password = formData.get("password");
 
 		// Ensure both email and password are present
 		if (!email || !password) {
@@ -66,7 +63,7 @@ export default function Login() {
 					<Box
 						bg={useColorModeValue("white", "gray.800")}
 						p={{ base: 4, md: 8 }}
-						maxWidth='md'
+						maxWidth='lg'
 						borderWidth={1}
 						borderRadius='lg'
 						boxShadow='lg'
@@ -79,23 +76,19 @@ export default function Login() {
 						</Box>
 
 						<Box my={8} textAlign='left'>
-							<form>
-								<FormControl>
+							<form onSubmit={handleSubmit}>
+								<FormControl isRequired>
 									<FormLabel>Email address</FormLabel>
 									<Input
-										value={email}
-										onChange={e => setEmail(e.target.value)}
 										type='email'
 										name='email' // Added name attribute
 										placeholder='your-email@example.com'
 									/>
 								</FormControl>
 
-								<FormControl mt={4}>
+								<FormControl mt={4} isRequired>
 									<FormLabel>Password</FormLabel>
 									<Input
-										value={password}
-										onChange={e => setPassword(e.target.value)}
 										type='password'
 										name='password' // Added name attribute
 										placeholder='Enter your password'
@@ -104,7 +97,6 @@ export default function Login() {
 
 								<Stack spacing={10} mt={10}>
 									<Button
-										onClick={handleSubmit}
 										bg={"blue.400"}
 										color={"white"}
 										_hover={{
@@ -125,7 +117,7 @@ export default function Login() {
 						<Stack pt={6}>
 							<Text align={"center"}>
 								Don&apos;t have an account?{" "}
-								<Link color={"blue.400"} to={"/register"}>
+								<Link className='text-blue-500' to={"/register"}>
 									Register
 								</Link>
 							</Text>
