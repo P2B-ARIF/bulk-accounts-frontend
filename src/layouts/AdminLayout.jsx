@@ -16,8 +16,7 @@ const AdminLayout = () => {
 		});
 	}, [location]);
 
-
-console.log(user)
+	console.log(user);
 
 	useEffect(() => {
 		if (!user) {
@@ -34,7 +33,7 @@ console.log(user)
 	return (
 		<main className='flex'>
 			<SideBar />
-			<div className='mt-14 md:mt-5 p-5 w-full relative md:ml-64'>
+			<div className='mt-14 md:mt-5 p-3 md:p-5 w-full relative md:ml-64'>
 				<Outlet />
 			</div>
 		</main>

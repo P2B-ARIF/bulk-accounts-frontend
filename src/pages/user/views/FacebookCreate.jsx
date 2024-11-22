@@ -69,7 +69,7 @@ const FacebookCreate = () => {
 
 		const t = text.match(/id=(\d+)/)?.[1];
 
-		dispatch(updateAccount({ [field]: t }));
+		dispatch(updateAccount({ [field]: t || text }));
 		chakraToast({
 			title: "Copied! -" + text,
 			status: "success",

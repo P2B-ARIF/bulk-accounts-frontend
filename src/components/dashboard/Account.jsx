@@ -1,34 +1,34 @@
-import { Box, Divider, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoMdTime } from "react-icons/io";
+import { useSelector } from "react-redux";
 
-const Account = () => {
-	const bgColor = useColorModeValue("white", "gray.800");
-	const borderColor = useColorModeValue("gray.200", "gray.700");
+const Account = ({ account }) => {
+	const { accounts } = useSelector(state => state.accounts);
+
+	const counts = accounts?.filter(acc => acc.userEmail === account.email);
 
 	return (
-		<Box
-			borderWidth={1}
-			borderRadius='lg'
-			p={4}
-			borderColor={borderColor}
-			bg={bgColor}
-			_hover={{ boxShadow: "lg" }}
-			transition='all 0.3s'
+		<div
+			className={`border rounded-lg p-2 md:p-4 transition-all duration-300 ${
+				account?.gender === "male" ? "bg-blue-100" : "bg-pink-100"
+			} hover:shadow-lg border-gray-200`}
 		>
-			<h3 className='text-lg flex justify-between font-medium text-blue-800'>
-				<span>Md Arif</span>
-
-				<b>Total: 100</b>
+			<h3 className='text-md md:text-lg flex justify-between font-medium text-slate-800'>
+				<span>{account?.name}</span>
+				<b>{counts?.length}</b>
 			</h3>
-			<Box className='text-sm flex items-center gap-1 text-blue-500 mt-2'>
-				<FaFacebook /> Created: 50 | Approved: 20
-			</Box>
-			<Divider />
-			<Box className='text-sm flex items-center gap-1 text-pink-500'>
-				<FaInstagram /> Created: 50 | Approved: 20
-			</Box>
-		</Box>
+			<div className='text-xs md:text-sm flex items-center gap-1 text-blue-500 mt-2'>
+				{account?.email}
+			</div>
+			<hr className='my-2 border-gray-300' />
+			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
+				<FaPhoneAlt /> {account?.number}
+			</div>
+			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
+				<IoMdTime /> {account?.createdAt?.date}
+			</div>
+		</div>
 	);
 };
 
