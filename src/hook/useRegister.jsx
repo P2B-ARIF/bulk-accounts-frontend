@@ -13,12 +13,12 @@ const useRegister = endpoint => {
 		setError(null); // Clear any previous errors
 		setResponse(null); // Clear previous response
 
-		const countryCode = data?.number?.startsWith("880");
+		// const countryCode = data?.number?.startsWith("880");
 
 		try {
-			if (!countryCode) {
-				return setError("Please enter a valid Bangladeshi number.");
-			}
+			// if (!countryCode) {
+			// 	return setError("Please enter a valid Bangladeshi number.");
+			// }
 			const res = await axios.post(`${serverUrl}${endpoint}`, data);
 
 			setResponse(res.data); // Store response data
