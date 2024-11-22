@@ -59,7 +59,7 @@ const PaymentHistory = () => {
 				>
 					Payment History
 				</Heading>
-				<Table variant='simple'>
+				<Table variant='simple' size={"sm"}>
 					<Thead>
 						<Tr>
 							<Th>Date</Th>
