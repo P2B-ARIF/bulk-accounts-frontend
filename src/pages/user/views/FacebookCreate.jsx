@@ -67,7 +67,9 @@ const FacebookCreate = () => {
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
 
-		dispatch(updateAccount({ [field]: text }));
+		const t = text.match(/id=(\d+)/)?.[1];
+
+		dispatch(updateAccount({ [field]: t }));
 		chakraToast({
 			title: "Copied! -" + text,
 			status: "success",
