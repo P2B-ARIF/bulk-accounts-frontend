@@ -23,6 +23,7 @@ const FactorCode = () => {
 	const dispatch = useDispatch();
 
 	const handleFactorCode = async () => {
+		const url = import.meta.env.VITE_SERVER_LINK;
 		const secret = inputValue.match(/[a-zA-Z0-9]/g).join("");
 
 		dispatch(updateAccount({ ["key"]: inputValue }));
@@ -30,9 +31,15 @@ const FactorCode = () => {
 		try {
 			setCode("");
 			setLoading(true);
-			const res = await axios.get(`https://2fa.live/tok/${secret}`);
-			setInputValue(res.token);
-			setCode(res.token);
+			const res = await axios.get(`${url}/api/auth/secret?key=${secret}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+			console.log(res, "response");
+
+			setInputValue(res.data);
+			setCode(res.data);
 		} catch (err) {
 			toast({
 				title: "Error",
