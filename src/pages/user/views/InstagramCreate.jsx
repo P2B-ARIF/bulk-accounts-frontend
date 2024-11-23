@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FactorCode from "../../../components/FactorCode";
 import MailInbox from "../../../components/MailBox";
 import DetailCardCopy from "../../../components/user/DetailCardCopy";
+import PasteTempMail from "../../../components/user/PasteTempMail";
 import useCrud from "../../../hook/useCrud";
 import { updateAccount } from "../../../toolkit/features/accountSlice";
 import { fetchPackages } from "../../../toolkit/features/packageSlice";
@@ -98,7 +99,7 @@ const InstagramCreate = () => {
 					<AccountsStats accounts={instagramPackages} />
 
 					<Textarea
-						borderColor={"blue.400"}
+						borderColor={"pink.400"}
 						placeholder='Combined data will appear here'
 						readOnly
 						value={`${account?.email || " "}\n${
@@ -115,7 +116,7 @@ const InstagramCreate = () => {
 						leftIcon={<UploadIcon size={18} />}
 						isLoading={loading}
 						isDisabled={!account?.email || !account?.password || !account?.uid}
-						colorScheme='blue'
+						colorScheme='pink'
 						mr='auto'
 						px='20px'
 						width={{ base: "full", sm: "auto" }}
@@ -146,7 +147,7 @@ const InstagramCreate = () => {
 						{details?.email && <MailInbox email={details?.email} />}
 
 						<FactorCode />
-
+						<PasteTempMail />
 						<Box
 							borderWidth={1}
 							borderRadius='lg'
@@ -175,7 +176,7 @@ const InstagramCreate = () => {
 										leftIcon={<ClipboardCheck size={20} />}
 										width='full'
 									>
-										Paste URL
+										<span className='font-medium'> Paste Username</span>
 									</Button>
 								</VStack>
 							</Box>

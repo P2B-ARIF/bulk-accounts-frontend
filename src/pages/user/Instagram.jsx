@@ -64,9 +64,10 @@ const Instagram = () => {
 
 					{/* Total Earnings Section */}
 					<div className='col-span-2 sm:col-span-1 lg:col-span-2 xl:col-span-1 rounded-lg border bg-pink-50 bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg'>
-						<span className='text-pink-500 text-2xl font-bold tracking-tight'>
-							Balance: {money} Taka
+						<span className='text-pink-500 text-xl md:text-2xl font-semibold'>
+							Balance: {money} <small>Taka</small>
 						</span>
+
 						<div className='flex items-center gap-2 mt-2'>
 							{/* <button className='text-md text-pink-100 hover:text-pink-200 font-medium shadow-sm px-3 bg-pink-600 rounded-lg py-1.5'>
 								Withdraw Money

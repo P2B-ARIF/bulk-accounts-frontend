@@ -15,11 +15,24 @@ const CookieUrl = () => {
 	const [cookie, setCookie] = useState(""); // State to hold the pasted cookie
 	const dispatch = useDispatch();
 
+	// Function to extract c_user value from the cookie string
+	const extractCUser = cookieString => {
+		const match = cookieString.match(/c_user=(\d+)/);
+		return match ? match[1] : null;
+	};
+
 	// Handle pasting from the clipboard
 	const handlePaste = async () => {
 		try {
 			const text = await navigator.clipboard.readText();
 			setCookie(text); // Update state with the pasted text
+
+			const extractedCUser = extractCUser(text);
+			if (extractedCUser) {
+				dispatch(updateAccount({ uid: extractedCUser }));
+				toast.success("UID FOUND.");
+			}
+
 			dispatch(updateAccount({ cookie: text })); // Dispatch to update Redux store
 
 			toast.success("Text has been pasted successfully.", {
