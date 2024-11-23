@@ -4,7 +4,6 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoLogOut } from "react-icons/io5";
 import { MdManageHistory, MdPayments } from "react-icons/md";
-import { TbLayoutDashboard } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import useCrud from "../../hook/useCrud";
@@ -18,8 +17,8 @@ const SideBar = () => {
 	const location = useLocation();
 
 	const navLists = [
-		{ url: "/user", icon: TbLayoutDashboard, name: "Dashboard" },
-		{ url: "/user/facebook", icon: FaFacebook, name: "Facebook" },
+		// { url: "/user", icon: TbLayoutDashboard, name: "Dashboard" },
+		{ url: "/user", icon: FaFacebook, name: "Facebook" },
 		{ url: "/user/instagram", icon: FaInstagram, name: "Instagram" },
 		{ url: "/user/history", icon: MdManageHistory, name: "History" },
 		{ url: "/user/payment", icon: MdPayments, name: "Payment" },

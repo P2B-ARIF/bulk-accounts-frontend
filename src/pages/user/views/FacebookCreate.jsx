@@ -16,6 +16,7 @@ import FactorCode from "../../../components/FactorCode";
 import MailInbox from "../../../components/MailBox";
 import CookieUrl from "../../../components/user/CookieUrl";
 import DetailCardCopy from "../../../components/user/DetailCardCopy";
+import PasteTempMail from "../../../components/user/PasteTempMail";
 import useCrud from "../../../hook/useCrud";
 import { updateAccount } from "../../../toolkit/features/accountSlice";
 import {
@@ -49,9 +50,7 @@ const FacebookCreate = () => {
 	const { account } = useSelector(state => state.account);
 
 	const bgColor = useColorModeValue("white", "gray.800");
-
 	const { post, loading, error, response } = useCrud();
-
 	const { packages } = useSelector(state => state.packages);
 
 	useEffect(() => {
@@ -66,9 +65,7 @@ const FacebookCreate = () => {
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
-
 		const t = text.match(/id=(\d+)/)?.[1];
-
 		dispatch(updateAccount({ [field]: t || text }));
 		chakraToast({
 			title: "Copied! -" + text,
@@ -152,7 +149,10 @@ const FacebookCreate = () => {
 						{details?.email && <MailInbox email={details?.email} />}
 
 						{account.accountFormat.includes("cookie") ? (
-							<CookieUrl />
+							<>
+								<PasteTempMail />
+								<CookieUrl />
+							</>
 						) : (
 							<FactorCode />
 						)}
@@ -185,7 +185,7 @@ const FacebookCreate = () => {
 										leftIcon={<ClipboardCheck size={20} />}
 										width='full'
 									>
-										Paste URL
+										<span className='font-medium'>Paste URL</span>
 									</Button>
 								</VStack>
 							</Box>

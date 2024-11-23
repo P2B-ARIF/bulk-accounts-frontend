@@ -110,7 +110,7 @@ const AccountModel = ({ account }) => {
 						: "blue.500"
 				}
 			>
-				<h3 className='text-lg font-medium uppercase sm:pl-3 md:pl-5'>
+				<h3 className='text-md md:text-lg font-medium uppercase sm:pl-3 md:pl-5'>
 					{account.accountType} {account.accountFormat}
 				</h3>
 			</Box>

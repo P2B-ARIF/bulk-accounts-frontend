@@ -10,7 +10,6 @@ import Facebook from "../pages/user/Facebook";
 import History from "../pages/user/History";
 import Instagram from "../pages/user/Instagram";
 import Payment from "../pages/user/Payment";
-import UserDashboard from "../pages/user/UserDashboard";
 
 import NotFoundPage from "../pages/NotFoundPage";
 import Payments from "../pages/Payments";
@@ -45,11 +44,11 @@ export const router = createBrowserRouter([
 			</ProtectedRoute>
 		),
 		children: [
-			{
-				index: true,
-				element: <UserDashboard />,
-			}, // Default route for "/user"
-			{ path: "facebook", element: <Facebook /> },
+			// {
+			// 	index: true,
+			// 	element: <UserDashboard />,
+			// }, // Default route for "/user"
+			{ index: true, element: <Facebook /> },
 			{ path: "instagram", element: <Instagram /> },
 			{ path: "history", element: <History /> },
 			{ path: "payment", element: <Payment /> },
