@@ -32,8 +32,8 @@ const Payment = () => {
 			<div className='grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:px-5 mt-5'>
 				{rateSummary?.facebook ? (
 					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
-						<div className='flex flex-col gap-2'>
-							<span className='text-xl font-bold uppercase tracking-tight'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md font-medium text-muted-foreground'>
 								{rateSummary?.facebook?.accountType}
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
@@ -46,8 +46,8 @@ const Payment = () => {
 					</div>
 				) : (
 					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
-						<div className='flex flex-col gap-2'>
-							<span className='text-xl font-bold uppercase tracking-tight'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
 								Facebook
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
@@ -60,9 +60,9 @@ const Payment = () => {
 					</div>
 				)}
 				{rateSummary?.instagram ? (
-					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
-						<div className='flex flex-col gap-2'>
-							<span className='text-xl font-bold uppercase tracking-tight'>
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
 								{rateSummary?.instagram?.accountType}
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
@@ -74,9 +74,9 @@ const Payment = () => {
 						</div>
 					</div>
 				) : (
-					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
-						<div className='flex flex-col gap-2'>
-							<span className='text-xl font-bold uppercase tracking-tight'>
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
 								Instagram
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
@@ -91,14 +91,16 @@ const Payment = () => {
 
 				{/* Total Earnings Section */}
 				<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg'>
-					<span className='text-2xl font-bold tracking-tight'>
+					<span className='text-lg md:text-2xl font-semibold md:font-bold tracking-tight'>
 						Total Earn: {money} Taka
 					</span>
 					<div className='flex items-center gap-2 mt-2'>
 						{money > 20 ? (
 							<WithdrawMoney approvedAccounts={accounts} amount={money} />
 						) : (
-							<h3>২০টাকার বেশি হলে টাকা তুলতে পারবেন.</h3>
+							<h3 className='text-sm md:text-md'>
+								২০টাকার বেশি হলে টাকা তুলতে পারবেন.
+							</h3>
 						)}
 					</div>
 				</div>
