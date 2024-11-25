@@ -13,8 +13,11 @@ import {
 	useColorModeValue,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useCallback, useState } from "react";
+
+import { Eye } from "lucide-react";
 import { useSelector } from "react-redux";
+import ImageViewer from "react-simple-image-viewer";
 
 const MotionBox = motion(chakra.div);
 
@@ -38,6 +41,21 @@ const PaymentHistory = () => {
 			default:
 				return "gray";
 		}
+	};
+
+	// Handle image viewer state
+	const [currentImage, setCurrentImage] = useState(0);
+	const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+	// Open image viewer function
+	const openImageViewer = useCallback(() => {
+		setCurrentImage(0); // Open the first (and only) image
+		setIsViewerOpen(true);
+	}, []);
+
+	// Close image viewer function
+	const closeImageViewer = () => {
+		setIsViewerOpen(false);
 	};
 
 	return (
@@ -93,7 +111,7 @@ const PaymentHistory = () => {
 											{item.accountNumber} <br />
 											{item.accountName}
 										</Td>
-										<Td>
+										{/* <Td>
 											<Badge
 												colorScheme={getBadgeColor(item.payment)}
 												borderRadius='full'
@@ -104,6 +122,49 @@ const PaymentHistory = () => {
 											>
 												{item.payment}
 											</Badge>
+										</Td> */}
+										<Td>
+											{item?.payment === "pending" ? (
+												<Badge
+													colorScheme={getBadgeColor(item.payment)}
+													borderRadius='full'
+													px={2}
+													py={1}
+													fontWeight='medium'
+													className='uppercase'
+												>
+													{item.payment}
+												</Badge>
+											) : item?.payment === "success" ? (
+												<>
+													<Badge
+														colorScheme={getBadgeColor(item.payment)}
+														borderRadius='full'
+														px={2}
+														py={1}
+														fontWeight='medium'
+														className='uppercase'
+														onClick={openImageViewer}
+														style={{ cursor: "pointer" }}
+													>
+														<span className='flex items-center gap-1'>
+															<Eye size={15} /> {item.payment}
+														</span>
+													</Badge>
+
+													{isViewerOpen && item?.url && (
+														<ImageViewer
+															src={[item?.url]} // Pass the single image URL inside an array
+															currentIndex={currentImage}
+															disableScroll={false}
+															closeOnClickOutside={true}
+															onClose={closeImageViewer}
+														/>
+													)}
+												</>
+											) : (
+												<h3>Nothing</h3>
+											)}
 										</Td>
 									</Tr>
 								))}

@@ -95,8 +95,10 @@ const Payment = () => {
 						Total Earn: {money} Taka
 					</span>
 					<div className='flex items-center gap-2 mt-2'>
-						{money > 0 && (
+						{money > 20 ? (
 							<WithdrawMoney approvedAccounts={accounts} amount={money} />
+						) : (
+							<h3>২০টাকার বেশি হলে টাকা তুলতে পারবেন.</h3>
 						)}
 					</div>
 				</div>

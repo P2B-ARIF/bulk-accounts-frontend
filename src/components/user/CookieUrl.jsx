@@ -60,7 +60,7 @@ const CookieUrl = () => {
 				<VStack spacing={2}>
 					<Input
 						bg='gray.100'
-						placeholder='Enter profile URL'
+						placeholder='Paste Cookie URL'
 						value={cookie} // Controlled input value
 						// onChange={e => setCookie(e.target.value)} // Update state with input change
 						readOnly

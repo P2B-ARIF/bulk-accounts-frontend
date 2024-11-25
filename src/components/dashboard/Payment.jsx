@@ -1,27 +1,25 @@
-import { Button, Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
-import { HandCoins } from "lucide-react";
-import React, { useEffect } from "react";
-import toast from "react-hot-toast";
-import useCrud from "../../hook/useCrud";
+import { Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
+import ImageViewer from "react-simple-image-viewer";
+import UploadImage from "../../pages/dashboard/models/UploadImage";
 
 const Payment = ({ order }) => {
 	const hoverBg = useColorModeValue("gray.50", "gray.700");
-	const { put, error, response, loading } = useCrud();
 
-	console.log(order, "order");
-	const handlePayment = async () => {
-		await put(`/api/withdraw/${order._id}`);
+	// Handle image viewer state
+	const [currentImage, setCurrentImage] = useState(0);
+	const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+	// Open image viewer function
+	const openImageViewer = useCallback(() => {
+		setCurrentImage(0); // Open the first (and only) image
+		setIsViewerOpen(true);
+	}, []);
+
+	// Close image viewer function
+	const closeImageViewer = () => {
+		setIsViewerOpen(false);
 	};
-
-	useEffect(() => {
-		if (response) {
-			toast.success(response.message);
-			window.location.reload();
-		}
-		if (error) {
-			console.log(error, "error");
-		}
-	}, [response, error]);
 
 	return (
 		<Tr _hover={{ bg: hoverBg }} transition='all 0.2s'>
@@ -41,23 +39,40 @@ const Payment = ({ order }) => {
 			<Td>{order.notes}</Td>
 			<Td>{order.totalAccounts}</Td>
 			<Td>{order.amount} BDT</Td>
+
+			{/* Render Upload Image Component if payment is pending */}
 			<Td>
 				{order?.payment === "pending" ? (
-					<Button
-						size='sm'
-						px={3}
-						colorScheme='blue'
-						onClick={handlePayment}
-						isLoading={loading}
-						isDisabled={loading}
-						leftIcon={<HandCoins size={18} />}
-					>
-						Confirm Payment
-					</Button>
+					<UploadImage order={order} />
+				) : order?.payment === "success" ? (
+					<>
+						<h3
+							className='text-green-500'
+							onClick={openImageViewer}
+							style={{ cursor: "pointer" }}
+						>
+							{order?.payment}
+						</h3>
+						{/* Conditionally render the ImageViewer if payment is successful */}
+						{isViewerOpen && order?.url && (
+							<ImageViewer
+								src={[order?.url]} // Pass the single image URL inside an array
+								currentIndex={currentImage}
+								disableScroll={false}
+								closeOnClickOutside={true}
+								onClose={closeImageViewer}
+							/>
+						)}
+					</>
 				) : (
-					<span className='text-green-500'>{order?.payment}</span>
+					<h3>Nothing</h3>
 				)}
 			</Td>
+
+			{/* Render Payment status with image viewer if payment is successful */}
+			{/* {order?.payment === "success" && (
+			
+			)} */}
 		</Tr>
 	);
 };

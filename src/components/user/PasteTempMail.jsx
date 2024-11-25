@@ -61,7 +61,7 @@ const PasteTempMail = () => {
 				<VStack spacing={2}>
 					<Input
 						bg='gray.100'
-						placeholder='Enter profile URL'
+						placeholder='Paste Temp Mail'
 						readOnly
 						value={cookie} // Controlled input value
 					/>

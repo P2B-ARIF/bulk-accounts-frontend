@@ -9,6 +9,7 @@ import {
 	Tr,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import ResolvedAccount from "./model/ResolvedAccount";
 
@@ -50,7 +51,7 @@ export default function History() {
 								<Th>Format</Th>
 								<Th>Rate</Th>
 								<Th>Status</Th>
-								<Th>Action</Th>
+								{/* <Th>Action</Th> */}
 							</Tr>
 						</Thead>
 						<Tbody>
@@ -63,7 +64,9 @@ export default function History() {
 											key={index}
 											bg={index % 2 === 0 ? "transparent" : stripedBg}
 										>
-											<Td color='gray.600'>{item.createdAt.date_fns}</Td>
+											<Td color='gray.600'>
+												{format(item.createdAt.date, "dd-MM")}
+											</Td>
 											<Td fontWeight='medium' className='uppercase'>
 												{item.accountType}
 											</Td>
@@ -73,14 +76,13 @@ export default function History() {
 												{item.die === true ? (
 													<span className='text-red-500'>Die</span>
 												) : item.resolved === true ? (
-													<span className='text-yellow-500'>Resolved</span>
+													<ResolvedAccount account={item} />
 												) : (
-													<span className='text-green-500'>Posted!</span>
+													<span className='text-green-500'>Progress!</span>
 												)}
 											</Td>
-											<Td>
-												{item.resolved && <ResolvedAccount account={item} />}
-											</Td>
+											{/* <Td>
+											</Td> */}
 										</Tr>
 									);
 								})}

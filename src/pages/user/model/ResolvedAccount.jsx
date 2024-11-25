@@ -2,13 +2,16 @@ import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import useCrud from "../../../hook/useCrud";
 import { fetchEverything } from "../../../toolkit/features/everythingSlice";
 
 const ResolvedAccount = ({ account }) => {
 	const [isShowing, setIsShowing] = useState(false);
+
 	const [newUid, setUid] = useState("");
+	const [password, setPassword] = useState("");
 
 	const wrapperRef = useRef(null);
 
@@ -42,13 +45,17 @@ const ResolvedAccount = ({ account }) => {
 	// Handle form submission
 	const handleSubmit = async e => {
 		e.preventDefault();
-		await put(`/api/accounts/${account._id}`, { uid: newUid || account.uid });
-		dispatch(fetchEverything());
+		await put(`/api/accounts/${account._id}`, {
+			uid: newUid || account.uid,
+			password: password || account.password,
+		});
 		setIsShowing(false);
 	};
 
 	if (response) {
 		console.log(response, "response");
+		toast.success(response.message);
+		dispatch(fetchEverything());
 	}
 	if (error) {
 		console.log(error, "error");
@@ -58,7 +65,7 @@ const ResolvedAccount = ({ account }) => {
 		<>
 			<button
 				onClick={() => setIsShowing(true)}
-				className='text-md text-pink-100 hover:text-pink-200 font-medium shadow-sm px-3 bg-yellow-600 rounded-lg py-1.5'
+				className='text-md text-white hover:text-orange-500 hover:bg-transparent transition-all duration-150 ease-linear border border-transparent hover:border-orange-500 font-medium shadow-sm px-3 bg-orange-500 rounded-lg py-1.5'
 			>
 				Resolved
 			</button>
@@ -105,14 +112,14 @@ const ResolvedAccount = ({ account }) => {
 											value={newUid || account.uid}
 											onChange={e => setUid(e.target.value)}
 											placeholder='Enter uid | username'
-											bg='gray.100'
+											// bg='gray.100'
 										/>
 									</FormControl>
 
-									{/* Account Number */}
+									{/* Account Email */}
 									<FormControl>
 										<FormLabel htmlFor='email' fontSize='sm' color='gray.700'>
-											Account Number
+											Account Email
 										</FormLabel>
 										<Input
 											id='email'
@@ -137,8 +144,9 @@ const ResolvedAccount = ({ account }) => {
 											name='password'
 											type='text'
 											placeholder='Enter password '
-											value={account.password}
-											bg='gray.100'
+											value={password || account.password}
+											onChange={e => setPassword(e.target.value)}
+											// bg='gray.50'
 										/>
 									</FormControl>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import WithdrawMoney from "./model/WithdrawMoney";
 import FacebookCreate from "./views/FacebookCreate";
 
 const Facebook = () => {
@@ -63,23 +62,23 @@ const Facebook = () => {
 						})}
 
 					{/* Total Earnings Section */}
-					<div
+					{/* <div
 						className={`col-span-${
 							rateSummary && Object.values(rateSummary).length % 2
 						} sm:col-span-1 lg:col-span-2 xl:col-span-1 rounded-lg border bg-blue-50 bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg`}
 					>
 						<span className='text-blue-500 text-xl md:text-2xl font-semibold'>
 							Balance: {money} <small>Taka</small>
-						</span>
-						<div className='flex items-center gap-2 mt-2'>
-							{money > 0 && (
+						</span> */}
+					{/* <div className='flex items-center gap-2 mt-2'>
+							{money > 20 && (
 								<WithdrawMoney
 									approvedAccounts={approvedFacebook}
 									amount={money}
 								/>
 							)}
-						</div>
-					</div>
+						</div> */}
+					{/* </div> */}
 				</div>
 
 				<FacebookCreate />
