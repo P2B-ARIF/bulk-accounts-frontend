@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { logo } from "../assets/images/ImageWrap";
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
 		{ path: "/", name: "Home" },
 		{ path: "/services", name: "Services" },
 		{ path: "/about-us", name: "About Us" },
-		{ path: "/blog", name: "Blog" },
+		// { path: "/blog", name: "Blog" },
 		{ path: "/contact-us", name: "Contact Us" },
 		{ path: "/payments", name: "Payments" },
 	];
@@ -45,12 +45,17 @@ const Navbar = () => {
 		return () => (document.body.style.overflow = "auto");
 	}, [navShow]);
 
+	const { pathname } = useLocation();
+	// console.log(pathname, "params");
+
 	const renderNavLinks = isMobile =>
 		navLinks.map((link, index) => (
 			<Link
 				to={link.path}
 				key={index}
-				className={`hover:text-primary whitespace-nowrap ${
+				className={`${
+					pathname === link.path && "text-primary"
+				} hover:text-primary whitespace-nowrap ${
 					isMobile ? "text-center block text-xl" : "inline-block"
 				}`}
 				onClick={() => isMobile && setNavShow(false)}
@@ -77,7 +82,7 @@ const Navbar = () => {
 						<h2 className='text-xl font-bold'>GameTopUp Zone</h2>
 					</Link>
 					{/* Mobile Menu Toggle */}
-					<div className='md:hidden absolute top-5 right-10 z-60'>
+					<div className='md:hidden absolute top-2 right-5 z-60'>
 						{navShow ? (
 							<IoClose
 								size={30}

@@ -44,7 +44,7 @@ const Facebook = () => {
 							return (
 								<div
 									key={i}
-									className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'
+									className='relative rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'
 								>
 									<div className='flex flex-col md:gap-2'>
 										<span className='text-lg md:text-xl uppercase font-semibold md:font-bold tracking-tight'>
@@ -55,6 +55,10 @@ const Facebook = () => {
 										</span>
 										<span className='text-md font-medium text-muted-foreground'>
 											Account <b>{item.count}</b>
+										</span>
+
+										<span className='absolute bottom-2 right-2 text-green-500 px-2 py-1 rounded-xl text-sm bg-green-200'>
+											Progress!
 										</span>
 									</div>
 								</div>

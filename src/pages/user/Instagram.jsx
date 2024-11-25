@@ -44,10 +44,10 @@ const Instagram = () => {
 							return (
 								<div
 									key={i}
-									className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'
+									className='relative rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'
 								>
 									<div className='flex flex-col gap-2'>
-										<span className='text-xl uppercase font-bold tracking-tight'>
+										<span className='text-xl uppercase font-semibold tracking-tight'>
 											{item.accountFormat}
 										</span>
 										<span className='text-lg font-medium text-muted-foreground'>
@@ -55,6 +55,10 @@ const Instagram = () => {
 										</span>
 										<span className='text-md font-medium text-muted-foreground'>
 											Account {item.count}
+										</span>
+
+										<span className='absolute bottom-2 right-2 text-pink-500 px-2 py-1 rounded-xl text-sm bg-pink-200'>
+											Progress!
 										</span>
 									</div>
 								</div>

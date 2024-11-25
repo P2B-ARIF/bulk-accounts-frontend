@@ -1,25 +1,29 @@
 import {
 	Box,
 	Container,
+	HStack,
+	Icon,
+	Link,
 	Stack,
 	Text,
-	HStack,
-	Link,
-	Icon,
 } from "@chakra-ui/react";
-import { FaTwitter, FaFacebook, FaInstagram, FaGithub } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
 	const navigation = ["About", "Features", "Works", "Support", "Help"];
 	const socialLinks = [
 		{ icon: FaTwitter, label: "Twitter", href: "#" },
-		{ icon: FaFacebook, label: "Facebook", href: "#" },
+		{
+			icon: FaFacebook,
+			label: "Facebook",
+			href: "https://www.facebook.com/profile.php?id=61565884427270",
+		},
 		{ icon: FaInstagram, label: "Instagram", href: "#" },
 		{ icon: FaGithub, label: "GitHub", href: "#" },
 	];
 
 	return (
-		<footer className="bg-slate-200">
+		<footer className='bg-slate-200'>
 			<Box as='footer' py={10}>
 				<Container maxW='6xl'>
 					<Stack spacing={8} align='center'>
@@ -31,7 +35,7 @@ export default function Footer() {
 							letterSpacing='wider'
 							color='gray.800'
 						>
-							/RAREBLOCKS
+							/GAMETOPUP ZONE
 						</Link>
 
 						{/* Navigation */}
@@ -67,7 +71,7 @@ export default function Footer() {
 
 						{/* Copyright */}
 						<Text fontSize='sm' color='gray.600'>
-							© Copyright 2021. All Rights Reserved
+							© Copyright {new Date().getFullYear()}. All Rights Reserved
 						</Text>
 					</Stack>
 				</Container>

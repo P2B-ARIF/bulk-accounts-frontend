@@ -30,7 +30,7 @@ const Controller = () => {
 		<section className='mb-8'>
 			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
 
-			<div className='grid md:grid-cols-2 mt-5 space-y-5'>
+			<div className='grid md:grid-cols-2 max-sm:space-y-5'>
 				<Message />
 				<Maintenance />
 			</div>

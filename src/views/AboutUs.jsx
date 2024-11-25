@@ -1,121 +1,75 @@
-import React from "react";
-import { FaCircleCheck } from "react-icons/fa6";
-import { bg1, icon1, img4, img5, shape6 } from "../assets/images/ImageWrap";
+import { FaAward, FaCheckCircle, FaHistory, FaUsers } from "react-icons/fa";
 
-const AboutUs = ({ about }) => {
-	const { images, mission, points, title, whoweare } = about || {};
-	const baseURL = import.meta.env.VITE_SERVER_URL;
+const highlights = [
+	{
+		icon: FaAward,
+		title: "1+ Years of Excellence",
+		description:
+			"Providing top-notch services in social media management, online training, and account creation.",
+		bgColor: "bg-yellow-100",
+		iconColor: "text-yellow-500",
+	},
+	{
+		icon: FaUsers,
+		title: "100+ Happy Clients",
+		description:
+			"Helping individuals and businesses achieve their goals online.",
+		bgColor: "bg-blue-100",
+		iconColor: "text-blue-500",
+	},
+	{
+		icon: FaHistory,
+		title: "24/7 Support",
+		description:
+			"Our dedicated team is always ready to assist you with your queries and issues.",
+		bgColor: "bg-green-100",
+		iconColor: "text-green-500",
+	},
+	{
+		icon: FaCheckCircle,
+		title: "Verified Services",
+		description: "Trusted by thousands for authentic and reliable solutions.",
+		bgColor: "bg-purple-100",
+		iconColor: "text-purple-500",
+	},
+];
 
+export default function AboutUs() {
 	return (
-		<div
-			id='about'
-			className='mt-20 py-20 pb-10 container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 max-md:px-5'
-		>
-			<div className='grid grid-cols-2 gap-5'>
-				<div className='relative self-end'>
-					<img
-						src={shape6}
-						alt=''
-						className='h-[110px] md:h-[140px] relative left-0 z-[2] mb-5 -rotate-[122deg] ml-auto pl-5'
-					/>
+		<section id='about-us' className='relative py-20 bg-gray-50 my-20'>
+			{/* Background Accents */}
+			<div className='absolute -top-20 -left-20 w-80 h-80 bg-indigo-200 bg-opacity-40 rounded-full filter blur-3xl z-0'></div>
+			<div className='absolute -bottom-20 -right-20 w-96 h-96 bg-teal-200 bg-opacity-40 rounded-full filter blur-3xl z-0'></div>
 
-					<div className='absolute top-5 left-0 z-[-1] w-[358px] h-[200px] md:h-[280px]'>
-						<div className='relative w-full h-full'>
+			<div className='container mx-auto px-6 relative z-10'>
+				<div className='text-center mb-12'>
+					<h2 className='text-4xl font-bold text-gray-800 mb-4'>About Us</h2>
+					<p className='text-gray-600 text-lg max-w-2xl mx-auto'>
+						At **GameTopup Zone**, we specialize in delivering the best social
+						media account creation, online earning training, and
+						customer-focused services.
+					</p>
+				</div>
+
+				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
+					{highlights.map((highlight, index) => (
+						<div
+							key={index}
+							className='flex flex-col items-center text-center bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2'
+						>
 							<div
-								className='absolute inset-0 bg-cover bg-center opacity-30'
-								style={{ backgroundImage: `url(${bg1})` }}
-							></div>
-							<div className='absolute inset-0 bg-gradient-to-l from-[#fff0] to-[#fff]'></div>
+								className={`flex items-center justify-center w-16 h-16 mb-4 rounded-full ${highlight.bgColor}`}
+							>
+								<highlight.icon className={`w-8 h-8 ${highlight.iconColor}`} />
+							</div>
+							<h3 className='text-xl font-semibold text-gray-800 mb-2'>
+								{highlight.title}
+							</h3>
+							<p className='text-gray-600 text-sm'>{highlight.description}</p>
 						</div>
-					</div>
-
-					<img
-						src={`${baseURL}/${images?.[0]}`}
-						alt=''
-						className='h-[300px] md:h-[393px] object-cover rounded-xl'
-					/>
-				</div>
-				<div className='relative self-end'>
-					<img
-						src={`${baseURL}/${images?.[1]}`}
-						alt=''
-						className='h-[350px] md:h-[466px] object-cover rounded-xl'
-					/>
-					<div className='flex items-center gap-3 md:gap-6 w-full bg-primary rounded-xl py-3 md:py-4 px-4 md:px-10 -translate-y-2'>
-						<img src={icon1} alt='' className='w-[48px] aspect-square' />
-						<div>
-							<h1 className='text-xl md:text-2xl font-medium text-white_c'>
-								6 Years +
-							</h1>
-							<h6 className='whitespace-nowrap font-medium text-white_c'>
-								Of Experience
-							</h6>
-						</div>
-					</div>
+					))}
 				</div>
 			</div>
-
-			<div className='max-md:w-[90%]'>
-				<h1 className='text-4xl md:text-5xl font-bold leading-[40px] md:leading-[62px] max-md:mt-10'>
-					{title?.split(" ").map((t, i) =>
-						t.toLowerCase() === "digital" ? (
-							<span key={i} className='text-primary'>
-								{t}{" "}
-							</span>
-						) : (
-							<span key={i}>{t} </span>
-						),
-					)}
-
-					{/* Creating Value Through <span className='text-primary'>Digital</span>{" "}
-					Solutions */}
-				</h1>
-				<h4 className='mt-8 text-lg md:text-xl font-bold text-gray'>
-					Who We Are:
-				</h4>
-				<div className='text-gray text-base md:text-lg'>
-					{whoweare?.includes("n/")
-						? whoweare?.split("n/").map((line, i) => (
-								<p key={i} className='mb-3'>
-									{line}
-								</p>
-						  ))
-						: whoweare}
-				</div>
-				<h4 className='mt-4 text-lg md:text-xl font-bold text-gray'>
-					Our Mission:
-				</h4>
-				<p className='text-gray text-base md:text-lg'>{mission}</p>
-
-				{points?.map((point, i) => (
-					<h5
-						key={i}
-						className='flex items-center gap-2 md:gap-3 text-lg md:text-xl text-gray my-3 font-medium'
-					>
-						<FaCircleCheck className='text-primary' />
-						{point}
-					</h5>
-				))}
-
-				{/* <h5 className='flex items-center gap-2 md:gap-3 mt-6 text-lg md:text-xl text-gray my-3 font-medium'>
-					<FaCircleCheck className='text-primary' />
-					Where Design Meets Technology:
-				</h5>
-				<h5 className='flex items-center gap-2 md:gap-3 text-lg md:text-xl text-gray my-3 font-medium'>
-					<FaCircleCheck className='text-primary' />
-					Beyond Aesthetics, Towards Impact:
-				</h5>
-				<h5 className='flex items-center gap-2 md:gap-3 text-lg md:text-xl text-gray my-3 font-medium'>
-					<FaCircleCheck className='text-primary' />A Story Untold in Every
-					Pixel:
-				</h5> */}
-
-				<button className='bg-black text-white_c px-8 py-4 rounded-full mt-6'>
-					Get Started
-				</button>
-			</div>
-		</div>
+		</section>
 	);
-};
-
-export default AboutUs;
+}

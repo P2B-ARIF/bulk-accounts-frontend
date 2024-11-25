@@ -41,7 +41,7 @@ export default function History() {
 			>
 				<Box p={{ base: 3, md: 6 }}>
 					<Heading size={{ base: "sm", md: "md" }} mb={4}>
-						Latest Accounts
+						<span>Latest Accounts</span>
 					</Heading>
 					<Table variant='simple'>
 						<Thead>
@@ -74,11 +74,15 @@ export default function History() {
 											<Td>{item.rate} BDT</Td>
 											<Td>
 												{item.die === true ? (
-													<span className='text-red-500'>Die</span>
+													<span className='text-red-500 px-2 py-1 rounded-xl text-sm bg-red-200'>
+														Die
+													</span>
 												) : item.resolved === true ? (
 													<ResolvedAccount account={item} />
 												) : (
-													<span className='text-green-500'>Progress!</span>
+													<span className='text-green-500 px-2 py-1 rounded-xl text-sm bg-green-200'>
+														Progress!
+													</span>
 												)}
 											</Td>
 											{/* <Td>

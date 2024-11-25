@@ -31,7 +31,7 @@ const UserLayout = () => {
 		return <div>Loading...</div>;
 	}
 
-	console.log(everything);
+	// console.log(everything);
 
 	return (
 		<main className='flex'>

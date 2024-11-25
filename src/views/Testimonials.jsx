@@ -1,98 +1,112 @@
-"use client";
-
-import React from "react";
-import {
-	Box,
-	Flex,
-	Text,
-	Avatar,
-	Icon,
-	Container,
-	useColorModeValue,
-} from "@chakra-ui/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { FaQuoteLeft } from "react-icons/fa";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const testimonials = [
 	{
-		name: "Sarah Johnson",
-		position: "CEO, TechCorp",
-		avatar:
-			"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-		text: "This product has transformed our business operations. It's intuitive, powerful, and the customer support is outstanding.",
+		name: "John Doe",
+		title: "Entrepreneur",
+		quote:
+			"Thanks to their training, I started earning online with ease. Their support team is amazing!",
+		image:
+			"https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?semt=ais_hybrid",
 	},
 	{
-		name: "Michael Chen",
-		position: "CTO, InnovateTech",
-		avatar:
-			"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-		text: "I've never seen a tool so comprehensive yet easy to use. It's become an integral part of our daily workflow.",
+		name: "Jane Smith",
+		title: "Digital Marketer",
+		quote:
+			"Their services helped me grow my social media presence dramatically. Highly recommended!",
+		image:
+			"https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436178.jpg?semt=ais_hybrid",
 	},
 	{
-		name: "Emily Rodriguez",
-		position: "Marketing Director, GrowthCo",
-		avatar:
-			"https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-		text: "he analytics capabilities are unparalleled. We've gained insights that have directly contributed to our growth.",
+		name: "Michael Lee",
+		title: "Freelancer",
+		quote:
+			"Affordable, reliable, and always there to help. They truly understand their clients' needs.",
+		image:
+			"https://img.freepik.com/free-psd/3d-illustration-with-online-avatar_23-2151303097.jpg",
 	},
 ];
 
-export default function TestimonialsCarousel() {
-	const bgColor = useColorModeValue("gray.100", "gray.700");
-	const textColor = useColorModeValue("gray.600", "gray.200");
-	const quoteColor = useColorModeValue("blue.500", "blue.300");
+export default function TestimonialsSlider() {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const nextSlide = () => {
+		setCurrentIndex(prev => (prev + 1) % testimonials.length);
+	};
+
+	const prevSlide = () => {
+		setCurrentIndex(
+			prev => (prev - 1 + testimonials.length) % testimonials.length,
+		);
+	};
 
 	return (
-		<Box bg={bgColor} py={16}>
-			<Container maxW='6xl'>
-				<Swiper
-					modules={[Navigation, Pagination, Autoplay]}
-					spaceBetween={30}
-					slidesPerView={1}
-					navigation
-					pagination={{ clickable: true }}
-					autoplay={{ delay: 5000 }}
-					loop={true}
-				>
-					{testimonials.map((testimonial, index) => (
-						<SwiperSlide key={index}>
-							<Flex
-								direction='column'
-								alignItems='center'
-								textAlign='center'
-								px={4}
+		<section id='testimonials' className='py-20 bg-gray-50'>
+			<div className='container mx-auto px-6'>
+				<h2 className='text-xl md:text-2xl font-bold text-center text-gray-800 mb-12'>
+					What Our Clients Say
+				</h2>
+				<div className='relative max-w-xl mx-auto'>
+					{/* Slider Content */}
+					<div className='overflow-hidden'>
+						<AnimatePresence mode='wait'>
+							<motion.div
+								key={currentIndex}
+								initial={{ opacity: 0, x: 100 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: -100 }}
+								transition={{ duration: 0.5 }}
+								className='bg-white shadow-lg rounded-lg p-6 text-center'
 							>
-								<Avatar
-									src={testimonial.avatar}
-									size='xl'
-									mb={6}
-									border='4px solid'
-									borderColor={quoteColor}
+								<img
+									src={testimonials[currentIndex].image}
+									alt={testimonials[currentIndex].name}
+									className='w-24 h-24 mx-auto rounded-full mb-4'
 								/>
-								<Icon as={FaQuoteLeft} w={8} h={8} color={quoteColor} mb={4} />
-								<Text
-									fontSize='xl'
-									fontWeight='medium'
-									mb={4}
-									color={textColor}
-								>
-									{testimonial.text}
-								</Text>
-								<Text fontWeight='bold' fontSize='lg'>
-									{testimonial.name}
-								</Text>
-								<Text color={textColor}>{testimonial.position}</Text>
-							</Flex>
-						</SwiperSlide>
-					))}
-				</Swiper>
-			</Container>
-		</Box>
+								<h3 className='text-xl font-semibold text-gray-800'>
+									{testimonials[currentIndex].name}
+								</h3>
+								<p className='text-sm text-gray-500 mb-4'>
+									{testimonials[currentIndex].title}
+								</p>
+								<p className='text-gray-600 italic'>
+									"{testimonials[currentIndex].quote}"
+								</p>
+							</motion.div>
+						</AnimatePresence>
+					</div>
+
+					{/* Navigation Arrows */}
+					<div className='absolute inset-0 flex justify-between items-center px-4'>
+						<button
+							onClick={prevSlide}
+							className='bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400'
+						>
+							&#8592;
+						</button>
+						<button
+							onClick={nextSlide}
+							className='bg-gray-300 p-2 rounded-full shadow hover:bg-gray-400'
+						>
+							&#8594;
+						</button>
+					</div>
+
+					{/* Pagination Dots */}
+					<div className='flex justify-center mt-4 space-x-2'>
+						{testimonials.map((_, index) => (
+							<button
+								key={index}
+								onClick={() => setCurrentIndex(index)}
+								className={`w-3 h-3 rounded-full ${
+									index === currentIndex ? "bg-blue-500" : "bg-gray-300"
+								}`}
+							/>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
 	);
 }

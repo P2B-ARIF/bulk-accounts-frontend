@@ -1,124 +1,95 @@
-import React, { useState } from "react";
-import {
-	Box,
-	FormControl,
-	FormLabel,
-	Grid,
-	Input,
-	Textarea,
-	Button,
-	useToast,
-} from "@chakra-ui/react";
+import { useState } from "react";
 
-const ContactForm = () => {
-	const [name, setName] = useState("");
-	const [phone, setPhone] = useState("");
-	const [email, setEmail] = useState("");
-	const [message, setMessage] = useState("");
-	const [loading, setLoading] = useState(false);
-	const toast = useToast();
+const ContactForm = ({ onSubmit }) => {
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		message: "",
+	});
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSubmit = async e => {
+	const handleChange = e => {
+		const { name, value } = e.target;
+		setFormData(prev => ({ ...prev, [name]: value }));
+	};
+
+	const handleSubmit = e => {
 		e.preventDefault();
-		setLoading(true);
-		return;
-		const sendContactEmail = httpsCallable(functions, "sendContactEmail");
+		setIsSubmitting(true);
 
-		try {
-			const result = await sendContactEmail({ name, phone, email, message });
-			if (result.data.success) {
-				toast({
-					title: "Email sent successfully.",
-					status: "success",
-					duration: 5000,
-					isClosable: true,
-				});
-				// Reset form fields
-				setName("");
-				setPhone("");
-				setEmail("");
-				setMessage("");
-			} else {
-				throw new Error(result.data.error);
-			}
-		} catch (error) {
-			toast({
-				title: "Error sending email.",
-				description: error.message,
-				status: "error",
-				duration: 5000,
-				isClosable: true,
-			});
-		} finally {
-			setLoading(false);
-		}
+		// Call the onSubmit handler passed as a prop
+		onSubmit(formData);
+
+		// Reset form
+		setFormData({ name: "", email: "", message: "" });
 	};
 
 	return (
-		<form className='w-full'>
-			<Box p={4} mx='auto'>
-				<Grid templateColumns='repeat(2, 1fr)' gap={4}>
-					<FormControl>
-						<FormLabel>
-							<span className='font-normal'>Full name</span>
-						</FormLabel>
-						<Input
-							type='text'
-							placeholder='name'
-							value={name}
-							onChange={e => setName(e.target.value)}
-							className='focus:outline-none'
-							focusBorderColor='purple.400'
-							required
-						/>
-					</FormControl>
-					<FormControl>
-						<FormLabel>
-							<span className='font-normal'>Phone</span>
-						</FormLabel>
-						<Input
-							type='text'
-							placeholder='phone'
-							value={phone}
-							onChange={e => setPhone(e.target.value)}
-							className='focus:outline-none'
-							focusBorderColor='purple.400'
-							required
-						/>
-					</FormControl>
-				</Grid>
-				<FormControl mt={4}>
-					<FormLabel>
-						<span className='font-normal'>Work email</span>
-					</FormLabel>
-					<Input
-						type='email'
-						placeholder='email'
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-						className='focus:outline-none'
-						focusBorderColor='purple.400'
-						required
-					/>
-				</FormControl>
-				<FormControl mt={4}>
-					<FormLabel>
-						<span className='font-normal'>Message</span>
-					</FormLabel>
-					<Textarea
-						rows={4}
-						placeholder='Message...'
-						value={message}
-						onChange={e => setMessage(e.target.value)}
-						focusBorderColor='purple.400'
-						required
-					/>
-				</FormControl>
+		<form
+			onSubmit={handleSubmit}
+			className='bg-white shadow-lg rounded-lg p-6 space-y-4 w-full'
+		>
+			<div>
+				<label
+					htmlFor='name'
+					className='text-gray-700 font-semibold block mb-2'
+				>
+					Name
+				</label>
+				<input
+					type='text'
+					name='name'
+					id='name'
+					value={formData.name}
+					onChange={handleChange}
+					className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
+					required
+				/>
+			</div>
 
-				<button className='w-full bg-gradient-to-r from-primary to-secondary text-white_c py-2 px-10 rounded-lg mt-5 font-medium text-md hover:from-white_c hover:to-white_c transition-all duration-200 ease-linear border-2 border-transparent hover:border-primary hover:text-primary'>
-					Send Mail
-				</button>
-			</Box>
+			<div>
+				<label
+					htmlFor='email'
+					className='text-gray-700 font-semibold block mb-2'
+				>
+					Email
+				</label>
+				<input
+					type='email'
+					name='email'
+					id='email'
+					value={formData.email}
+					onChange={handleChange}
+					className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
+					required
+				/>
+			</div>
+
+			<div>
+				<label
+					htmlFor='message'
+					className='text-gray-700 font-semibold block mb-2'
+				>
+					Message
+				</label>
+				<textarea
+					name='message'
+					id='message'
+					value={formData.message}
+					onChange={handleChange}
+					className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
+					rows='4'
+					required
+				/>
+			</div>
+
+			<button
+				type='submit'
+				disabled={isSubmitting}
+				className='w-full bg-primary text-white py-2 rounded-md hover:bg-primary-dark transition duration-300'
+			>
+				{isSubmitting ? "Sending..." : "Send Message"}
+			</button>
 		</form>
 	);
 };

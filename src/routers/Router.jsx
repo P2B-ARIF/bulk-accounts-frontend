@@ -13,6 +13,7 @@ import Payment from "../pages/user/Payment";
 
 import NotFoundPage from "../pages/NotFoundPage";
 import Payments from "../pages/Payments";
+import Services from "../pages/Services";
 import Accounts from "../pages/dashboard/Accounts";
 import AdminFacebook from "../pages/dashboard/AdminFacebook";
 import AdminInstagram from "../pages/dashboard/AdminInstagram";
@@ -20,6 +21,7 @@ import AdminPayment from "../pages/dashboard/AdminPayment";
 import Controller from "../pages/dashboard/Controller";
 import CreatingHistory from "../pages/dashboard/CreatingHistory";
 import Contact from "./../pages/Contact";
+import AboutUs from "./../views/AboutUs";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -33,6 +35,8 @@ export const router = createBrowserRouter([
 			{ path: "register", element: <Register /> },
 			{ path: "contact-us", element: <Contact /> },
 			{ path: "payments", element: <Payments /> },
+			{ path: "services", element: <Services /> },
+			{ path: "about-us", element: <AboutUs /> },
 			{ path: "*", element: <NotFoundPage /> },
 		],
 	},

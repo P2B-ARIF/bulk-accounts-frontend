@@ -9,7 +9,8 @@ import {
 import { X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import useCrud from "../../../hook/useCrud";
 import { fetchEverything } from "../../../toolkit/features/everythingSlice";
 
@@ -22,6 +23,8 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 	});
 	const [errors, setErrors] = useState({});
 	const wrapperRef = useRef(null);
+
+	const { user } = useSelector(state => state.user);
 
 	const accountIDs = approvedAccounts?.map(f => f._id);
 
@@ -71,7 +74,7 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 		if (Object.keys(validationErrors).length === 0) {
 			// Submit logic here (e.g., API call)
 			console.log("Form submitted successfully:", formData);
-			const newData = { ...formData, amount };
+			const newData = { ...formData, amount, userName: user?.name };
 
 			// console.log({ ...formData, amount, accountIDs });
 			await post("/api/withdraw", { newData, accountIDs });
@@ -83,6 +86,7 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 	};
 
 	if (response) {
+		toast.success(response.message);
 		console.log(response, "response");
 	}
 	if (error) {

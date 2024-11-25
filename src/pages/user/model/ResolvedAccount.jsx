@@ -52,6 +52,16 @@ const ResolvedAccount = ({ account }) => {
 		setIsShowing(false);
 	};
 
+	const handleDie = async e => {
+		e.stopPropagation();
+
+		if (!window.confirm("Are you sure want to delete this account?")) {
+			return;
+		}
+		await put(`/api/accounts/${account._id}?action=die`);
+		setIsShowing(false);
+	};
+
 	if (response) {
 		console.log(response, "response");
 		toast.success(response.message);
@@ -67,7 +77,7 @@ const ResolvedAccount = ({ account }) => {
 				onClick={() => setIsShowing(true)}
 				className='text-md text-white hover:text-orange-500 hover:bg-transparent transition-all duration-150 ease-linear border border-transparent hover:border-orange-500 font-medium shadow-sm px-3 bg-orange-500 rounded-lg py-1.5'
 			>
-				Resolved
+				Update
 			</button>
 
 			{isShowing && typeof document !== "undefined"
@@ -90,7 +100,7 @@ const ResolvedAccount = ({ account }) => {
 									className='flex items-center gap-4'
 								>
 									<h3 className='flex-1 text-xl font-medium text-slate-700'>
-										Resolved Accounts
+										Update Accounts
 									</h3>
 									<button
 										onClick={() => setIsShowing(false)}
@@ -166,25 +176,36 @@ const ResolvedAccount = ({ account }) => {
 
 									{/* Actions */}
 									<div className='flex justify-end gap-2'>
-										<Button
-											type='button'
-											colorScheme='pink'
-											variant='outline'
-											onClick={() => {
-												setUid("");
-												setIsShowing(false);
-											}}
-										>
-											Cancel
-										</Button>
+										{account?.attempt < 2 && (
+											<>
+												<Button
+													type='button'
+													colorScheme='gray'
+													variant='outline'
+													onClick={() => {
+														setUid("");
+														setIsShowing(false);
+													}}
+												>
+													Cancel
+												</Button>
+												<Button
+													isDisabled={loading}
+													isLoading={loading}
+													type='submit'
+													colorScheme='green'
+												>
+													Save Changes
+												</Button>
+											</>
+										)}
 										<Button
 											isDisabled={loading}
 											isLoading={loading}
-											type='submit'
-											colorScheme='pink'
-											onClick={handleSubmit}
+											colorScheme='red'
+											onClick={handleDie}
 										>
-											Submit
+											Die Account
 										</Button>
 									</div>
 								</form>
