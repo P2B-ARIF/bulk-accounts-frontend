@@ -103,7 +103,11 @@ export default function Payments() {
 							{totalEntries} entries
 						</Text>
 					</Flex>
-					<Table variant='simple' className='w-full'>
+					<Table
+						variant='simple'
+						className='w-full'
+						size={{ base: "sm", md: "md" }}
+					>
 						<Thead>
 							<Tr>
 								<Th>Date</Th>
@@ -128,8 +132,10 @@ export default function Payments() {
 								</Tr>
 							) : payments.length > 0 ? (
 								payments.map((payment, i) => (
-									<Tr key={i}>
-										<Td>{formatDate(payment?.createdAt?.date)}</Td>
+									<Tr key={i} className='text-sm md:text-md'>
+										<Td className='text-xs md:text-sm'>
+											{formatDate(payment?.createdAt?.date)}
+										</Td>
 										<Td>{payment?.userName || "N/A"}</Td>
 										<Td>{payment?.amount?.toFixed(2)} BDT</Td>
 										<Td>{payment?.accountName || "N/A"}</Td>

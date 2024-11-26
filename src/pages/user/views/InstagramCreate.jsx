@@ -155,14 +155,14 @@ const InstagramCreate = () => {
 							bg={bgColor}
 						>
 							<Box p={2} px={4} bg='gray.200'>
-								<h3 className='font-medium'>Profile URL</h3>
+								<h3 className='font-medium'>Instagram Username</h3>
 							</Box>
 							<Box p={4}>
 								<VStack spacing={2}>
 									<Input
 										bg='gray.100'
 										value={account.uid}
-										placeholder='Enter profile URL'
+										placeholder='Enter username'
 									/>
 									<Button
 										onClick={() => {

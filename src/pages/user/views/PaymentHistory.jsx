@@ -69,11 +69,13 @@ const PaymentHistory = () => {
 			ml={{ base: 0, md: 5 }}
 			mt={5}
 		>
-			<Box p={{ base: 3, md: 6 }}>
+			<Box p={{ base: 0, md: 5 }}>
 				<Heading
 					size={{ base: "sm", md: "md" }}
 					mb={4}
 					color={useColorModeValue("gray.700", "white")}
+					pt={{ base: 3, md: 5 }}
+					pl={{ base: 3, md: 5 }}
 				>
 					Payment History
 				</Heading>

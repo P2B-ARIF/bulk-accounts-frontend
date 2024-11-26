@@ -31,21 +31,21 @@ const Payment = () => {
 			<h1 className='text-lg font-bold md:pl-5'>Payment</h1>
 			<div className='grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:px-5 mt-5'>
 				{rateSummary?.facebook ? (
-					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
 						<div className='flex flex-col gap-1 md:gap-2'>
-							<span className='text-md font-medium text-muted-foreground'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
 								{rateSummary?.facebook?.accountType}
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
-								{rateSummary?.facebook?.rate}
+								{rateSummary?.facebook?.rate} BDT
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
-								{rateSummary?.facebook?.count}
+								{rateSummary?.facebook?.count} TOTAL
 							</span>
 						</div>
 					</div>
 				) : (
-					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 transition-all duration-300 hover:shadow-lg'>
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
 						<div className='flex flex-col gap-1 md:gap-2'>
 							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
 								Facebook

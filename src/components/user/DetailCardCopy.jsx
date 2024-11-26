@@ -49,10 +49,10 @@ const DetailCardCopy = ({ field }) => {
 					/>
 					<Button
 						size='sm'
-						px={3}
+						px={4}
 						colorScheme='blue'
 						onClick={handleCopy}
-						leftIcon={<MousePointerClick size={18} />}
+						leftIcon={<MousePointerClick size={16} />}
 					>
 						Copy
 					</Button>

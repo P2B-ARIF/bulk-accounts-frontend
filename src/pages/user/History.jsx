@@ -39,11 +39,15 @@ export default function History() {
 				bg={bgColor}
 				borderColor={borderColor}
 			>
-				<Box p={{ base: 3, md: 6 }}>
-					<Heading size={{ base: "sm", md: "md" }} mb={4}>
+				<Box p={{ base: 0, md: 6 }}>
+					<Heading
+						size={{ base: "sm", md: "md" }}
+						mb={4}
+						className='px-3 md:px-5 pt-3'
+					>
 						<span>Latest Accounts</span>
 					</Heading>
-					<Table variant='simple'>
+					<Table variant='simple' size={{ base: "sm", md: "md" }}>
 						<Thead>
 							<Tr>
 								<Th>Date</Th>
@@ -63,11 +67,19 @@ export default function History() {
 										<Tr
 											key={index}
 											bg={index % 2 === 0 ? "transparent" : stripedBg}
+											className='text-sm md:text-md'
 										>
 											<Td color='gray.600'>
 												{format(item.createdAt.date, "dd-MM")}
 											</Td>
-											<Td fontWeight='medium' className='uppercase'>
+											<Td
+												fontWeight='medium'
+												className={`uppercase ${
+													item.accountType === "facebook"
+														? "text-blue-500"
+														: "text-pink-500"
+												}`}
+											>
 												{item.accountType}
 											</Td>
 											<Td className='uppercase'>{item.accountFormat}</Td>

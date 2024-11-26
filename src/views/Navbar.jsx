@@ -66,8 +66,8 @@ const Navbar = () => {
 
 	return (
 		<div
-			className={`fixed h-[85px] md:h-[95px] z-40 top-0 left-0 right-0 transition-transform duration-300 ${show} ${
-				blur ? "backdrop-blur-md bg-[#ffffff76] py-6" : "py-7"
+			className={`fixed h-[75px] md:h-[95px] z-40 top-0 left-0 right-0 transition-transform duration-300 ${show} ${
+				blur ? "backdrop-blur-md bg-[#ffffff76] py-5" : "py-7"
 			}`}
 		>
 			<nav className='container mx-auto md:flex items-center justify-between w-full relative'>
@@ -77,22 +77,22 @@ const Navbar = () => {
 						<img
 							src={logo}
 							alt='GameTopUp Zone logo'
-							className='w-[50px] rounded-full object-cover'
+							className='w-[40px] md:w-[50px] rounded-full object-cover'
 						/>
-						<h2 className='text-xl font-bold'>GameTopUp Zone</h2>
+						<h2 className='text-lg md:text-xl font-bold'>GameTopUp Zone</h2>
 					</Link>
 					{/* Mobile Menu Toggle */}
-					<div className='md:hidden absolute top-2 right-5 z-60'>
+					<div className='md:hidden absolute top-1.5 right-5 z-60'>
 						{navShow ? (
 							<IoClose
-								size={30}
+								size={25}
 								onClick={() => setNavShow(false)}
 								className='text-primary cursor-pointer'
 								aria-label='Close navigation'
 							/>
 						) : (
 							<FiMenu
-								size={30}
+								size={25}
 								onClick={() => setNavShow(true)}
 								className='text-primary cursor-pointer'
 								aria-label='Open navigation'
@@ -107,7 +107,7 @@ const Navbar = () => {
 						navShow ? "translate-x-0" : "-translate-x-full"
 					}`}
 				>
-					{renderNavLinks(true)}
+					<div className='flex flex-col gap-3'>{renderNavLinks(true)}</div>
 
 					<div className='md:hidden absolute top-5 right-5 z-60'>
 						<IoClose
