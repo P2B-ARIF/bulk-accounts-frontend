@@ -91,15 +91,16 @@ const FacebookCreate = () => {
 		}
 	}, [response, error]);
 
-	console.log(facebookPackages);
+	// console.log(facebookPackages);
 
 	return (
 		<Box>
 			<SimpleGrid columns={{ base: 1, lg: 5 }} spacing={6}>
 				{/* Left Section */}
 				<VStack spacing={6} gridColumn={{ lg: "span 2" }}>
-					<AccountsStats accounts={facebookPackages} />
-
+					{facebookPackages?.length > 0 && (
+						<AccountsStats accounts={facebookPackages} />
+					)}
 					<Textarea
 						borderColor={"blue.400"}
 						placeholder='Combined data will appear here'

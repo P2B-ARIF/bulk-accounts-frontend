@@ -16,11 +16,10 @@ import {
 import axios from "axios";
 import { formatDistanceToNow, isToday, parseISO } from "date-fns";
 import { ChevronLeft, ChevronRight, ChevronsLeft } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Payments() {
 	const [currentPage, setCurrentPage] = useState(1);
-	const [search, setSearch] = useState("");
 	const [payments, setPayments] = useState([]);
 	const [totalEntries, setTotalEntries] = useState(0);
 	const itemsPerPage = 10;
@@ -38,8 +37,10 @@ export default function Payments() {
 				`${url}/api/withdraw/user-withdraw?limit=${itemsPerPage}&page=${currentPage}`,
 			);
 
-			setPayments(data?.result || []);
-			setTotalEntries(data?.total || 0);
+			if (data) {
+				setPayments(data?.result || []);
+				setTotalEntries(data?.total || 0);
+			}
 		} catch (err) {
 			setError(err.message || "Failed to fetch payments");
 		} finally {
@@ -60,13 +61,6 @@ export default function Payments() {
 		return new Date(date).toLocaleDateString(); // Use standard date format for older dates
 	};
 
-	// Filtered payments based on search input
-	const filteredPayments = useMemo(() => {
-		return payments.filter(payment =>
-			payment.userName?.toLowerCase().includes(search.toLowerCase()),
-		);
-	}, [search, payments]);
-
 	// Pagination handlers
 	const nextPage = () =>
 		setCurrentPage(prev =>
@@ -78,15 +72,26 @@ export default function Payments() {
 	return (
 		<section className='my-20 mt-36'>
 			<Box
-				maxW='4xl'
+				maxW={{ base: "100%", md: "4xl" }}
 				mx='auto'
 				bg='white'
 				shadow='lg'
 				rounded='lg'
-				overflow='hidden'
+				overflow='auto'
 			>
-				<Box p={4} bg='gray.50' borderBottom='1px' borderColor='gray.200'>
-					<Text fontSize='xl' fontWeight='semibold' color='gray.800'>
+				<Box
+					p={4}
+					bg='gray.50'
+					borderBottom='1px'
+					borderColor='gray.200'
+					className='w-full'
+				>
+					<Text
+						fontSize='xl'
+						fontWeight='semibold'
+						color='gray.800'
+						className='w-full'
+					>
 						Payment History
 					</Text>
 				</Box>
@@ -98,7 +103,7 @@ export default function Payments() {
 							{totalEntries} entries
 						</Text>
 					</Flex>
-					<Table variant='simple'>
+					<Table variant='simple' className='w-full'>
 						<Thead>
 							<Tr>
 								<Th>Date</Th>
@@ -121,8 +126,8 @@ export default function Payments() {
 										{error}
 									</Td>
 								</Tr>
-							) : filteredPayments.length > 0 ? (
-								filteredPayments.map((payment, i) => (
+							) : payments.length > 0 ? (
+								payments.map((payment, i) => (
 									<Tr key={i}>
 										<Td>{formatDate(payment?.createdAt?.date)}</Td>
 										<Td>{payment?.userName || "N/A"}</Td>

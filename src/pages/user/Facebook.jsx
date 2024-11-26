@@ -9,6 +9,8 @@ const Facebook = () => {
 		return <div>Loading...</div>;
 	}
 
+	console.log(everything);
+
 	const facebook = everything?.accounts?.filter(
 		acc => acc.accountType === "facebook",
 	);
@@ -32,7 +34,7 @@ const Facebook = () => {
 		return acc;
 	}, {});
 
-	const money = approvedFacebook?.reduce((prev, next) => prev + next.rate, 0);
+	// const money = approvedFacebook?.reduce((prev, next) => prev + next.rate, 0);
 
 	return (
 		<section>

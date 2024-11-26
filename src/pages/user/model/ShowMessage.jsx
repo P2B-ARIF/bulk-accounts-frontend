@@ -52,10 +52,10 @@ const ProfessionalModal = ({ user, message, isOpen, onClose }) => {
 				</ModalBody>
 				<ModalFooter>
 					<Button variant='ghost' onClick={handleSeen}>
-						Ok!
+						দেখেছি
 					</Button>
 					<Button variant='ghost' onClick={onClose}>
-						Hold
+						পরে দেখব
 					</Button>
 				</ModalFooter>
 			</ModalContent>
