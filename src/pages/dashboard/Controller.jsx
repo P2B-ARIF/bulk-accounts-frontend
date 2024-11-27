@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import AccountAction from "../../components/dashboard/AccountAction";
 import AccountDownload from "../../components/dashboard/AccountDownload";
+import AccountFixing from "../../components/dashboard/AccountFixing";
 import { fetchPackages } from "../../toolkit/features/packageSlice";
 import SocialPackage from "./views/FacebookPackage";
 import Maintenance from "./views/Maintenance";
@@ -35,18 +36,19 @@ const Controller = () => {
 				<Maintenance />
 			</div>
 
-			<div className='md:p-5 mt-10 space-y-5'>
+			<div className='md:p-5 mt-5 space-y-5'>
 				<SocialPackage />
 			</div>
 
-			<div className='md:flex justify-around gap-2 md:p-5 space-y-5'>
+			<div className='md:flex justify-around gap-2 md:p-5 max-sm:space-y-5'>
 				<UpdatePassword />
 				<UserBlock />
 			</div>
 
-			<div className='grid md:grid-cols-2 gap-x-5 space-y-5 mt-5 lg:m-5'>
+			<div className='grid md:grid-cols-2 gap-5 max-sm:space-y-5 mt-5 lg:m-5'>
 				<AccountDownload />
 				<AccountAction />
+				<AccountFixing />
 			</div>
 		</section>
 	);
