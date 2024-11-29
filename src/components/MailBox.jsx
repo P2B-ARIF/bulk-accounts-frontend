@@ -10,7 +10,7 @@ const MailInbox = ({ email }) => {
 	const [mailbox, setMailbox] = useState([]);
 
 	// let email = "zfvlvxrlpa@1secmail.org";
-	console.log(email);
+	// console.log(email);
 
 	const fetchMailbox = useCallback(async () => {
 		setLoading(true);

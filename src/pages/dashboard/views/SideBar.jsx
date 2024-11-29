@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { IoLogOut } from "react-icons/io5";
-import { MdManageHistory, MdPayments } from "react-icons/md";
-import { TbLayoutDashboard } from "react-icons/tb";
-import { Link, useLocation } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
-import { MdOutlineManageAccounts } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
+import {
+	MdManageHistory,
+	MdOutlineManageAccounts,
+	MdPayments,
+} from "react-icons/md";
+import { TbLayoutDashboard } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
 	const { user, loading, error } = useSelector(state => state.user);
@@ -78,7 +81,7 @@ const SideBar = () => {
 								localStorage.removeItem("authToken");
 								window.location.reload();
 							}}
-							className='absolute bottom-5 left-5 right-5 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center py-3 rounded-lg transition-all duration-300 w-[200px]'
+							className='absolute bottom-5 left-5 right-5 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center py-2 rounded-lg transition-all duration-300 w-[200px]'
 						>
 							<IoLogOut size={24} />
 							<span className='ms-3 whitespace-nowrap'>Log Out</span>

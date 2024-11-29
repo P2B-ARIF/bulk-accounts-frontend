@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
-import ResolvedAccount from "./model/ResolvedAccount";
 
 export default function History() {
 	const { everything, loading, error } = useSelector(state => state.everything);
@@ -90,7 +89,13 @@ export default function History() {
 														Die
 													</span>
 												) : item.resolved === true ? (
-													<ResolvedAccount account={item} />
+													<span className='text-blue-500 px-2 py-1 rounded-xl text-sm bg-blue-200'>
+														Back
+													</span>
+												) : item.resolved === false ? (
+													<span className='text-purple-500 px-2 py-1 rounded-xl text-sm bg-purple-200'>
+														Updating!
+													</span>
 												) : (
 													<span className='text-green-500 px-2 py-1 rounded-xl text-sm bg-green-200'>
 														Progress!

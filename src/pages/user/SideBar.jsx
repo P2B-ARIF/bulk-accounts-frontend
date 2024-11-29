@@ -92,7 +92,7 @@ const SideBar = () => {
 								localStorage.removeItem("authToken");
 								window.location.reload();
 							}}
-							className='absolute bottom-5 left-5 right-5 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center py-3 rounded-lg transition-all duration-300 w-[200px]'
+							className='absolute bottom-5 left-5 right-5 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center py-2 rounded-lg transition-all duration-300 w-[200px]'
 						>
 							<IoLogOut size={24} />
 							<span className='ms-3 whitespace-nowrap'>Log Out</span>
