@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import LoadingPage from "../LoadingPage";
 import Account from "./../../components/dashboard/Account";
 import useCrud from "./../../hook/useCrud";
 
@@ -20,7 +21,7 @@ const Accounts = () => {
 	}, [response]);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	return (

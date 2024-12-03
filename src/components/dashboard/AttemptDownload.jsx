@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
 import downloadExcel from "../../utils/downloadExcel";
 
-const AccountDownload = () => {
+const AttemptDownload = () => {
 	const { accounts: allAccounts } = useSelector(state => state.accounts);
 	const dispatch = useDispatch();
 
@@ -15,27 +15,25 @@ const AccountDownload = () => {
 	const [formats, setFormats] = useState([]);
 	const [selectedFormat, setSelectedFormat] = useState("");
 	const [filteredCount, setFilteredCount] = useState(0);
-
-	const [accounts, setAccounts] = useState(null);
+	const [accounts, setAccounts] = useState([]);
 
 	// Fetch accounts on component mount
 	useEffect(() => {
 		dispatch(fetchAccounts());
 	}, [dispatch]);
 
+	// Filter accounts with resolved: false and attempt > 0
 	useEffect(() => {
 		if (allAccounts) {
 			const filteredAccounts = allAccounts.filter(
-				acc => acc.resolved !== false,
+				acc => acc.resolved === false && acc.attempt > 0,
 			);
 			setAccounts(filteredAccounts);
 		}
 	}, [allAccounts]);
 
 	// Extract unique account types
-	const uniqueAccountTypes = [
-		...new Set(accounts?.map(acc => acc.accountType)),
-	];
+	const uniqueAccountTypes = [...new Set(accounts.map(acc => acc.accountType))];
 
 	// Update available formats based on selected type
 	useEffect(() => {
@@ -43,7 +41,7 @@ const AccountDownload = () => {
 			const uniqueFormats = [
 				...new Set(
 					accounts
-						?.filter(acc => acc.accountType === type)
+						.filter(acc => acc.accountType === type)
 						.map(acc => acc.accountFormat),
 				),
 			];
@@ -73,6 +71,7 @@ const AccountDownload = () => {
 			alert("No accounts available to download!");
 			return;
 		}
+
 		const filteredAccounts = accounts.filter(
 			acc => acc.accountType === type && acc.accountFormat === selectedFormat,
 		);
@@ -96,7 +95,7 @@ const AccountDownload = () => {
 			transition='all 0.3s'
 		>
 			<h3 className='text-lg font-medium mb-5 text-blue-800'>
-				DOWNLOAD ACCOUNTS ---- Available <b>{accounts?.length || 0}</b> accounts
+				ATTEMPT ACCOUNTS ---- Available <b>{accounts.length}</b> accounts
 			</h3>
 
 			<Box maxW='sm' className='space-y-3'>
@@ -140,4 +139,4 @@ const AccountDownload = () => {
 	);
 };
 
-export default AccountDownload;
+export default AttemptDownload;

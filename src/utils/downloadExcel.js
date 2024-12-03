@@ -6,8 +6,8 @@ const downloadExcel = data => {
 	// Map the required fields
 	const formattedData = data.map(item => ({
 		uid: item.uid || "",
-		password: item.password || "",
 		email: item.email || "",
+		password: item.password || "",
 		key: item.key || "",
 		cookie: item.cookie || "",
 	}));

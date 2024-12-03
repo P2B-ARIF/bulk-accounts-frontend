@@ -1,10 +1,10 @@
 import React from "react";
-import { PuffLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 const LoadingPage = () => {
 	return (
-		<div className='h-screen flex items-center justify-center'>
-			<PuffLoader color='#0fa0ee' size={70} />
+		<div className='h-[90vh] flex items-center justify-center'>
+			<BeatLoader color='#0fa0ee' size={10} />
 		</div>
 	);
 };

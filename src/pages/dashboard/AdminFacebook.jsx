@@ -1,52 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
 import FacebookAccountsTable from "./views/FacebookAccountsTable";
-import FacebookPieChart from "./views/FacebookPieChart";
 
 const AdminFacebook = () => {
-	const account = [
-		{
-			accountType: "facebook",
-			accountFormat: "2fa_30",
-			accounts: 10,
-			date: {
-				from: "2020-01-01",
-				to: "2020-01-31",
-			},
-		},
-		{
-			accountType: "facebook",
-			accountFormat: "2fa_30",
-			accounts: 10,
-			date: {
-				from: "2020-01-01",
-				to: "2020-01-31",
-			},
-		},
-		{
-			accountType: "facebook",
-			accountFormat: "2fa_30",
-			accounts: 10,
-			date: {
-				from: "2020-01-01",
-				to: "2020-01-31",
-			},
-		},
-		{
-			accountType: "facebook",
-			accountFormat: "2fa_30",
-			accounts: 10,
-			date: {
-				from: "2020-01-01",
-				to: "2020-01-31",
-			},
-		},
-	];
+	const { accounts } = useSelector(state => state.accounts);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!accounts) {
+			dispatch(fetchAccounts());
+		}
+	}, [dispatch]);
 
 	return (
 		<section>
-			<h1 className='text-lg font-bold pl-5'>Handle Facebook </h1>
+			{/* <h1 className='text-lg font-bold pl-5'>Handle Facebook </h1> */}
 
-			<div className='space-y-5 md:m-5'>
+			{/* <div className='space-y-5 md:m-5'>
 				<div className='grid gap-4 md:grid-cols-4'>
 					{account?.map((stat, i) => {
 						const { accountType, accountFormat, accounts, date } = stat;
@@ -71,11 +43,7 @@ const AdminFacebook = () => {
 						);
 					})}
 				</div>
-			</div>
-
-			<div className='p-5 grid grid-cols-3 gap-5'>
-				<FacebookPieChart />
-			</div>
+			</div> */}
 
 			<FacebookAccountsTable />
 		</section>

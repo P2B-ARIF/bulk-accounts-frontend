@@ -1,15 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import LoadingPage from "../LoadingPage";
 import FacebookCreate from "./views/FacebookCreate";
 
 const Facebook = () => {
 	const { everything, loading, error } = useSelector(state => state.everything);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
-	console.log(everything);
+	// console.log(everything);
 
 	const facebook = everything?.accounts?.filter(
 		acc => acc.accountType === "facebook",

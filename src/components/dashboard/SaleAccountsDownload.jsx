@@ -1,12 +1,10 @@
 import { Box, Select, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
+import useCrud from "../../hook/useCrud";
 import downloadExcel from "../../utils/downloadExcel";
 
-const AccountDownload = () => {
-	const { accounts: allAccounts } = useSelector(state => state.accounts);
-	const dispatch = useDispatch();
+const SaleAccountsDownload = () => {
+	const { get, loading, error, response } = useCrud();
 
 	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
@@ -18,19 +16,21 @@ const AccountDownload = () => {
 
 	const [accounts, setAccounts] = useState(null);
 
+	const fetchingAccounts = async () => {
+		await get("/api/accounts/sale");
+	};
+
 	// Fetch accounts on component mount
 	useEffect(() => {
-		dispatch(fetchAccounts());
-	}, [dispatch]);
+		fetchingAccounts();
+	}, []);
 
 	useEffect(() => {
-		if (allAccounts) {
-			const filteredAccounts = allAccounts.filter(
-				acc => acc.resolved !== false,
-			);
-			setAccounts(filteredAccounts);
+		if (response) {
+			// console.log(response, "response");
+			setAccounts(response);
 		}
-	}, [allAccounts]);
+	}, [response]);
 
 	// Extract unique account types
 	const uniqueAccountTypes = [
@@ -96,7 +96,8 @@ const AccountDownload = () => {
 			transition='all 0.3s'
 		>
 			<h3 className='text-lg font-medium mb-5 text-blue-800'>
-				DOWNLOAD ACCOUNTS ---- Available <b>{accounts?.length || 0}</b> accounts
+				DOWNLOAD SALE ACCOUNTS ---- Available <b>{accounts?.length || 0}</b>{" "}
+				accounts
 			</h3>
 
 			<Box maxW='sm' className='space-y-3'>
@@ -140,4 +141,4 @@ const AccountDownload = () => {
 	);
 };
 
-export default AccountDownload;
+export default SaleAccountsDownload;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import LoadingPage from "../pages/LoadingPage";
 import { fetchCheckUser } from "../toolkit/features/userSlice";
 
 const ProtectedAdminRoute = ({ children }) => {
@@ -27,7 +28,7 @@ const ProtectedAdminRoute = ({ children }) => {
 	}, [dispatch, user]);
 
 	if (isLoading || loading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	if (!isAuthenticated) {

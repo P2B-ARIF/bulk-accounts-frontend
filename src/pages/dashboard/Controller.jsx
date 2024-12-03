@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import AccountAction from "../../components/dashboard/AccountAction";
 import AccountDownload from "../../components/dashboard/AccountDownload";
 import AccountFixing from "../../components/dashboard/AccountFixing";
+import AttemptDownload from "../../components/dashboard/AttemptDownload";
+import SaleAccountsDownload from "../../components/dashboard/SaleAccountsDownload";
+import SaleAction from "../../components/dashboard/SaleAction";
 import { fetchPackages } from "../../toolkit/features/packageSlice";
 import SocialPackage from "./views/FacebookPackage";
 import Maintenance from "./views/Maintenance";
@@ -47,9 +50,19 @@ const Controller = () => {
 
 			<div className='grid md:grid-cols-2 gap-5 max-sm:space-y-5 mt-5 lg:m-5'>
 				<AccountDownload />
+				<AttemptDownload />
 				<AccountAction />
 				<AccountFixing />
 			</div>
+			<section>
+				<h3 className='text-lg font-semibold md:pl-5'>
+					Black Hole Sale Accounts
+				</h3>
+				<div className='grid md:grid-cols-2 gap-5 max-sm:space-y-5 mt-5 lg:m-5'>
+					<SaleAccountsDownload />
+					<SaleAction />
+				</div>
+			</section>
 		</section>
 	);
 };

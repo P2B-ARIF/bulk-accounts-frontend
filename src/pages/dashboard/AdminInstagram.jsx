@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import InstagramAccountsTable from "./views/InstagramAccountsTable";
 
 const AdminInstagram = () => {
-  return (
-    <div>AdminInstagram</div>
-  )
-}
+	return (
+		<div>
+			<InstagramAccountsTable />
+		</div>
+	);
+};
 
-export default AdminInstagram
+export default AdminInstagram;

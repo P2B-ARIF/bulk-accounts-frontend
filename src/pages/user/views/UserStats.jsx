@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import LoadingPage from "../../LoadingPage";
 
 const UserStats = () => {
 	const { everything, loading, error } = useSelector(state => state.everything);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	const totalStats = everything?.userStats;

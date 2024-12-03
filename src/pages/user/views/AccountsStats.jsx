@@ -3,7 +3,7 @@ import React from "react";
 import AccountModel from "../model/AccountModel";
 
 const AccountsStats = ({ accounts }) => {
-	console.log(accounts, "Accounts");
+	// console.log(accounts, "Accounts");
 
 	return (
 		<SimpleGrid columns={2} spacing={4} width='full'>

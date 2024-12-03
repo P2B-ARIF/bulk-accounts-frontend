@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
+import LoadingPage from "../LoadingPage";
 
 export default function History() {
 	const { everything, loading, error } = useSelector(state => state.everything);
@@ -22,7 +23,7 @@ export default function History() {
 	const accounts = everything?.allAccounts;
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	return (

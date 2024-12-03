@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import LoadingPage from "../pages/LoadingPage";
 
 const ProtectedRoute = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
 	}, []);
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return <LoadingPage />;
 	}
 
 	if (!isAuthenticated) {

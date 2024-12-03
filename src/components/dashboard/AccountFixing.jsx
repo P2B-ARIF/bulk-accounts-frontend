@@ -1,5 +1,6 @@
 import { Box, Input, useColorModeValue } from "@chakra-ui/react";
 import React, { useState } from "react";
+import FactorCode from "../FactorCode";
 import MailInbox from "../MailBox";
 
 const AccountFixing = () => {
@@ -29,6 +30,8 @@ const AccountFixing = () => {
 			</h3>
 
 			<Box className='space-y-3 '>
+				<FactorCode />
+
 				<Input
 					id='uid'
 					value={email}

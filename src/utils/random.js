@@ -207,7 +207,7 @@ export const getRandomName = () => ({
 
 export const getRandomEmail = () => {
 	const providers = ["1secmail.com", "1secmail.org"];
-	const randomName = Math.random().toString(36).substring(2, 12); // Random string
+	const randomName = Math.random().toString(12).substring(2, 7); // Random string
 	const domain = providers[Math.floor(Math.random() * providers.length)];
 	return `${randomName}@${domain}`;
 };

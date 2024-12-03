@@ -36,12 +36,28 @@ const InstagramCreate = () => {
 	});
 
 	useEffect(() => {
+		const getEmail = getRandomEmail();
+		const girlName = getRandomName();
+
+		const email =
+			girlName.fname.toLowerCase() +
+			getEmail.split("@")[0] +
+			"@" +
+			getEmail.split("@")[1];
+
 		setDetails({
-			girlName: getRandomName(),
+			girlName: girlName,
 			pass: getRandomPassword(),
 			number: getRandomNumber(),
-			email: getRandomEmail(),
+			email: email,
 		});
+
+		// setDetails({
+		// 	girlName: getRandomName(),
+		// 	pass: getRandomPassword(),
+		// 	number: getRandomNumber(),
+		// 	email: getRandomEmail(),
+		// });
 	}, []);
 
 	const bgColor = useColorModeValue("white", "gray.800");

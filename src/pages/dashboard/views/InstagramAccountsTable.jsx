@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import useCrud from "../../../hook/useCrud";
 import ResolvedAccount from "../models/ResolvedAccount";
 
-const FacebookAccountsTable = () => {
+const InstagramAccountsTable = () => {
 	const { get, response, error, loading } = useCrud();
 
 	const [accounts, setAccounts] = useState([]);
@@ -31,7 +31,7 @@ const FacebookAccountsTable = () => {
 		if (response) {
 			// Filter and sort accounts
 			const uniqueFormats = response
-				?.filter(acc => acc.accountType === "facebook")
+				?.filter(acc => acc.accountType === "instagram")
 				?.sort((a, b) => {
 					// Sorting in ascending order
 					if (a.accountFormat < b.accountFormat) return -1;
@@ -138,4 +138,4 @@ const FacebookAccountsTable = () => {
 	);
 };
 
-export default FacebookAccountsTable;
+export default InstagramAccountsTable;
