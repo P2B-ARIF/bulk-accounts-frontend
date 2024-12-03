@@ -1,12 +1,6 @@
-import {
-	Box,
-	Button,
-	Input,
-	Switch,
-	Textarea,
-	useToast,
-} from "@chakra-ui/react";
+import { Box, Button, Input, Switch, Textarea } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import useCrud from "../../../hook/useCrud";
 
 const Maintenance = () => {
@@ -16,13 +10,16 @@ const Maintenance = () => {
 	const [currentStatus, setCurrentStatus] = useState(null);
 
 	const { get, put, response, error, loading } = useCrud();
-	const toast = useToast();
 
 	// Fetch current maintenance status on mount
 	useEffect(() => {
-		(async () => {
-			await get("/api/maintenance");
-		})();
+		const fetchDataAfterDelay = () => {
+			setTimeout(async () => {
+				await get("/api/maintenance");
+			}, 10000);
+		};
+
+		fetchDataAfterDelay();
 	}, []);
 
 	// Handle response from GET request
@@ -41,13 +38,7 @@ const Maintenance = () => {
 		}
 
 		if (error) {
-			toast({
-				title: "Error fetching maintenance status.",
-				description: error.message,
-				status: "error",
-				duration: 3000,
-				isClosable: true,
-			});
+			toast.error(error.message);
 		}
 	}, [response, error, toast]);
 
@@ -62,26 +53,18 @@ const Maintenance = () => {
 
 			if (response) {
 				setCurrentStatus(response); // Update with the new status from the server
-				toast({
-					title: "Maintenance updated.",
-					description: `Maintenance is now ${
-						response.enabled ? "enabled" : "disabled"
-					}.`,
-					status: "success",
-					duration: 3000,
-					isClosable: true,
-				});
+				toast.success(
+					`Maintenance is now ${response.enabled ? "enabled" : "disabled"}.`,
+				);
 			}
 		} catch (err) {
-			toast({
-				title: "Error updating maintenance.",
-				description: err.message || "Unable to update maintenance status.",
-				status: "error",
-				duration: 3000,
-				isClosable: true,
-			});
+			toast.error(err.message || "Unable to update maintenance status.");
 		}
 	};
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<Box
