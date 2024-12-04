@@ -9,7 +9,6 @@ import SaleAccountsDownload from "../../components/dashboard/SaleAccountsDownloa
 import SaleAction from "../../components/dashboard/SaleAction";
 import { fetchPackages } from "../../toolkit/features/packageSlice";
 import SocialPackage from "./views/FacebookPackage";
-import Maintenance from "./views/Maintenance";
 import Message from "./views/Message";
 import UpdatePassword from "./views/UpdatePassword";
 import UserBlock from "./views/UserBlock";
@@ -36,7 +35,7 @@ const Controller = () => {
 
 			<div className='grid md:grid-cols-2 max-sm:space-y-5'>
 				<Message />
-				<Maintenance />
+				{/* <Maintenance /> */}
 			</div>
 
 			<div className='md:p-5 mt-5 space-y-5'>
