@@ -1,32 +1,7 @@
 import { Box, Spinner, Text, VStack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import useCrud from "../../hook/useCrud";
+import React from "react";
 
-const MaintenancePage = () => {
-	const [maintenance, setMaintenance] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const { get, response, error } = useCrud();
-
-	// Fetch maintenance status on load
-	useEffect(() => {
-		const fetchMaintenanceStatus = async () => {
-			setLoading(true);
-			await get("/api/maintenance");
-			setLoading(false);
-		};
-		fetchMaintenanceStatus();
-	}, []);
-
-	// Handle response and error
-	useEffect(() => {
-		if (response) {
-			setMaintenance(response);
-		}
-		if (error) {
-			console.error("Error fetching maintenance status:", error.message);
-		}
-	}, [response, error]);
-
+const MaintenancePage = ({ data, loading }) => {
 	if (loading) {
 		return (
 			<Box
@@ -42,7 +17,7 @@ const MaintenancePage = () => {
 	}
 
 	// If no maintenance is active
-	if (!maintenance?.enabled) {
+	if (!data?.enabled) {
 		return (
 			<Box
 				display='flex'
@@ -82,11 +57,11 @@ const MaintenancePage = () => {
 					Scheduled Maintenance
 				</Text>
 				<Text fontSize='lg' mt='2'>
-					{maintenance.message || "We'll be back shortly."}
+					{data.message || "We'll be back shortly."}
 				</Text>
-				{maintenance.endTime && (
+				{data.endTime && (
 					<Text fontSize='md' mt='2' color='gray.400'>
-						Estimated End Time: {new Date(maintenance.endTime).toLocaleString()}
+						Estimated End Time: {new Date(data.endTime).toLocaleString()}
 					</Text>
 				)}
 				<Text fontSize='sm' mt='4' color='gray.500'>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
+import MaintenancePage from "../components/user/MaintenancePage";
 import useCrud from "../hook/useCrud";
 import LoadingPage from "../pages/LoadingPage";
 import SideBar from "../pages/user/SideBar";
@@ -17,7 +18,7 @@ const UserLayout = () => {
 
 	const [isMaintenance, setIsMaintenance] = useState(false);
 	const [maintenanceData, setMaintenanceData] = useState(null);
-	const { get, response, error: maintenanceError } = useCrud();
+	const { get, response, loading, error: maintenanceError } = useCrud();
 
 	// Scroll to top on route change
 	useEffect(() => {
@@ -38,27 +39,29 @@ const UserLayout = () => {
 	}, [dispatch, user, everything]);
 
 	// Fetch maintenance status on app load
-	// useEffect(() => {
-	// 	const fetchMaintenanceStatus = async () => {
-	// 		try {
-	// 			await get("/api/maintenance");
-	// 		} catch (err) {
-	// 			console.error("Error fetching maintenance status:", err.message);
-	// 		}
-	// 	};
-	// 	fetchMaintenanceStatus();
-	// }, [get]);
+	useEffect(() => {
+		const fetchMaintenanceStatus = async () => {
+			try {
+				await get("/api/maintenance");
+			} catch (err) {
+				console.error("Error fetching maintenance status:", err.message);
+			}
+		};
+		if (!maintenanceData) {
+			fetchMaintenanceStatus();
+		}
+	}, []);
 
 	// Update maintenance state when response is received
-	// useEffect(() => {
-	// 	if (response) {
-	// 		setIsMaintenance(response.enabled);
-	// 		setMaintenanceData(response);
-	// 	}
-	// 	if (maintenanceError) {
-	// 		console.error("Maintenance Error:", maintenanceError.message);
-	// 	}
-	// }, [response, maintenanceError]);
+	useEffect(() => {
+		if (response) {
+			setIsMaintenance(response.enabled);
+			setMaintenanceData(response);
+		}
+		if (maintenanceError) {
+			console.error("Maintenance Error:", maintenanceError.message);
+		}
+	}, [response, maintenanceError]);
 
 	// Show LoadingPage if user or everything data is loading
 	if (userLoading || everythingLoading) {
@@ -66,9 +69,9 @@ const UserLayout = () => {
 	}
 
 	// Show MaintenancePage if maintenance is active
-	// if (isMaintenance) {
-	// 	return <MaintenancePage data={maintenanceData} />;
-	// }
+	if (isMaintenance) {
+		return <MaintenancePage loading={loading} data={maintenanceData} />;
+	}
 
 	return (
 		<main className='flex'>
