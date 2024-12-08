@@ -51,6 +51,14 @@ const InstagramAccountsTable = () => {
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
 
+	if (accounts?.length === 0) {
+		return (
+			<div>
+				<h1 className='text-center text-xl font-semibold'>No accounts found</h1>
+			</div>
+		);
+	}
+
 	return (
 		<Box
 			// ml={{ base: 0, md: 5 }}

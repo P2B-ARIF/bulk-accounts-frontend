@@ -86,23 +86,32 @@ export default function History() {
 											<Td>{item.rate} BDT</Td>
 											<Td>
 												{item.die === true ? (
-													<span className='text-red-500 px-2 py-1 rounded-xl text-sm bg-red-200'>
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
 														Die
 													</span>
 												) : item.resolved === true ? (
-													<span className='text-blue-500 px-2 py-1 rounded-xl text-sm bg-blue-200'>
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
 														Back
 													</span>
+												) : item.approved === true ? (
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
+														Approved!
+													</span>
+												) : item.downloaded === true ? (
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
+														Processing!
+													</span>
 												) : item.resolved === false ? (
-													<span className='text-purple-500 px-2 py-1 rounded-xl text-sm bg-purple-200'>
-														Updating!
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
+														Updated!
 													</span>
 												) : (
-													<span className='text-green-500 px-2 py-1 rounded-xl text-sm bg-green-200'>
+													<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
 														Progress!
 													</span>
 												)}
 											</Td>
+
 											{/* <Td>
 											</Td> */}
 										</Tr>

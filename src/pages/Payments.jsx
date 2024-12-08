@@ -162,7 +162,9 @@ export default function Payments() {
 														: "red.800"
 												}
 											>
-												{payment?.payment}
+												{payment?.payment === "success"
+													? "Completed"
+													: payment?.payment}
 											</Box>
 										</Td>
 									</Tr>

@@ -12,6 +12,7 @@ import { ClipboardCheck, UploadIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import FactorCode from "../../../components/FactorCode";
 import MailInbox from "../../../components/MailBox";
 import DetailCardCopy from "../../../components/user/DetailCardCopy";
@@ -23,7 +24,6 @@ import {
 	getRandomEmail,
 	getRandomName,
 	getRandomNumber,
-	getRandomPassword,
 } from "../../../utils/random";
 import AccountsStats from "./AccountsStats";
 
@@ -34,6 +34,8 @@ const InstagramCreate = () => {
 		number: "01953424319",
 		email: "",
 	});
+
+	const maintenance = useOutletContext();
 
 	useEffect(() => {
 		const getEmail = getRandomEmail();
@@ -47,7 +49,8 @@ const InstagramCreate = () => {
 
 		setDetails({
 			girlName: girlName,
-			pass: getRandomPassword(),
+			pass: maintenance?.password,
+			// pass: getRandomPassword(),
 			number: getRandomNumber(),
 			email: email,
 		});

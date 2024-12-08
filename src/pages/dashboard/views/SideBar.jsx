@@ -4,11 +4,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
-import {
-	MdManageHistory,
-	MdOutlineManageAccounts,
-	MdPayments,
-} from "react-icons/md";
+import { MdOutlineManageAccounts, MdPayments } from "react-icons/md";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -25,7 +21,7 @@ const SideBar = () => {
 		{ url: "/admin/accounts", icon: MdOutlineManageAccounts, name: "Accounts" },
 		{ url: "/admin/facebook", icon: FaFacebook, name: "Facebook" },
 		{ url: "/admin/instagram", icon: FaInstagram, name: "Instagram" },
-		{ url: "/admin/history", icon: MdManageHistory, name: "History" },
+		// { url: "/admin/history", icon: MdManageHistory, name: "History" },
 		{ url: "/admin/payment", icon: MdPayments, name: "Payment" },
 	];
 

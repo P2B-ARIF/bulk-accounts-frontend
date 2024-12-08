@@ -38,15 +38,15 @@ const UserLayout = () => {
 		}
 	}, [dispatch, user, everything]);
 
+	const fetchMaintenanceStatus = async () => {
+		try {
+			await get("/api/maintenance");
+		} catch (err) {
+			console.error("Error fetching maintenance status:", err.message);
+		}
+	};
 	// Fetch maintenance status on app load
 	useEffect(() => {
-		const fetchMaintenanceStatus = async () => {
-			try {
-				await get("/api/maintenance");
-			} catch (err) {
-				console.error("Error fetching maintenance status:", err.message);
-			}
-		};
 		if (!maintenanceData) {
 			fetchMaintenanceStatus();
 		}
@@ -80,7 +80,7 @@ const UserLayout = () => {
 			</div>
 
 			<div className='mt-10 md:mt-5 p-3 md:p-5 w-full relative md:ml-64'>
-				<Outlet />
+				{maintenanceData && <Outlet context={maintenanceData} />}
 			</div>
 		</main>
 	);

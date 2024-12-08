@@ -12,6 +12,7 @@ import { ClipboardCheck, UploadIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import FactorCode from "../../../components/FactorCode";
 import MailInbox from "../../../components/MailBox";
 import CookieUrl from "../../../components/user/CookieUrl";
@@ -23,7 +24,6 @@ import {
 	getRandomEmail,
 	getRandomName,
 	getRandomNumber,
-	getRandomPassword,
 } from "../../../utils/random";
 import { fetchPackages } from "./../../../toolkit/features/packageSlice";
 import AccountsStats from "./AccountsStats";
@@ -31,10 +31,12 @@ import AccountsStats from "./AccountsStats";
 const FacebookCreate = () => {
 	const [details, setDetails] = useState({
 		girlName: { fname: "", lname: "" },
-		pass: "",
+		// pass: "",
 		number: "",
 		email: "",
 	});
+
+	const maintenance = useOutletContext();
 
 	useEffect(() => {
 		const getEmail = getRandomEmail();
@@ -48,7 +50,7 @@ const FacebookCreate = () => {
 
 		setDetails({
 			girlName: girlName,
-			pass: getRandomPassword(),
+			pass: maintenance?.password,
 			number: getRandomNumber(),
 			email: email,
 		});
@@ -74,14 +76,38 @@ const FacebookCreate = () => {
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
-		const t = text.match(/id=(\d+)/)?.[1];
-		dispatch(updateAccount({ [field]: t || text }));
-		chakraToast({
-			title: "Copied! -" + text,
-			status: "success",
-			duration: 2000,
-			isClosable: true,
-		});
+
+		// if (field === "uid") {
+		// 	// Regular expression to match the UID from Facebook URLs
+		// 	const facebookUrlPattern =
+		// 		/(?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:profile\.php\?id=|share\/p\/)(\d+)/;
+
+		// 	// Match the UID using the pattern
+		// 	const match = text.match(facebookUrlPattern);
+		// 	const uid = match ? match[1] : null;
+		// 	console.log(uid, "uid ht");
+		// }
+
+		if (field === "uid") {
+			const uidCode = text.match(/id=(\d+)/)?.[1];
+			if (uidCode) {
+				dispatch(updateAccount({ [field]: uidCode }));
+			} else {
+				chakraToast({
+					title: "Error",
+					description: "Invalid UID",
+					status: "error",
+				});
+			}
+		} else {
+			dispatch(updateAccount({ [field]: text }));
+			chakraToast({
+				title: "Copied! -" + text,
+				status: "success",
+				duration: 2000,
+				isClosable: true,
+			});
+		}
 	};
 
 	const handleSubmit = async () => {

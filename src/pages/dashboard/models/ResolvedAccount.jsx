@@ -46,7 +46,7 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 		e.preventDefault();
 
 		try {
-			await put(`/api/accounts/${account._id}`, {
+			await put(`/api/accounts/resolved/${account._id}`, {
 				uid: formData.uid || account.uid,
 				password: formData.password || account.password,
 			});
@@ -69,7 +69,7 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 		setText(actionType);
 
 		try {
-			await put(`/api/accounts/${account._id}?action=${actionType}`);
+			await put(`/api/accounts/resolved/${account._id}?action=${actionType}`);
 			toast.success(
 				`${
 					actionType === "die" ? "Account deactivated" : "Account deleted"

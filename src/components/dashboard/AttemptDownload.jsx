@@ -1,6 +1,8 @@
 import { Box, Select, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import useCrud from "../../hook/useCrud";
 import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
 import downloadExcel from "../../utils/downloadExcel";
 
@@ -17,16 +19,21 @@ const AttemptDownload = () => {
 	const [filteredCount, setFilteredCount] = useState(0);
 	const [accounts, setAccounts] = useState([]);
 
+	const { put, loading, response, error } = useCrud();
+
 	// Fetch accounts on component mount
 	useEffect(() => {
-		dispatch(fetchAccounts());
-	}, [dispatch]);
+		if (!allAccounts) {
+			dispatch(fetchAccounts());
+		}
+	}, []);
 
 	// Filter accounts with resolved: false and attempt > 0
 	useEffect(() => {
 		if (allAccounts) {
 			const filteredAccounts = allAccounts.filter(
-				acc => acc.resolved === false && acc.attempt > 0,
+				acc =>
+					acc.resolved === false && acc.attempt > 0 && acc.downloaded !== true,
 			);
 			setAccounts(filteredAccounts);
 		}
@@ -66,7 +73,7 @@ const AttemptDownload = () => {
 	}, [type, selectedFormat, accounts]);
 
 	// Handle file download
-	const handleDownload = () => {
+	const handleDownload = async () => {
 		if (!accounts || accounts.length === 0) {
 			alert("No accounts available to download!");
 			return;
@@ -81,8 +88,17 @@ const AttemptDownload = () => {
 			return;
 		}
 
+		const uids = filteredAccounts.map(f => f.uid);
+		await put("/api/accounts/downloaded", uids);
 		downloadExcel(filteredAccounts);
 	};
+
+	useEffect(() => {
+		if (response) {
+			dispatch(fetchAccounts());
+			toast.success(response.message);
+		}
+	}, [response]);
 
 	return (
 		<Box

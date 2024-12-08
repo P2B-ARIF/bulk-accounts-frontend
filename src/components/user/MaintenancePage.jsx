@@ -59,11 +59,7 @@ const MaintenancePage = ({ data, loading }) => {
 				<Text fontSize='lg' mt='2'>
 					{data.message || "We'll be back shortly."}
 				</Text>
-				{data.endTime && (
-					<Text fontSize='md' mt='2' color='gray.400'>
-						Estimated End Time: {new Date(data.endTime).toLocaleString()}
-					</Text>
-				)}
+
 				<Text fontSize='sm' mt='4' color='gray.500'>
 					Thank you for your patience!
 				</Text>
