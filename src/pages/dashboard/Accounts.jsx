@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
 import LoadingPage from "../LoadingPage";
 import Account from "./../../components/dashboard/Account";
 import useCrud from "./../../hook/useCrud";
@@ -6,19 +8,20 @@ import useCrud from "./../../hook/useCrud";
 const Accounts = () => {
 	const { get, response, error, loading } = useCrud();
 
-	const fetchAccounts = async () => {
+	const { accounts: allAccounts } = useSelector(state => state.accounts);
+	const dispatch = useDispatch();
+
+	const fetchUsers = async () => {
 		await get("/api/auth/get-allUsers");
 	};
 
 	useEffect(() => {
-		fetchAccounts();
-	}, []);
+		fetchUsers();
 
-	useEffect(() => {
-		if (response) {
-			console.log(response);
+		if (!allAccounts) {
+			dispatch(fetchAccounts());
 		}
-	}, [response]);
+	}, []);
 
 	if (loading) {
 		return <LoadingPage />;
@@ -32,7 +35,7 @@ const Accounts = () => {
 
 			<div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2'>
 				{response &&
-					response.map((account, i) => <Account key={i} account={account} />)}
+					response?.map((account, i) => <Account key={i} account={account} />)}
 			</div>
 		</section>
 	);

@@ -1,16 +1,20 @@
+import { format } from "date-fns";
 import React from "react";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaUserClock } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Account = ({ account }) => {
 	const { accounts } = useSelector(state => state.accounts);
 
 	const counts = accounts?.filter(acc => acc.userEmail === account.email);
+	const navigate = useNavigate();
 
 	return (
 		<div
-			className={`border rounded-lg p-2 md:p-4 transition-all duration-300 ${
+			onClick={() => navigate(`/admin/user/${account?.email}`)}
+			className={`cursor-pointer border rounded-lg p-2 md:p-4 transition-all duration-300 ${
 				account?.gender === "male" ? "bg-blue-100" : "bg-pink-100"
 			} hover:shadow-lg border-gray-200`}
 		>
@@ -26,7 +30,12 @@ const Account = ({ account }) => {
 				<FaPhoneAlt /> {account?.number}
 			</div>
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
-				<IoMdTime /> {account?.createdAt?.date}
+				{/* <IoMdTime /> {account?.createdAt?.date} */}
+				<IoMdTime /> Registered-{" "}
+				{format(account?.createdAt?.date, "dd-MM-yyyy")}
+			</div>
+			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
+				<FaUserClock /> Last Login- {format(account?.lastLogin, "dd-MM-yyyy")}
 			</div>
 		</div>
 	);

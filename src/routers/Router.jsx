@@ -20,6 +20,7 @@ import AdminInstagram from "../pages/dashboard/AdminInstagram";
 import AdminPayment from "../pages/dashboard/AdminPayment";
 import Controller from "../pages/dashboard/Controller";
 import CreatingHistory from "../pages/dashboard/CreatingHistory";
+import UserHistoryTable from "../pages/dashboard/views/UserHistoryTable";
 import Contact from "./../pages/Contact";
 import AboutUs from "./../views/AboutUs";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
 			{ index: true, element: <AdminDashboard /> }, // Default route for "/admin"
 			{ path: "controller", element: <Controller /> },
 			{ path: "accounts", element: <Accounts /> },
+			{ path: "user/:email", element: <UserHistoryTable /> },
 			{ path: "facebook", element: <AdminFacebook /> },
 			{ path: "instagram", element: <AdminInstagram /> },
 			{ path: "history", element: <CreatingHistory /> },
