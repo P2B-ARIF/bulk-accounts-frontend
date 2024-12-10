@@ -87,7 +87,7 @@ export default function History() {
 											<Td>
 												{item.die === true ? (
 													<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
-														Die
+														Disabled
 													</span>
 												) : item.resolved === true ? (
 													<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>

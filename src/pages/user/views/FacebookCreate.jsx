@@ -28,7 +28,7 @@ import {
 import { fetchPackages } from "./../../../toolkit/features/packageSlice";
 import AccountsStats from "./AccountsStats";
 
-const FacebookCreate = () => {
+const FacebookCreate = ({ user }) => {
 	const [details, setDetails] = useState({
 		girlName: { fname: "", lname: "" },
 		// pass: "",
@@ -50,7 +50,7 @@ const FacebookCreate = () => {
 
 		setDetails({
 			girlName: girlName,
-			pass: maintenance?.password,
+			pass: user.nickname + maintenance?.password,
 			number: getRandomNumber(),
 			email: email,
 		});

@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import MaintenancePage from "../components/user/MaintenancePage";
 import useCrud from "../hook/useCrud";
 import LoadingPage from "../pages/LoadingPage";
+import NicknameModel from "../pages/user/model/NicknameModel";
 import SideBar from "../pages/user/SideBar";
 import { fetchEverything } from "../toolkit/features/everythingSlice";
 import { fetchCheckUser } from "../toolkit/features/userSlice";
@@ -73,6 +74,10 @@ const UserLayout = () => {
 		return <MaintenancePage loading={loading} data={maintenanceData} />;
 	}
 
+	// if (user) {
+	console.log(user);
+	// 	return <NicknameModel />;
+	// }
 	return (
 		<main className='flex'>
 			<div className='bg-blue-500'>
@@ -81,6 +86,8 @@ const UserLayout = () => {
 
 			<div className='mt-10 md:mt-5 p-3 md:p-5 w-full relative md:ml-64'>
 				{maintenanceData && <Outlet context={maintenanceData} />}
+				{(user && user?.nickname === null) ||
+					(user?.nickname === undefined && <NicknameModel />)}
 			</div>
 		</main>
 	);

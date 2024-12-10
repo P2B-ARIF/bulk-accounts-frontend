@@ -27,7 +27,7 @@ import {
 } from "../../../utils/random";
 import AccountsStats from "./AccountsStats";
 
-const InstagramCreate = () => {
+const InstagramCreate = ({ user }) => {
 	const [details, setDetails] = useState({
 		girlName: { fname: "", lname: "" },
 		pass: "",
@@ -49,7 +49,7 @@ const InstagramCreate = () => {
 
 		setDetails({
 			girlName: girlName,
-			pass: maintenance?.password,
+			pass: user?.nickname + maintenance?.password,
 			// pass: getRandomPassword(),
 			number: getRandomNumber(),
 			email: email,

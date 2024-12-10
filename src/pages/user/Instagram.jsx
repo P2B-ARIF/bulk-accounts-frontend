@@ -5,18 +5,37 @@ import InstagramCreate from "./views/InstagramCreate";
 
 const Instagram = () => {
 	const { everything, loading, error } = useSelector(state => state.everything);
+	const { packages } = useSelector(state => state.packages);
+	const { user, loading: userLoading } = useSelector(state => state.user);
+
+	const instagramPackages = packages?.packages?.filter(
+		p => p.accountType === "instagram" && p.active === true,
+	);
 
 	if (loading) {
 		return <LoadingPage />;
+	}
+	if (instagramPackages?.length === 0) {
+		return (
+			<div className='flex flex-col items-center justify-center h-[90vh]'>
+				<h3>
+					Instagram services are temporarily unavailable. We&apos;re working to
+					restore them as soon as possible.
+					<br />
+					<br />
+					Thank you for your patience!
+				</h3>
+			</div>
+		);
 	}
 
 	const instagram = everything?.accounts?.filter(
 		acc => acc.accountType === "instagram",
 	);
 
-	const approvedInstagram = everything?.approved?.filter(
-		acc => acc.accountType === "instagram",
-	);
+	// const approvedInstagram = everything?.approved?.filter(
+	// 	acc => acc.accountType === "instagram",
+	// );
 
 	const rateSummary = instagram?.reduce((acc, item) => {
 		const { accountFormat, rate, count } = item;
@@ -33,7 +52,7 @@ const Instagram = () => {
 		return acc;
 	}, {});
 
-	const money = approvedInstagram?.reduce((prev, next) => prev + next.rate, 0);
+	// const money = approvedInstagram?.reduce((prev, next) => prev + next.rate, 0);
 
 	return (
 		<section>
@@ -65,28 +84,9 @@ const Instagram = () => {
 								</div>
 							);
 						})}
-
-					{/* Total Earnings Section */}
-					{/* <div className='col-span-2 sm:col-span-1 lg:col-span-2 xl:col-span-1 rounded-lg border bg-pink-50 bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg'>
-						<span className='text-pink-500 text-xl md:text-2xl font-semibold'>
-							Balance: {money} <small>Taka</small>
-						</span> */}
-
-					{/* <button className='text-md text-pink-100 hover:text-pink-200 font-medium shadow-sm px-3 bg-pink-600 rounded-lg py-1.5'>
-								Withdraw Money
-							</button> */}
-					{/* <div className='flex items-center gap-2 mt-2'>
-							{money > 20 && (
-								<WithdrawMoney
-									approvedAccounts={approvedInstagram}
-									amount={money}
-								/>
-							)}
-						</div> */}
-					{/* </div> */}
 				</div>
 
-				<InstagramCreate />
+				{user?.nickname && <InstagramCreate user={user} />}
 			</div>
 		</section>
 	);

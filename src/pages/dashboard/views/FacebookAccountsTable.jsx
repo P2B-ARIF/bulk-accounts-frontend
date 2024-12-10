@@ -63,13 +63,18 @@ const FacebookAccountsTable = () => {
 		>
 			<Box p={{ base: 0, md: 6 }}>
 				<Heading
+					// size={"sm"}
 					size={{ base: "sm", md: "md" }}
 					mb={4}
 					className='px-3 md:px-5 pt-3'
 				>
 					<span>Fixing Accounts</span>
 				</Heading>
-				<Table variant='simple' size={{ base: "sm", md: "md" }}>
+				<Table
+					variant='simple'
+					size={"sm"}
+					// size={{ base: "sm", md: "md" }}
+				>
 					<Thead>
 						<Tr>
 							<Th>Date</Th>
