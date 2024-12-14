@@ -2,15 +2,17 @@ import { format } from "date-fns";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 
-const downloadExcel = data => {
+const downloadExcel = (data, accFormat) => {
 	// Map the required fields
-	const formattedData = data.map(item => ({
-		uid: item.uid || "",
-		email: item.email || "",
-		password: item.password || "",
-		key: item.key || "",
-		cookie: item.cookie || "",
-	}));
+	const formattedData = data
+		.map(item => ({
+			uid: item.uid || "",
+			email: item.email || "",
+			password: item.password || "",
+			key: item.key || "",
+			cookie: item.cookie || "",
+		}))
+		.sort((a, b) => a.password.localeCompare(b.password));
 
 	// Create a worksheet
 	const worksheet = XLSX.utils.json_to_sheet(formattedData);
@@ -24,7 +26,12 @@ const downloadExcel = data => {
 	// Write the workbook and trigger download
 	const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
 	const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
-	saveAs(blob, `accounts_${date}.xlsx`);
+	saveAs(
+		blob,
+		`accounts ${accFormat || ""} (${
+			formattedData.length || 0
+		} pitch), ${date}.xlsx`,
+	);
 };
 
 export default downloadExcel;
