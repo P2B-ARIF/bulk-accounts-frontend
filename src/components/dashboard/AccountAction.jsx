@@ -51,24 +51,24 @@ const AccountAction = () => {
 					resize='none'
 				/>
 
-				<div className='flex items-center gap-2 mt-2'>
+				<div className='flex items-center gap-3 mt-2'>
 					<button
 						onClick={() => handleAccount("approved")}
 						className='text-md text-white hover:bg-green-400 font-medium shadow-sm px-3 bg-green-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Approved Accounts"}
+						{loading ? "Loading.." : "Approved"}
 					</button>
 					<button
 						onClick={() => handleAccount("attempt")}
-						className='text-md text-slate-800 hover:bg-yellow-400 font-medium shadow-sm px-3 bg-yellow-500 rounded-lg py-1.5'
+						className='text-md text-slate-100 hover:bg-blue-400 font-medium shadow-sm px-3 bg-blue-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Attempt Accounts"}
+						{loading ? "Loading.." : "Back"}
 					</button>
 					<button
 						onClick={() => handleAccount("die")}
 						className='text-md text-white hover:bg-red-400 font-medium shadow-sm px-3 bg-red-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Die Accounts"}
+						{loading ? "Loading.." : "Disabled"}
 					</button>
 				</div>
 			</Box>

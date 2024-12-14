@@ -234,9 +234,17 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 										isLoading={loading}
 										size={"sm"}
 										type='submit'
-										colorScheme='green'
+										colorScheme='blue'
 									>
 										Save Changes
+									</Button>
+									<Button
+										isLoading={text === "approved" && loading}
+										size={"sm"}
+										colorScheme='green'
+										onClick={() => handleDie("approved")}
+									>
+										Approved
 									</Button>
 									<Button
 										isLoading={text === "die-move" && loading}

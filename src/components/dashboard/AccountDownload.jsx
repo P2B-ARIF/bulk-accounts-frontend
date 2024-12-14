@@ -87,7 +87,7 @@ const AccountDownload = () => {
 		}
 
 		const uids = filteredAccounts.map(f => f.uid);
-		await put("/api/accounts/downloaded", uids);
+		// await put("/api/accounts/downloaded", uids);
 		downloadExcel(filteredAccounts, selectedFormat);
 	};
 
