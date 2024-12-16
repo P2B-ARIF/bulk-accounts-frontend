@@ -12,41 +12,22 @@ import { useDispatch } from "react-redux";
 import { updateAccount } from "../../toolkit/features/accountSlice";
 
 const PasteTempMail = () => {
-	const [cookie, setCookie] = useState(""); // State to hold the pasted cookie
+	const [cookie, setCookie] = useState("");
 	const dispatch = useDispatch();
 
-	// // Email validation function
-	// const validateEmail = email => {
-	// 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-	// 	return emailRegex.test(email);
-	// };
-
-	// Handle pasting from the clipboard
 	const handlePaste = async () => {
 		try {
 			const text = await navigator.clipboard.readText();
 			if (!text.includes("@")) {
-				toast.error("Invalid email address.", {
-					title: "Validation Error",
-					duration: 3000,
-					isClosable: true,
-				});
+				toast.error("Invalid email address.");
 				return;
 			}
 
 			setCookie(text);
 			dispatch(updateAccount({ email: text }));
-			toast.success("Temp Mail has been pasted.", {
-				title: "Pasted! 2Factor Code",
-				duration: 3000,
-				isClosable: true,
-			});
+			toast.success("Temp Mail has been pasted.");
 		} catch (error) {
-			toast.error("Failed to read clipboard.", {
-				title: "Error",
-				duration: 3000,
-				isClosable: true,
-			});
+			toast.error("Failed to read clipboard.");
 		}
 	};
 

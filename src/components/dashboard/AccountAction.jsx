@@ -70,6 +70,12 @@ const AccountAction = () => {
 					>
 						{loading ? "Loading.." : "Disabled"}
 					</button>
+					<button
+						onClick={() => handleAccount("move")}
+						className='text-md text-white hover:bg-purple-400 font-medium shadow-sm px-3 bg-purple-500 rounded-lg py-1.5'
+					>
+						{loading ? "Loading.." : "Move"}
+					</button>
 				</div>
 			</Box>
 		</Box>

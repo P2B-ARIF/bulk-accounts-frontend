@@ -38,7 +38,9 @@ const Payment = ({ order }) => {
 			</Td>
 			<Td>{order.notes}</Td>
 			<Td>{order.totalAccounts}</Td>
-			<Td>{order.amount} BDT</Td>
+			<Td>
+				{order.amount.toFixed(2)} <small>BDT</small>
+			</Td>
 
 			{/* Render Upload Image Component if payment is pending */}
 			<Td>

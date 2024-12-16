@@ -146,8 +146,12 @@ const AccountModel = ({ account }) => {
 								</header>
 								{/*        <!-- Modal body --> */}
 								<div id='content-2a' className='flex-1 overflow-auto space-y-1'>
-									<h4>This Working Rate: {account.rate} BDT</h4>
-									<h4> Estimated Time: {account.time} Minute</h4>
+									<h4>
+										This Working Rate: <b>{account.rate} BDT</b>
+									</h4>
+									<h4>
+										Estimated Time: <b>{account.time} Minute</b>
+									</h4>
 									<br />
 									<p>{account.message}</p>
 								</div>

@@ -38,7 +38,10 @@ const AdminPayment = () => {
 					<div className='rounded-lg bg-card text-card-foreground shadow-md p-5 transition-all duration-300 hover:shadow-lg'>
 						<div className='flex flex-col gap-2'>
 							<h3 className='uppercase text-xl font-bold'>
-								Amount {pending?.reduce((prev, next) => prev + next.amount, 0)}
+								Amount{" "}
+								{pending
+									?.reduce((prev, next) => prev + next.amount, 0)
+									.toFixed(2)}
 							</h3>
 							<div className='flex flex-col gap-1'>
 								<span>Total Order: {pending?.length || 0}</span>

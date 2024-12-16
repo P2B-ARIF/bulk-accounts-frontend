@@ -1,5 +1,8 @@
 import {
 	Box,
+	Grid,
+	GridItem,
+	Spinner,
 	Table,
 	Tbody,
 	Td,
@@ -20,138 +23,148 @@ const UserHistoryTable = () => {
 	const { email } = useParams();
 	const dispatch = useDispatch();
 
-	// Fetch accounts if not already loaded
+	// Fetch accounts from Redux store if not already available
 	useEffect(() => {
 		if (!accounts || accounts.length === 0) {
 			dispatch(fetchAccounts());
 		}
 	}, [dispatch, accounts]);
 
-	// Filter accounts by user email
+	// Filter accounts for the specific user
 	const filterAccounts = useMemo(
 		() => accounts?.filter(acc => acc.userEmail === email) || [],
 		[accounts, email],
 	);
 
-	// Extract unique account formats and their counts
+	// Count unique account formats and their occurrences
 	const accountFormatCounts = useMemo(() => {
-		const formatMap = {};
-		filterAccounts.forEach(acc => {
-			formatMap[acc.accountFormat] = (formatMap[acc.accountFormat] || 0) + 1;
-		});
-		return formatMap;
+		return filterAccounts.reduce((acc, curr) => {
+			acc[curr.accountFormat] = (acc[curr.accountFormat] || 0) + 1;
+			return acc;
+		}, {});
 	}, [filterAccounts]);
 
-	if (loading) {
-		return <Text>Loading...</Text>;
-	}
+	// Error and loading states
+	if (loading) return <Spinner size='xl' label='Loading...' />;
+	if (error) return <Text color='red.500'>Error: {error}</Text>;
+	if (!filterAccounts.length) return <Text>No accounts found for {email}</Text>;
 
-	if (error) {
-		return <Text color='red.500'>Error loading accounts: {error}</Text>;
-	}
-
-	if (!filterAccounts.length) {
-		return <Text>No accounts found for this user.</Text>;
-	}
-
+	// Table hover styles
 	const hoverBg = useColorModeValue("gray.50", "gray.700");
 	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 
 	return (
-		<div>
-			<h3 className='text-lg font-semibold text-slate-700'>
-				User History Table - {email}
-			</h3>
+		<Box>
+			<Text fontSize='lg' fontWeight='semibold' mb={5}>
+				User History for {email}
+			</Text>
 
-			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5'>
+			{/* Account format stats */}
+			<Grid
+				templateColumns='repeat(auto-fill, minmax(150px, 1fr))'
+				gap={5}
+				mb={5}
+			>
 				{Object.entries(accountFormatCounts).map(([format, count], index) => (
-					<div
+					<GridItem
 						key={index}
-						className='rounded-lg border bg-card text-card-foreground shadow-sm p-5'
+						p={4}
+						borderWidth='1px'
+						borderRadius='lg'
+						bg={bgColor}
+						boxShadow='sm'
 					>
-						<div className='flex items-center justify-between'>
-							<div>
-								<h3 className='text-xl font-medium mb-1'>{format}</h3>
-								<Text className='text-2xl font-semibold'>{count}</Text>
-							</div>
-						</div>
-					</div>
+						<Text fontWeight='medium' mb={2}>
+							{format}
+						</Text>
+						<Text fontSize='lg' fontWeight='bold'>
+							{count}
+						</Text>
+					</GridItem>
 				))}
-			</div>
+			</Grid>
 
-			{/* account history table */}
+			{/* Account history table */}
 			<Box
 				borderWidth='1px'
 				borderRadius='lg'
-				overflow='auto'
+				overflowX='auto'
 				bg={bgColor}
 				borderColor={borderColor}
-				boxShadow='lg'
-				// m={{ base: 0, md: 5 }}
-				// p={{ base: 2, md: 5 }}
-				mt={5}
 			>
 				<Table variant='simple' size='sm'>
 					<Thead>
 						<Tr>
 							<Th>Date</Th>
-							<Th>Uid</Th>
+							<Th>UID</Th>
 							<Th>Email</Th>
-							<Th>Pass</Th>
+							<Th>Password</Th>
 							<Th>Key</Th>
 							<Th>Status</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
-						{filterAccounts
-							?.sort(
-								(a, b) =>
-									new Date(b.createdAt.date) - new Date(a.createdAt.date),
-							)
-							?.map((account, index) => (
-								<Tr key={index} _hover={{ bg: hoverBg }} transition='all 0.2s'>
-									<Td fontSize='sm'>
-										{format(account?.createdAt?.date_fns, "dd-MM")}
-									</Td>
-									<Td fontSize='sm'>{account.uid}</Td>
-									<Td fontSize='sm'>{account.email}</Td>
-									<Td fontSize='sm'>{account.password}</Td>
-									<Td fontSize='sm'>{account.key}</Td>
-
-									<Td>
-										{account.die === true ? (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
-												Die
-											</span>
-										) : account.resolved === true ? (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
-												Back
-											</span>
-										) : account.approved === true ? (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
-												Approved!
-											</span>
-										) : account.downloaded === true ? (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
-												Processing!
-											</span>
-										) : account.resolved === false ? (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
-												Updated!
-											</span>
-										) : (
-											<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
-												Progress!
-											</span>
-										)}
-									</Td>
-								</Tr>
-							))}
+						{filterAccounts?.length > 0 &&
+							filterAccounts
+								.sort(
+									(a, b) =>
+										new Date(b.createdAt?.date_fns) -
+										new Date(a.createdAt?.date_fns),
+								)
+								.map((account, index) => (
+									<Tr key={index} _hover={{ bg: hoverBg }} transition='0.2s'>
+										<Td>
+											{account?.createdAt?.date ||
+											account?.createdAt?.date_fns ? (
+												format(
+													new Date(
+														account?.createdAt?.date ||
+															account?.createdAt?.date_fns,
+													),
+													"dd-MM",
+												)
+											) : (
+												<Text color='gray.500'>N/A</Text>
+											)}
+										</Td>
+										<Td>{account.uid}</Td>
+										<Td>{account.email}</Td>
+										<Td>{account.password}</Td>
+										<Td>{account.key}</Td>
+										<Td>
+											{account.die === true ? (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
+													Die
+												</span>
+											) : account.resolved === true ? (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
+													Back
+												</span>
+											) : account.approved === true ? (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
+													Approved!
+												</span>
+											) : account.downloaded === true ? (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
+													Processing!
+												</span>
+											) : account.resolved === false ? (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
+													Updated!
+												</span>
+											) : (
+												<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
+													Progress!
+												</span>
+											)}
+										</Td>
+									</Tr>
+								))}
 					</Tbody>
 				</Table>
 			</Box>
-		</div>
+		</Box>
 	);
 };
 

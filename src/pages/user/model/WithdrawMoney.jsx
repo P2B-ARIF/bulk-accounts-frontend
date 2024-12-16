@@ -10,6 +10,7 @@ import { X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import toast from "react-hot-toast";
+import { IoIosWarning } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import useCrud from "../../../hook/useCrud";
 import { fetchEverything } from "../../../toolkit/features/everythingSlice";
@@ -189,6 +190,10 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 											onChange={handleChange}
 											bg='gray.100'
 										/>
+										<p className='flex items-start gap-1 text-red-500 text-sm mt-1'>
+											<IoIosWarning size={18} /> লিমিটের কারণে যদি VAT কাটা হয়,
+											তবে সেই পরিমাণ আপনার কাছ থেকে কর্তন করা হবে।
+										</p>
 										<FormErrorMessage>{errors.accountName}</FormErrorMessage>
 									</FormControl>
 

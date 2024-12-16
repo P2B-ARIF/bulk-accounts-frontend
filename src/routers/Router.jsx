@@ -16,10 +16,10 @@ import Payments from "../pages/Payments";
 import Services from "../pages/Services";
 import Accounts from "../pages/dashboard/Accounts";
 import AdminFacebook from "../pages/dashboard/AdminFacebook";
+import AdminHistory from "../pages/dashboard/AdminHistory";
 import AdminInstagram from "../pages/dashboard/AdminInstagram";
 import AdminPayment from "../pages/dashboard/AdminPayment";
 import Controller from "../pages/dashboard/Controller";
-import CreatingHistory from "../pages/dashboard/CreatingHistory";
 import UserHistoryTable from "../pages/dashboard/views/UserHistoryTable";
 import Contact from "./../pages/Contact";
 import AboutUs from "./../views/AboutUs";
@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
 			{ path: "user/:email", element: <UserHistoryTable /> },
 			{ path: "facebook", element: <AdminFacebook /> },
 			{ path: "instagram", element: <AdminInstagram /> },
-			{ path: "history", element: <CreatingHistory /> },
+			{ path: "history", element: <AdminHistory /> },
 			{ path: "payment", element: <AdminPayment /> },
 			{ path: "*", element: <NotFoundPage /> },
 		],
