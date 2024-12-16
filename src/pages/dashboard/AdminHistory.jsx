@@ -192,6 +192,7 @@ const AdminHistory = () => {
 							<Th>UID</Th>
 							<Th>Email</Th>
 							<Th>Type</Th>
+							<Th>Format</Th>
 							<Th>Approved</Th>
 							<Th>Downloaded</Th>
 							{/* <Th>Correction</Th> */}
@@ -209,6 +210,7 @@ const AdminHistory = () => {
 								<Td>{item.uid}</Td>
 								<Td>{item.email}</Td>
 								<Td>{item.accountType}</Td>
+								<Td>{item.accountFormat}</Td>
 								<Td>{item.approved ? "Yes" : "No"}</Td>
 								<Td>{item.downloaded ? "Yes" : "No"}</Td>
 								{/* <Td>{item.correction ? "Yes" : "No"}</Td> */}
@@ -217,7 +219,7 @@ const AdminHistory = () => {
 								<Td>{item.rate}</Td>
 								<Td>
 									{item.die === true ? (
-										<span className='text-white flex items-center gap-1 px-2 py-1 rounded-xl text-sm bg-red-400'>
+										<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
 											Disabled
 										</span>
 									) : item.resolved === true ? (
@@ -254,6 +256,8 @@ const AdminHistory = () => {
 			{/* Pagination */}
 			<Box className='flex justify-between items-center mt-4'>
 				<Button
+					size={"sm"}
+					colorScheme='blue'
 					onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
 					isDisabled={currentPage === 1}
 				>
@@ -263,6 +267,8 @@ const AdminHistory = () => {
 					Page {currentPage} of {totalPages}
 				</Text>
 				<Button
+					size={"sm"}
+					colorScheme='teal'
 					onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
 					isDisabled={currentPage === totalPages}
 				>
