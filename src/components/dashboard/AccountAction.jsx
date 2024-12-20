@@ -12,8 +12,10 @@ const AccountAction = () => {
 	const { put, error, loading, response } = useCrud();
 	const [accountUIDs, setAccountUID] = useState([]);
 	const dispatch = useDispatch();
+	const [actionName, setActionName] = useState("");
 
 	const handleAccount = async action => {
+		setActionName(action);
 		await put(`/api/accounts?action=${action}`, accountUIDs.split(","));
 	};
 
@@ -51,30 +53,41 @@ const AccountAction = () => {
 					resize='none'
 				/>
 
-				<div className='flex items-center gap-3 mt-2'>
+				<div className='flex flex-wrap items-center gap-3 mt-2'>
 					<button
 						onClick={() => handleAccount("approved")}
 						className='text-md text-white hover:bg-green-400 font-medium shadow-sm px-3 bg-green-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Approved"}
+						{actionName === "approved" && loading ? "Loading.." : "Approved"}
 					</button>
 					<button
 						onClick={() => handleAccount("attempt")}
 						className='text-md text-slate-100 hover:bg-blue-400 font-medium shadow-sm px-3 bg-blue-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Back"}
+						{actionName === "attempt" && loading ? "Loading.." : "Back"}
 					</button>
 					<button
 						onClick={() => handleAccount("die")}
 						className='text-md text-white hover:bg-red-400 font-medium shadow-sm px-3 bg-red-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Disabled"}
+						{actionName === "die" && loading ? "Loading.." : "Disabled"}
 					</button>
 					<button
-						onClick={() => handleAccount("move")}
+						onClick={() => handleAccount("sale_die")}
 						className='text-md text-white hover:bg-purple-400 font-medium shadow-sm px-3 bg-purple-500 rounded-lg py-1.5'
 					>
-						{loading ? "Loading.." : "Move"}
+						{actionName === "sale_die" && loading
+							? "Loading.."
+							: "Sale & Disabled"}
+					</button>
+
+					<button
+						onClick={() => handleAccount("sale_approved")}
+						className='text-md text-white hover:bg-rose-400 font-medium shadow-sm px-3 bg-rose-500 rounded-lg py-1.5'
+					>
+						{actionName === "sale_approved" && loading
+							? "Loading.."
+							: "Sale & approved"}
 					</button>
 				</div>
 			</Box>

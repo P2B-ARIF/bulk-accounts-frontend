@@ -142,7 +142,7 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 										</FormLabel>
 										<Input
 											id='amount'
-											value={amount}
+											value={amount.toFixed(2)}
 											type='number'
 											readOnly
 											placeholder='Enter withdrawal amount'

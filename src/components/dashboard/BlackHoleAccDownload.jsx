@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import useCrud from "../../hook/useCrud";
 import downloadExcel from "../../utils/downloadExcel";
 
-const SaleAccountsDownload = () => {
+const BlackHoleAccDownload = () => {
 	const { get, loading, error, response } = useCrud();
 
 	const bgColor = useColorModeValue("white", "gray.800");
@@ -17,7 +17,7 @@ const SaleAccountsDownload = () => {
 	const [accounts, setAccounts] = useState(null);
 
 	const fetchingAccounts = async () => {
-		await get("/api/accounts/sale");
+		await get("/api/accounts/black-hole");
 	};
 
 	// Fetch accounts on component mount
@@ -95,9 +95,9 @@ const SaleAccountsDownload = () => {
 			_hover={{ boxShadow: "lg" }}
 			transition='all 0.3s'
 		>
-			<h3 className='text-lg font-medium mb-5 text-green-500'>
-				DOWNLOAD SALE ACCOUNTS ---- Available <b>{accounts?.length || 0}</b>{" "}
-				accounts
+			<h3 className='text-lg font-medium mb-5 text-slate-800'>
+				DOWNLOAD BLACK HOLE ACCOUNTS ---- Available{" "}
+				<b>{accounts?.length || 0}</b> accounts
 			</h3>
 
 			<Box maxW='sm' className='space-y-3'>
@@ -141,4 +141,4 @@ const SaleAccountsDownload = () => {
 	);
 };
 
-export default SaleAccountsDownload;
+export default BlackHoleAccDownload;

@@ -11,6 +11,7 @@ import {
 
 const Package = ({ pack }) => {
 	const bgColor = useColorModeValue("white", "gray.800");
+	const bgColorFalse = useColorModeValue("red", "red.300");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 
 	const { del, response, loading, error } = useCrud();
@@ -41,6 +42,7 @@ const Package = ({ pack }) => {
 			bg={bgColor}
 			_hover={{ boxShadow: "lg" }}
 			transition='all 0.3s'
+			backgroundColor={pack?.active === false && "red.100"}
 		>
 			<h3 className='text-lg uppercase font-medium mb-2 text-blue-800'>
 				{pack.accountType} {pack.accountFormat}

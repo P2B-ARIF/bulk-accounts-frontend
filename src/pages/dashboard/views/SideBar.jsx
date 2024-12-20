@@ -5,11 +5,12 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
 import {
+	MdBusAlert,
 	MdManageHistory,
 	MdOutlineManageAccounts,
 	MdPayments,
 } from "react-icons/md";
-import { TbLayoutDashboard } from "react-icons/tb";
+import { TbLayoutDashboard, TbPackages } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
@@ -27,6 +28,8 @@ const SideBar = () => {
 		{ url: "/admin/instagram", icon: FaInstagram, name: "Instagram" },
 		{ url: "/admin/history", icon: MdManageHistory, name: "History" },
 		{ url: "/admin/payment", icon: MdPayments, name: "Payment" },
+		{ url: "/admin/sale-hole", icon: MdBusAlert, name: "Sale & BlackHole" },
+		{ url: "/admin/packages", icon: TbPackages, name: "Packages" },
 	];
 
 	return (

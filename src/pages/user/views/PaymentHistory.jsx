@@ -99,7 +99,7 @@ const PaymentHistory = () => {
 									</Td>
 									<Td>{item.userEmail}</Td>
 									<Td>{item.totalAccounts}</Td>
-									<Td>{item.amount}</Td>
+									<Td>{item.amount.toFixed(2)}</Td>
 									<Td>
 										{item.accountNumber} <br />
 										{item.accountName}

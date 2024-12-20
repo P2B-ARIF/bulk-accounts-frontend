@@ -86,7 +86,7 @@ const UserBlock = () => {
 					px='20px'
 					width={{ base: "full", sm: "auto" }}
 				>
-					Update Password
+					Update User Block
 				</Button>
 			</div>
 		</Box>

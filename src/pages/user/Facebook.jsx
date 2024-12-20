@@ -55,7 +55,7 @@ const Facebook = () => {
 											{item.accountFormat}
 										</span>
 										<span className='text-md md:text-lg font-medium text-muted-foreground'>
-											<b>{item.rate}</b> BDT
+											<b>{item.rate.toFixed(2)}</b> BDT
 										</span>
 										<span className='text-sm md:text-md font-medium text-muted-foreground'>
 											Account <b>{item.count}</b>

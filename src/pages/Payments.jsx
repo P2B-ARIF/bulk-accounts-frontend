@@ -14,7 +14,7 @@ import {
 	Tr,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { formatDistanceToNow, isToday, parseISO } from "date-fns";
+import { formatDistanceToNow, isToday } from "date-fns";
 import { ChevronLeft, ChevronRight, ChevronsLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -54,11 +54,27 @@ export default function Payments() {
 
 	// Format date to show relative time for today
 	const formatDate = dateString => {
-		const date = parseISO(dateString);
-		if (isToday(date)) {
-			return `${formatDistanceToNow(date, { addSuffix: true })}`;
+		try {
+			const date = new Date(dateString);
+			if (isNaN(date.getTime())) {
+				throw new Error("Invalid date");
+			}
+
+			// Check if the date is today
+			if (isToday(date)) {
+				return `${formatDistanceToNow(date, { addSuffix: true })}`;
+			}
+
+			// Format for older dates
+			return new Intl.DateTimeFormat("en-US", {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			}).format(date);
+		} catch (error) {
+			console.error("Invalid date string:", dateString, error.message);
+			return "Invalid Date";
 		}
-		return new Date(date).toLocaleDateString(); // Use standard date format for older dates
 	};
 
 	// Pagination handlers
@@ -131,44 +147,51 @@ export default function Payments() {
 									</Td>
 								</Tr>
 							) : payments.length > 0 ? (
-								payments.map((payment, i) => (
-									<Tr key={i} className='text-sm md:text-md'>
-										<Td className='text-xs md:text-sm'>
-											{formatDate(payment?.createdAt?.date)}
-										</Td>
-										<Td>{payment?.userName || "N/A"}</Td>
-										<Td>{payment?.amount?.toFixed(2)} BDT</Td>
-										<Td>{payment?.accountName || "N/A"}</Td>
-										<Td>
-											<Box
-												px={1}
-												py={0.5}
-												rounded='full'
-												fontSize='xs'
-												fontWeight='semibold'
-												className='text-center'
-												bg={
-													payment?.payment === "success"
-														? "green.100"
-														: payment?.payment === "Pending"
-														? "yellow.100"
-														: "red.100"
-												}
-												color={
-													payment?.payment === "success"
-														? "green.800"
-														: payment?.payment === "Pending"
-														? "yellow.800"
-														: "red.800"
-												}
-											>
-												{payment?.payment === "success"
-													? "Completed"
-													: payment?.payment}
-											</Box>
-										</Td>
-									</Tr>
-								))
+								payments
+									?.sort(
+										(a, b) =>
+											new Date(b.createdAt.date).getTime() -
+											new Date(a.createdAt.date).getTime(),
+									)
+									?.map((payment, index) => (
+										<Tr
+											key={payment.id || index}
+											className='text-sm md:text-md'
+										>
+											<Td className='text-xs md:text-sm'>
+												{formatDate(payment?.createdAt?.date ?? "N/A")}
+											</Td>
+											<Td>{payment?.userName ?? "N/A"}</Td>
+											<Td>{payment?.amount?.toFixed(2) ?? "0.00"} BDT</Td>
+											<Td>{payment?.accountName ?? "N/A"}</Td>
+											<Td>
+												<Box
+													px={1}
+													py={0.5}
+													rounded='full'
+													fontSize='xs'
+													fontWeight='semibold'
+													className='text-center'
+													bg={
+														{
+															success: "green.100",
+															Pending: "yellow.100",
+														}[payment?.payment] || "red.100"
+													}
+													color={
+														{
+															success: "green.800",
+															Pending: "yellow.800",
+														}[payment?.payment] || "red.800"
+													}
+												>
+													{payment?.payment === "success"
+														? "Completed"
+														: payment?.payment ?? "N/A"}
+												</Box>
+											</Td>
+										</Tr>
+									))
 							) : (
 								<Tr>
 									<Td colSpan={5} textAlign='center'>

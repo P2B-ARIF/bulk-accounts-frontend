@@ -37,7 +37,7 @@ const Payment = () => {
 								{rateSummary?.facebook?.accountType}
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
-								{rateSummary?.facebook?.rate} BDT
+								{rateSummary?.facebook?.rate.toFixed(2)} BDT
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
 								{rateSummary?.facebook?.count} TOTAL
@@ -66,7 +66,7 @@ const Payment = () => {
 								{rateSummary?.instagram?.accountType}
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
-								{rateSummary?.instagram?.rate} BDT
+								{rateSummary?.instagram?.rate.toFixed(2)} BDT
 							</span>
 							<span className='text-md font-medium text-muted-foreground'>
 								{rateSummary?.instagram?.count} TOTAL
@@ -92,7 +92,7 @@ const Payment = () => {
 				{/* Total Earnings Section */}
 				<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg'>
 					<span className='text-lg md:text-2xl font-semibold md:font-bold tracking-tight'>
-						Total Earn: {money} Taka
+						Total Earn: {money.toFixed(2)} Taka
 					</span>
 					<div className='flex items-center gap-2 mt-2'>
 						{money > 20 ? (

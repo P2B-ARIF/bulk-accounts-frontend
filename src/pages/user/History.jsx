@@ -57,10 +57,16 @@ export default function History() {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{accounts &&
-								accounts?.map((item, index) => (
-									<HistoryTable item={item} key={index} />
-								))}
+							{accounts?.length > 0 &&
+								[...accounts] // Create a shallow copy to avoid mutating the original array
+									.sort(
+										(a, b) =>
+											new Date(b?.createdAt?.date) -
+											new Date(a?.createdAt?.date),
+									)
+									.map((item, index) => (
+										<HistoryTable item={item} key={index} />
+									))}
 						</Tbody>
 					</Table>
 				</Box>

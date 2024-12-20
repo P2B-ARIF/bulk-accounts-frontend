@@ -2,9 +2,35 @@ import { Td, Tr, useColorModeValue } from "@chakra-ui/react";
 import { format } from "date-fns";
 import React from "react";
 import SeeDisabledModel from "../model/SeeDisabledModel";
+import { formatDistanceToNow, isToday } from "date-fns";
 
 const HistoryTable = ({ item, index }) => {
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
+
+	// Format date to show relative time for today
+	const formatDate = dateString => {
+		try {
+			const date = new Date(dateString);
+			if (isNaN(date.getTime())) {
+				throw new Error("Invalid date");
+			}
+
+			// Check if the date is today
+			if (isToday(date)) {
+				return `${formatDistanceToNow(date, { addSuffix: true })}`;
+			}
+
+			// Format for older dates
+			return new Intl.DateTimeFormat("en-US", {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			}).format(date);
+		} catch (error) {
+			console.error("Invalid date string:", dateString, error.message);
+			return "Invalid Date";
+		}
+	};
 
 	return (
 		<Tr
@@ -12,7 +38,7 @@ const HistoryTable = ({ item, index }) => {
 			bg={index % 2 === 0 ? "transparent" : stripedBg}
 			className='text-sm md:text-md'
 		>
-			<Td color='gray.600'>{format(item.createdAt.date, "dd-MM")}</Td>
+			<Td color='gray.600'> {formatDate(item?.createdAt?.date ?? "N/A")}</Td>
 			<Td
 				fontWeight='medium'
 				className={`uppercase ${
@@ -22,7 +48,7 @@ const HistoryTable = ({ item, index }) => {
 				{item.accountType}
 			</Td>
 			<Td className='uppercase'>{item.accountFormat}</Td>
-			<Td>{item.rate} BDT</Td>
+			<Td>{item.rate.toFixed(2)} BDT</Td>
 			<Td>
 				{item.die === true ? (
 					<SeeDisabledModel account={item} />
