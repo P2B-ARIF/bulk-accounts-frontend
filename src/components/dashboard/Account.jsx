@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import React from "react";
 import { FaPhoneAlt, FaUserClock } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -25,9 +26,16 @@ const Account = ({ account }) => {
 			<div className='text-xs md:text-sm flex items-center gap-1 text-blue-500 mt-2'>
 				{account?.email}
 			</div>
+
 			<hr className='my-2 border-gray-300' />
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
-				<FaPhoneAlt /> {account?.number}
+				<RiLockPasswordFill /> {account?.nickname}
+			</div>
+			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
+				<FaPhoneAlt />{" "}
+				{account?.number.toString().length === 10
+					? "0" + account?.number
+					: account?.number}
 			</div>
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
 				{/* <IoMdTime /> {account?.createdAt?.date} */}

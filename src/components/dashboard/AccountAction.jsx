@@ -13,6 +13,7 @@ const AccountAction = () => {
 	const [accountUIDs, setAccountUID] = useState([]);
 	const dispatch = useDispatch();
 	const [actionName, setActionName] = useState("");
+	const [accLength, setAccLength] = useState(0);
 
 	const handleAccount = async action => {
 		setActionName(action);
@@ -30,6 +31,23 @@ const AccountAction = () => {
 		}
 	}, [response, error, dispatch]);
 
+	useEffect(() => {
+		// console.log(accountUIDs.split(",").length, "asd");
+		if (accountUIDs.length > 0) {
+			setAccLength(accountUIDs?.split(",").length);
+		}
+	}, [accountUIDs]);
+
+	const handlePasteUIDs = async () => {
+		const ids = await navigator.clipboard.readText();
+		const normalizedIds = [
+			...new Set(ids.split(/[\s,]+/).filter(id => id.trim() !== "")),
+		].join(",");
+
+		setAccountUID(normalizedIds);
+		toast.success("Paste UIDs");
+	};
+
 	return (
 		<Box
 			borderWidth={1}
@@ -44,11 +62,18 @@ const AccountAction = () => {
 				UPDATE APPROVED STATUS
 			</h3>
 
-			<Box className='space-y-3 '>
+			<Box className='space-y-3'>
+				<button
+					onClick={handlePasteUIDs}
+					className='text-md text-white hover:bg-blue-400 font-medium shadow-sm px-3 bg-blue-500 rounded-lg py-1'
+				>
+					Paste
+				</button>
+				<span className='ml-3 text-lg font-medium'>{accLength} IDs</span>
 				<Textarea
 					placeholder='Enter your message'
 					value={accountUIDs}
-					onChange={e => setAccountUID(e.target.value)}
+					onChange={e => setAccountUID(e.target.value.trim())}
 					h={"150"}
 					resize='none'
 				/>

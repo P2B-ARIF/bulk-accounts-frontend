@@ -2,6 +2,7 @@ import { Box, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import { UploadIcon } from "lucide-react";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import useCrud from "../../hook/useCrud";
 import {
@@ -11,8 +12,9 @@ import {
 
 const Package = ({ pack }) => {
 	const bgColor = useColorModeValue("white", "gray.800");
-	const bgColorFalse = useColorModeValue("red", "red.300");
-	const borderColor = useColorModeValue("gray.200", "gray.700");
+	const fbborderColor = useColorModeValue("blue.200", "blue.700");
+	const instaborderColor = useColorModeValue("pink.200", "pink.700");
+	// const borderColor = useColorModeValue("gray.200", "gray.700");
 
 	const { del, response, loading, error } = useCrud();
 
@@ -38,14 +40,28 @@ const Package = ({ pack }) => {
 			borderWidth={1}
 			borderRadius='lg'
 			p={4}
-			borderColor={borderColor}
+			borderColor={
+				pack.accountType === "facebook" ? fbborderColor : instaborderColor
+			}
+			// borderColor={borderColor}
 			bg={bgColor}
 			_hover={{ boxShadow: "lg" }}
 			transition='all 0.3s'
-			backgroundColor={pack?.active === false && "red.100"}
+			backgroundColor={pack?.active === false && "pink.100"}
 		>
-			<h3 className='text-lg uppercase font-medium mb-2 text-blue-800'>
-				{pack.accountType} {pack.accountFormat}
+			<h3 className={`uppercase font-medium mb-2 text-center`}>
+				<span
+					className={`flex items-center gap-1 text-center mx-auto rounded-full justify-center py-1 capitalize ${
+						pack.accountType === "facebook"
+							? "bg-blue-800 text-white"
+							: "bg-pink-800 text-white"
+					}`}
+				>
+					{pack.accountType === "facebook" ? <FaFacebook /> : <FaInstagram />}
+					{pack.accountType}
+				</span>
+
+				{pack.accountFormat}
 			</h3>
 			<Text fontSize='sm' color='gray.600'>
 				<Text as='span' fontWeight='medium'>

@@ -11,6 +11,7 @@ import {
 	Tr,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import React, { useCallback, useState } from "react";
@@ -95,7 +96,9 @@ const PaymentHistory = () => {
 							.map((item, index) => (
 								<Tr key={index} _hover={{ bg: hoverBg }} transition='all 0.2s'>
 									<Td>
-										<Text fontWeight='medium'>{item.createdAt.date_fns}</Text>
+										<Text fontWeight='medium'>
+											{format(item.createdAt.date, "dd-MM")}
+										</Text>
 									</Td>
 									<Td>{item.userEmail}</Td>
 									<Td>{item.totalAccounts}</Td>

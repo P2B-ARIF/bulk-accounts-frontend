@@ -1,8 +1,7 @@
 import { Td, Tr, useColorModeValue } from "@chakra-ui/react";
-import { format } from "date-fns";
+import { formatDistanceToNow, isToday } from "date-fns";
 import React from "react";
 import SeeDisabledModel from "../model/SeeDisabledModel";
-import { formatDistanceToNow, isToday } from "date-fns";
 
 const HistoryTable = ({ item, index }) => {
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
@@ -22,7 +21,7 @@ const HistoryTable = ({ item, index }) => {
 
 			// Format for older dates
 			return new Intl.DateTimeFormat("en-US", {
-				year: "numeric",
+				// year: "numeric",
 				month: "short",
 				day: "numeric",
 			}).format(date);

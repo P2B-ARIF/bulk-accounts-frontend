@@ -35,7 +35,9 @@ const Accounts = () => {
 
 			<div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2'>
 				{response &&
-					response?.map((account, i) => <Account key={i} account={account} />)}
+					response
+						?.sort((a, b) => new Date(b?.lastLogin) - new Date(a?.lastLogin))
+						?.map((account, i) => <Account key={i} account={account} />)}
 			</div>
 		</section>
 	);

@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import AccountAction from "../../components/dashboard/AccountAction";
 import AccountDownload from "../../components/dashboard/AccountDownload";
 import AccountFixing from "../../components/dashboard/AccountFixing";
 import AttemptDownload from "../../components/dashboard/AttemptDownload";
 import useCrud from "../../hook/useCrud";
-import { fetchPackages } from "../../toolkit/features/packageSlice";
 import AccountsPassword from "./views/AccountsPassword";
 import Maintenance from "./views/Maintenance";
 import Message from "./views/Message";
@@ -14,9 +12,7 @@ import UpdatePassword from "./views/UpdatePassword";
 import UserBlock from "./views/UserBlock";
 
 const Controller = () => {
-	const { packages } = useSelector(state => state.packages);
 	const { get, response, error, loading } = useCrud();
-	const dispatch = useDispatch();
 
 	const fetchMaintenance = async () => {
 		await get("/api/maintenance");
@@ -27,12 +23,6 @@ const Controller = () => {
 			fetchMaintenance();
 		}
 	}, []);
-
-	useEffect(() => {
-		if (!packages) {
-			dispatch(fetchPackages());
-		}
-	}, [dispatch, packages]);
 
 	return (
 		<section className='mb-8'>

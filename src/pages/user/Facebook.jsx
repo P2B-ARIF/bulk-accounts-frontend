@@ -1,25 +1,32 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPackages } from "../../toolkit/features/packageSlice";
 import LoadingPage from "../LoadingPage";
 import FacebookCreate from "./views/FacebookCreate";
 
 const Facebook = () => {
 	const { everything, loading, error } = useSelector(state => state.everything);
 	const { user, loading: userLoading } = useSelector(state => state.user);
+	const { packages } = useSelector(state => state.packages);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!packages) {
+			dispatch(fetchPackages());
+		}
+	}, [packages, dispatch]);
 
 	if (loading) {
 		return <LoadingPage />;
 	}
 
-	// console.log(everything);
-
 	const facebook = everything?.accounts?.filter(
 		acc => acc.accountType === "facebook",
 	);
 
-	const approvedFacebook = everything?.approved?.filter(
-		acc => acc.accountType === "facebook",
-	);
+	// const approvedFacebook = everything?.approved?.filter(
+	// 	acc => acc.accountType === "facebook",
+	// );
 
 	const rateSummary = facebook?.reduce((acc, item) => {
 		const { accountFormat, rate, count } = item;
@@ -36,7 +43,20 @@ const Facebook = () => {
 		return acc;
 	}, {});
 
-	// const money = approvedFacebook?.reduce((prev, next) => prev + next.rate, 0);
+	if (
+		!packages?.packages?.some(p => p.accountType === "facebook" && p.active)
+	) {
+		return (
+			<div className='flex flex-col h-screen items-center justify-center bg-gray-50 text-center'>
+				<h1 className='text-lg md:text-xl font-bold text-gray-800 mb-2'>
+					No Active Facebook Packages Available
+				</h1>
+				<p className='text-gray-600 mb-4'>
+					Please check other tasks or contact your administrator for assistance.
+				</p>
+			</div>
+		);
+	}
 
 	return (
 		<section>

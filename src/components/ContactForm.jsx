@@ -27,7 +27,7 @@ const ContactForm = ({ onSubmit }) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='bg-white shadow-lg rounded-lg p-6 space-y-4 w-full'
+			className='bg-white md:shadow-lg rounded-lg p-2 md:p-6 space-y-4 w-full'
 		>
 			<div>
 				<label

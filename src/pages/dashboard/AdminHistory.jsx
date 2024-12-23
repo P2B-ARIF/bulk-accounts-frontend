@@ -193,9 +193,9 @@ const AdminHistory = () => {
 							<Th>Email</Th>
 							<Th>Type</Th>
 							<Th>Format</Th>
+							<Th>Pass</Th>
 							<Th>Approved</Th>
 							<Th>Downloaded</Th>
-							{/* <Th>Correction</Th> */}
 							<Th>Resolved</Th>
 							<Th>Die</Th>
 							<Th>Rate</Th>
@@ -206,11 +206,12 @@ const AdminHistory = () => {
 					<Tbody>
 						{paginatedData?.map(item => (
 							<Tr key={item.uid}>
-								<Td>{format(new Date(item.createdAt.date), "dd/MM")}</Td>
+								<Td>{format(new Date(item.createdAt.date), "dd-MM")}</Td>
 								<Td>{item.uid}</Td>
 								<Td>{item.email}</Td>
 								<Td>{item.accountType}</Td>
 								<Td>{item.accountFormat}</Td>
+								<Td>{item.password}</Td>
 								<Td>{item.approved ? "Yes" : "No"}</Td>
 								<Td>{item.downloaded ? "Yes" : "No"}</Td>
 								{/* <Td>{item.correction ? "Yes" : "No"}</Td> */}

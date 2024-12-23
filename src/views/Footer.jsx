@@ -26,11 +26,11 @@ export default function Footer() {
 		<footer className='bg-slate-200'>
 			<Box as='footer' py={10}>
 				<Container maxW='6xl'>
-					<Stack spacing={8} align='center'>
+					<Stack spacing={{ base: 5, md: 8 }} align='center'>
 						{/* Logo */}
 						<Link
 							href='#'
-							fontSize='xl'
+							fontSize={{ base: "md", md: "xl" }}
 							fontWeight='bold'
 							letterSpacing='wider'
 							color='gray.800'
@@ -39,7 +39,7 @@ export default function Footer() {
 						</Link>
 
 						{/* Navigation */}
-						<HStack spacing={8} color='gray.600'>
+						<HStack spacing={{ base: 4, md: 8 }} color='gray.600'>
 							{navigation.map(item => (
 								<Link
 									key={item}
@@ -54,7 +54,7 @@ export default function Footer() {
 						</HStack>
 
 						{/* Social Links */}
-						<HStack spacing={6}>
+						<HStack spacing={{ base: 4, md: 6 }}>
 							{socialLinks.map(social => (
 								<Link
 									key={social.label}

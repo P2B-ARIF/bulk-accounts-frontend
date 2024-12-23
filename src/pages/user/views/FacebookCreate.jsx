@@ -184,7 +184,7 @@ const FacebookCreate = ({ user }) => {
 
 						{details?.email && <MailInbox email={details?.email} />}
 
-						{account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />}
+						{/* {account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />} */}
 						{account.accountFormat.includes("cookie") ? (
 							<>
 								<PasteTempMail />
@@ -229,7 +229,7 @@ const FacebookCreate = ({ user }) => {
 						</Box>
 					</SimpleGrid>
 				) : (
-					<div className='text-center font-bold text-xl text-red-500'>
+					<div className='text-center font-semibold text-xl text-red-500'>
 						You have to select one
 					</div>
 				)}

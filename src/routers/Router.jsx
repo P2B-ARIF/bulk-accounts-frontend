@@ -5,7 +5,6 @@ import UserLayout from "../layouts/UserLayout";
 import Home from "../pages/Home";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import AdminDashboard from "../pages/dashboard/AdminDashboard";
 import Facebook from "../pages/user/Facebook";
 import History from "../pages/user/History";
 import Instagram from "../pages/user/Instagram";
@@ -70,8 +69,8 @@ export const router = createBrowserRouter([
 			</ProtectedAdminRoute>
 		),
 		children: [
-			{ index: true, element: <AdminDashboard /> }, // Default route for "/admin"
-			{ path: "controller", element: <Controller /> },
+			// { index: true, element: <AdminDashboard /> }, // Default route for "/admin"
+			{ index: true, element: <Controller /> },
 			{ path: "accounts", element: <Accounts /> },
 			{ path: "user/:email", element: <UserHistoryTable /> },
 			{ path: "facebook", element: <AdminFacebook /> },

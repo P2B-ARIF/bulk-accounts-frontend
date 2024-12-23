@@ -1,5 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPackages } from "../../toolkit/features/packageSlice";
 import LoadingPage from "../LoadingPage";
 import InstagramCreate from "./views/InstagramCreate";
 
@@ -8,34 +9,21 @@ const Instagram = () => {
 	const { packages } = useSelector(state => state.packages);
 	const { user, loading: userLoading } = useSelector(state => state.user);
 
-	const instagramPackages = packages?.packages?.filter(
-		p => p.accountType === "instagram" && p.active === true,
-	);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (!packages) {
+			dispatch(fetchPackages());
+		}
+	}, [packages, dispatch]);
 
 	if (loading) {
 		return <LoadingPage />;
-	}
-	if (instagramPackages?.length === 0) {
-		return (
-			<div className='flex flex-col items-center justify-center h-[90vh]'>
-				<h3>
-					Instagram services are temporarily unavailable. We&apos;re working to
-					restore them as soon as possible.
-					<br />
-					<br />
-					Thank you for your patience!
-				</h3>
-			</div>
-		);
 	}
 
 	const instagram = everything?.accounts?.filter(
 		acc => acc.accountType === "instagram",
 	);
-
-	// const approvedInstagram = everything?.approved?.filter(
-	// 	acc => acc.accountType === "instagram",
-	// );
 
 	const rateSummary = instagram?.reduce((acc, item) => {
 		const { accountFormat, rate, count } = item;
@@ -52,8 +40,20 @@ const Instagram = () => {
 		return acc;
 	}, {});
 
-	// const money = approvedInstagram?.reduce((prev, next) => prev + next.rate, 0);
-
+	if (
+		!packages?.packages?.some(p => p.accountType === "instagram" && p.active)
+	) {
+		return (
+			<div className='flex flex-col h-screen items-center justify-center bg-gray-50 text-center'>
+				<h1 className='text-lg md:text-xl font-bold text-gray-800 mb-2'>
+					No Active Instagram Packages Available
+				</h1>
+				<p className='text-gray-600 mb-4'>
+					Please check other tasks or contact your administrator for assistance.
+				</p>
+			</div>
+		);
+	}
 	return (
 		<section>
 			<h1 className='text-lg font-bold md:pl-5 mb-3'>Instagram Work Station</h1>

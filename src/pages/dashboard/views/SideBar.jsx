@@ -10,7 +10,7 @@ import {
 	MdOutlineManageAccounts,
 	MdPayments,
 } from "react-icons/md";
-import { TbLayoutDashboard, TbPackages } from "react-icons/tb";
+import { TbPackages } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
@@ -21,8 +21,8 @@ const SideBar = () => {
 	const location = useLocation();
 
 	const navLists = [
-		{ url: "/admin", icon: TbLayoutDashboard, name: "Dashboard" },
-		{ url: "/admin/controller", icon: IoMdSettings, name: "Controller" },
+		// { url: "/admin", icon: TbLayoutDashboard, name: "Dashboard" },
+		{ url: "/admin", icon: IoMdSettings, name: "Controller" },
 		{ url: "/admin/accounts", icon: MdOutlineManageAccounts, name: "Accounts" },
 		{ url: "/admin/facebook", icon: FaFacebook, name: "Facebook" },
 		{ url: "/admin/instagram", icon: FaInstagram, name: "Instagram" },
