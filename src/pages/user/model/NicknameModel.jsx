@@ -11,7 +11,7 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCrud from "../../../hook/useCrud";
 
@@ -51,15 +51,17 @@ const NicknameModel = () => {
 
 		try {
 			await put("/api/auth/nickname", { nickname });
-
-			if (response?.result?.nickname) {
-				toast.success("Nickname submitted successfully!");
-				window.location.reload();
-			}
 		} catch {
 			toast.error(apiError?.message || "Something went wrong.");
 		}
 	};
+
+	useEffect(() => {
+		if (response?.result?.nickname) {
+			toast.success("Nickname submitted successfully!");
+			window.location.reload();
+		}
+	}, [response]);
 
 	return (
 		<Modal isOpen={isOpen} isCentered>
@@ -82,6 +84,7 @@ const NicknameModel = () => {
 					<ModalFooter>
 						<Button
 							colorScheme='pink'
+							size={"sm"}
 							type='submit'
 							isLoading={loading}
 							isDisabled={loading}
