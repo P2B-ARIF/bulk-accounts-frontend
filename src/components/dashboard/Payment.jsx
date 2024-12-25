@@ -2,6 +2,7 @@ import { Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
 import UploadImage from "../../pages/dashboard/models/UploadImage";
+import { Eye } from "lucide-react";
 
 const Payment = ({ order }) => {
 	const hoverBg = useColorModeValue("gray.50", "gray.700");
@@ -49,11 +50,11 @@ const Payment = ({ order }) => {
 				) : order?.payment === "success" ? (
 					<>
 						<h3
-							className='text-green-500'
+							className='text-green-500 flex items-center gap-1'
 							onClick={openImageViewer}
 							style={{ cursor: "pointer" }}
 						>
-							{order?.payment}
+							<Eye size='20px' /> <span>{order?.payment}</span>
 						</h3>
 						{/* Conditionally render the ImageViewer if payment is successful */}
 						{isViewerOpen && order?.url && (

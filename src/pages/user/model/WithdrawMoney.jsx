@@ -185,7 +185,7 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 											id='accountName'
 											name='accountName'
 											type='text'
-											placeholder='Enter Account name'
+											placeholder='Bkash/ Nagod/ Rocket'
 											value={formData.accountName}
 											onChange={handleChange}
 											bg='gray.100'

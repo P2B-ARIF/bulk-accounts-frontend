@@ -6,7 +6,7 @@ import InstagramCreate from "./views/InstagramCreate";
 
 const Instagram = () => {
 	const { everything, loading, error } = useSelector(state => state.everything);
-	const { packages } = useSelector(state => state.packages);
+	const { packages, pLoading } = useSelector(state => state.packages);
 	const { user, loading: userLoading } = useSelector(state => state.user);
 
 	const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Instagram = () => {
 		}
 	}, [packages, dispatch]);
 
-	if (loading) {
+	if (loading || pLoading) {
 		return <LoadingPage />;
 	}
 

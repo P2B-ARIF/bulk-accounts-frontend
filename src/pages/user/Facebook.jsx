@@ -5,9 +5,9 @@ import LoadingPage from "../LoadingPage";
 import FacebookCreate from "./views/FacebookCreate";
 
 const Facebook = () => {
+	const { packages, loading: uLoading } = useSelector(state => state.packages);
 	const { everything, loading, error } = useSelector(state => state.everything);
 	const { user, loading: userLoading } = useSelector(state => state.user);
-	const { packages } = useSelector(state => state.packages);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -16,17 +16,13 @@ const Facebook = () => {
 		}
 	}, [packages, dispatch]);
 
-	if (loading) {
+	if (loading || uLoading) {
 		return <LoadingPage />;
 	}
 
 	const facebook = everything?.accounts?.filter(
 		acc => acc.accountType === "facebook",
 	);
-
-	// const approvedFacebook = everything?.approved?.filter(
-	// 	acc => acc.accountType === "facebook",
-	// );
 
 	const rateSummary = facebook?.reduce((acc, item) => {
 		const { accountFormat, rate, count } = item;

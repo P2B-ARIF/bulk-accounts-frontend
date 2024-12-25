@@ -31,10 +31,10 @@ const NicknameModel = () => {
 	// Validate nickname
 	const validateNickname = name => {
 		if (name.length < 4 || name.length > 6) {
-			return "Nickname must be between 4 and 6 characters.";
+			return "Nickname অবশ্যই ৪ থেকে ৬ অক্ষরের মধ্যে হতে হবে।";
 		}
 		if (!/^[a-z]+$/.test(name)) {
-			return "Nickname must contain only lowercase English letters.";
+			return "Nickname শুধুমাত্র ছোট হাতের ইংরেজি বর্ণ থাকতে হবে।";
 		}
 		return null;
 	};

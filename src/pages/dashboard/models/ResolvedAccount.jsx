@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import FactorCode from "../../../components/FactorCode";
 import MailInbox from "../../../components/MailBox";
 import useCrud from "../../../hook/useCrud";
 import { fetchEverything } from "../../../toolkit/features/everythingSlice";
@@ -124,7 +125,7 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 						role='dialog'
 					>
 						<div
-							className='flex flex-col max-w-lg w-11/12 p-6 bg-white rounded shadow-xl gap-6'
+							className='flex flex-col max-w-lg w-[95%] md:w-11/12 p-3 md:p-6 bg-white rounded shadow-xl gap-6'
 							ref={wrapperRef}
 						>
 							<header className='flex justify-between items-center'>
@@ -140,10 +141,11 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 							</header>
 
 							<form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-								{/* UID */}
-								<FormControl>
-									<FormLabel htmlFor='uid'>UID</FormLabel>
-									<div className='flex items-center gap-2'>
+								<div className='flex items-center gap-2'>
+									{/* UID */}
+									<FormControl>
+										<FormLabel htmlFor='uid'>UID</FormLabel>
+										{/* <div className='flex items-center gap-2'> */}
 										<Input
 											id='uid'
 											name='uid'
@@ -153,14 +155,38 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 										/>
 										<Button
 											size='sm'
+											mt={"5px"}
 											colorScheme='blue'
 											onClick={() => handleCopy(account.uid)}
 											leftIcon={<MousePointerClick size={18} />}
 										>
 											Copy
 										</Button>
-									</div>
-								</FormControl>
+										{/* </div> */}
+									</FormControl>
+
+									<FormControl w={"50"}>
+										<FormLabel htmlFor='password'>Password</FormLabel>
+										{/* <div className='flex flex-col items-center gap-2'> */}
+										<Input
+											id='password'
+											name='password'
+											value={formData.password}
+											onChange={handleChange}
+											placeholder='Enter Password'
+										/>
+										<Button
+											size='sm'
+											colorScheme='blue'
+											mt={"5px"}
+											onClick={() => handleCopy(account.password)}
+											leftIcon={<MousePointerClick size={18} />}
+										>
+											Copy
+										</Button>
+										{/* </div> */}
+									</FormControl>
+								</div>
 
 								{/* Email */}
 								<FormControl>
@@ -183,26 +209,8 @@ const ResolvedAccount = ({ account, fetchAccounts }) => {
 								</FormControl>
 								{account.email && <MailInbox email={account.email} />}
 								{/* Password */}
-								<FormControl>
-									<FormLabel htmlFor='password'>Password</FormLabel>
-									<div className='flex items-center gap-2'>
-										<Input
-											id='password'
-											name='password'
-											value={formData.password}
-											onChange={handleChange}
-											placeholder='Enter Password'
-										/>
-										<Button
-											size='sm'
-											colorScheme='blue'
-											onClick={() => handleCopy(account.password)}
-											leftIcon={<MousePointerClick size={18} />}
-										>
-											Copy
-										</Button>
-									</div>
-								</FormControl>
+
+								<FactorCode />
 
 								{/* Two-Factor Key */}
 								<FormControl>

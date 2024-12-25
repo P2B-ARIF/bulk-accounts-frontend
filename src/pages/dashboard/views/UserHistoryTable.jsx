@@ -1,5 +1,6 @@
 import {
 	Box,
+	Button,
 	Grid,
 	GridItem,
 	Spinner,
@@ -13,30 +14,40 @@ import {
 	useColorModeValue,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
+import { Trash2 } from "lucide-react";
 import React, { useEffect, useMemo } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useCrud from "../../../hook/useCrud";
 import { fetchAccounts } from "../../../toolkit/features/dashboard/accountsSlice";
 
 const UserHistoryTable = () => {
 	const { accounts, loading, error } = useSelector(state => state.accounts);
 	const { email } = useParams();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-	// Fetch accounts from Redux store if not already available
+	const { del, response, loading: gLoading } = useCrud();
+
 	useEffect(() => {
 		if (!accounts || accounts.length === 0) {
 			dispatch(fetchAccounts());
 		}
 	}, [dispatch, accounts]);
 
-	// Filter accounts for the specific user
+	useEffect(() => {
+		if (response) {
+			toast.success(response.message);
+			navigate("/admin/accounts");
+		}
+	}, [response]);
+
 	const filterAccounts = useMemo(
 		() => accounts?.filter(acc => acc.userEmail === email) || [],
 		[accounts, email],
 	);
 
-	// Count unique account formats and their occurrences
 	const accountFormatCounts = useMemo(() => {
 		return filterAccounts.reduce((acc, curr) => {
 			acc[curr.accountFormat] = (acc[curr.accountFormat] || 0) + 1;
@@ -44,23 +55,57 @@ const UserHistoryTable = () => {
 		}, {});
 	}, [filterAccounts]);
 
-	// Error and loading states
 	if (loading) return <Spinner size='xl' label='Loading...' />;
 	if (error) return <Text color='red.500'>Error: {error}</Text>;
-	if (!filterAccounts.length) return <Text>No accounts found for {email}</Text>;
 
-	// Table hover styles
+	const handleDeleteUser = async () => {
+		if (!window.confirm("Are you sure?")) {
+			return;
+		}
+		try {
+			await del(`/api/auth/delete?email=${email}`);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	if (!filterAccounts.length)
+		return (
+			<div className='flex items-center mb-5 gap-5'>
+				<Text>No accounts found for {email}</Text>
+				<Button
+					onClick={handleDeleteUser}
+					isLoading={gLoading}
+					colorScheme='red'
+					className='flex items-center gap-1'
+					size={"sm"}
+				>
+					<Trash2 size={15} /> Delete
+				</Button>
+			</div>
+		);
+
 	const hoverBg = useColorModeValue("gray.50", "gray.700");
 	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 
 	return (
 		<Box>
-			<Text fontSize='lg' fontWeight='semibold' mb={5}>
-				User History for {email}
-			</Text>
+			<div className='flex items-center mb-5 gap-5'>
+				<Text fontSize='lg' fontWeight='semibold'>
+					User History for {email}
+				</Text>
+				<Button
+					onClick={handleDeleteUser}
+					isLoading={gLoading}
+					colorScheme='red'
+					className='flex items-center gap-1'
+					size={"sm"}
+				>
+					<Trash2 size={15} /> Delete
+				</Button>
+			</div>
 
-			{/* Account format stats */}
 			<Grid
 				templateColumns='repeat(auto-fill, minmax(150px, 1fr))'
 				gap={5}
