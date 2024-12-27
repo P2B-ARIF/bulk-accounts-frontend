@@ -20,6 +20,7 @@ import AdminInstagram from "../pages/dashboard/AdminInstagram";
 import AdminPackages from "../pages/dashboard/AdminPackages";
 import AdminPayment from "../pages/dashboard/AdminPayment";
 import Controller from "../pages/dashboard/Controller";
+import Messages from "../pages/dashboard/Messages";
 import SaleHole from "../pages/dashboard/SaleHole";
 import UserHistoryTable from "../pages/dashboard/views/UserHistoryTable";
 import Contact from "./../pages/Contact";
@@ -79,6 +80,7 @@ export const router = createBrowserRouter([
 			{ path: "payment", element: <AdminPayment /> },
 			{ path: "sale-hole", element: <SaleHole /> },
 			{ path: "packages", element: <AdminPackages /> },
+			{ path: "messages", element: <Messages /> },
 			{ path: "*", element: <NotFoundPage /> },
 		],
 	},

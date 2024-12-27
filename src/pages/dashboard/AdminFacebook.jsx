@@ -5,7 +5,6 @@ import FacebookAccountsTable from "./views/FacebookAccountsTable";
 
 const AdminFacebook = () => {
 	const { accounts } = useSelector(state => state.accounts);
-
 	const dispatch = useDispatch();
 
 	useEffect(() => {

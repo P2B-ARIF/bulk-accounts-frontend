@@ -9,6 +9,7 @@ const SaleAction = () => {
 
 	const { put, error, loading, response } = useCrud();
 	const [accountUIDs, setAccountUIDs] = useState([]);
+	const [accLength, setAccLength] = useState(0);
 
 	const handleDeleteAccounts = async () => {
 		if (!accountUIDs) {
@@ -28,6 +29,23 @@ const SaleAction = () => {
 		}
 	}, [response, error]);
 
+	useEffect(() => {
+		// console.log(accountUIDs.split(",").length, "asd");
+		if (accountUIDs.length > 0) {
+			setAccLength(accountUIDs?.split(",").length);
+		}
+	}, [accountUIDs]);
+
+	const handlePasteUIDs = async () => {
+		const ids = await navigator.clipboard.readText();
+		const normalizedIds = [
+			...new Set(ids.split(/[\s,]+/).filter(id => id.trim() !== "")),
+		].join(",");
+
+		setAccountUIDs(normalizedIds);
+		toast.success("Paste UIDs");
+	};
+
 	return (
 		<Box
 			borderWidth={1}
@@ -40,6 +58,15 @@ const SaleAction = () => {
 		>
 			<h3 className='text-lg font-medium mb-5 text-red-800'>DELETE ACCOUNTS</h3>
 
+			<div className='flex items-center gap-5 mb-3'>
+				<button
+					onClick={handlePasteUIDs}
+					className='text-md text-white hover:bg-blue-400 font-medium shadow-sm px-3 bg-blue-500 rounded-lg py-1'
+				>
+					Paste
+				</button>
+				<span className='ml-3 text-lg font-medium'>{accLength} IDs</span>
+			</div>
 			<Box className='space-y-3'>
 				<Textarea
 					placeholder='Enter Account UIDs (comma-separated)'

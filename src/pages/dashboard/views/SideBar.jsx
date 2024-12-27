@@ -10,7 +10,7 @@ import {
 	MdOutlineManageAccounts,
 	MdPayments,
 } from "react-icons/md";
-import { TbPackages } from "react-icons/tb";
+import { TbMessages, TbPackages } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
@@ -30,6 +30,7 @@ const SideBar = () => {
 		{ url: "/admin/payment", icon: MdPayments, name: "Payment" },
 		{ url: "/admin/sale-hole", icon: MdBusAlert, name: "Sale & BlackHole" },
 		{ url: "/admin/packages", icon: TbPackages, name: "Packages" },
+		{ url: "/admin/messages", icon: TbMessages, name: "Messages" },
 	];
 
 	return (
