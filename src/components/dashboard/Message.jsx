@@ -30,8 +30,8 @@ const Message = ({ sms }) => {
 	};
 
 	const handleDelete = async id => {
-		console.log(id, "id");
-		if (!window.confirm("Are you sure?")) await del(`/api/messages/${id}`);
+		// console.log(id, "id");
+		if (window.confirm("Are you sure?")) await del(`/api/messages/${id}`);
 	};
 
 	useEffect(() => {
