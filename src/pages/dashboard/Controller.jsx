@@ -7,7 +7,6 @@ import AttemptDownload from "../../components/dashboard/AttemptDownload";
 import useCrud from "../../hook/useCrud";
 import AccountsPassword from "./views/AccountsPassword";
 import Maintenance from "./views/Maintenance";
-import Message from "./views/Message";
 import UpdatePassword from "./views/UpdatePassword";
 import UserBlock from "./views/UserBlock";
 
@@ -29,7 +28,7 @@ const Controller = () => {
 			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
 
 			<div className='grid md:grid-cols-3 max-sm:space-y-5'>
-				<Message />
+				{/* <Message /> */}
 				{response && (
 					<>
 						<AccountsPassword getResponse={response} func={fetchMaintenance} />

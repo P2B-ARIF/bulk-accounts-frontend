@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import useCrud from "../../../hook/useCrud";
 
-const Message = () => {
+const CreateMessage = () => {
 	const [text, setText] = useState("");
 	const { post, response, loading, error } = useCrud();
 
@@ -23,8 +23,8 @@ const Message = () => {
 	}, [response]);
 
 	return (
-		<div className='md:p-5 space-y-3'>
-			<h3 className='font-medium'>Message</h3>
+		<div className='space-y-3 max-w-[500px]'>
+			<h3 className='font-medium'>Create Message</h3>
 
 			<Textarea
 				placeholder='Enter your message'
@@ -35,18 +35,19 @@ const Message = () => {
 			/>
 			<Button
 				onClick={handleUpdateMessage}
-				leftIcon={<UploadIcon size={18} />}
+				leftIcon={<UploadIcon size={16} />}
 				isDisabled={loading}
 				isLoading={loading}
 				colorScheme='blue'
+				size={"sm"}
 				mr='auto'
 				px='20px'
 				width={{ base: "full", sm: "auto" }}
 			>
-				Update Message
+				Create Message
 			</Button>
 		</div>
 	);
 };
 
-export default Message;
+export default CreateMessage;

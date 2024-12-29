@@ -12,6 +12,7 @@ import {
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import useCrud from "../../../hook/useCrud";
+import LoadingPage from "../../LoadingPage";
 import ResolvedAccount from "../models/ResolvedAccount";
 
 const InstagramAccountsTable = () => {
@@ -51,7 +52,11 @@ const InstagramAccountsTable = () => {
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
 
-	if (accounts?.length === 0) {
+	if (loading) {
+		return <LoadingPage />;
+	}
+
+	if (!loading && accounts?.length === 0) {
 		return (
 			<div>
 				<h1 className='text-center text-xl font-semibold'>No accounts found</h1>

@@ -50,7 +50,17 @@ const HistoryTable = ({ item, index }) => {
 			<Td>{item.rate.toFixed(2)} BDT</Td>
 			<Td>
 				{item.die === true ? (
-					<SeeDisabledModel account={item} />
+					<div className='flex items-center gap-3'>
+						<a
+							href={`https://www.facebook.com/profile.php?id=${item.uid}`}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='text-blue-500 underline'
+						>
+							Check ID
+						</a>
+						<SeeDisabledModel account={item} />
+					</div>
 				) : // <span
 				//  className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
 				// 	Disabled
