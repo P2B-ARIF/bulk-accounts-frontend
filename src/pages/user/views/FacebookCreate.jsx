@@ -31,10 +31,10 @@ import AccountsStats from "./AccountsStats";
 const FacebookCreate = ({ user }) => {
 	const [details, setDetails] = useState({
 		girlName: { fname: "", lname: "" },
-		// pass: "",
 		number: "",
 		email: "",
 	});
+	const [usNumber, setUsNum] = useState(0);
 
 	const maintenance = useOutletContext();
 
@@ -61,7 +61,7 @@ const FacebookCreate = ({ user }) => {
 	const { account } = useSelector(state => state.account);
 
 	const bgColor = useColorModeValue("white", "gray.800");
-	const { post, loading, error, response } = useCrud();
+	const { get, post, loading, error, response } = useCrud();
 	const { packages } = useSelector(state => state.packages);
 
 	useEffect(() => {
@@ -76,17 +76,6 @@ const FacebookCreate = ({ user }) => {
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
-
-		// if (field === "uid") {
-		// 	// Regular expression to match the UID from Facebook URLs
-		// 	const facebookUrlPattern =
-		// 		/(?:https?:\/\/)?(?:www\.)?facebook\.com\/(?:profile\.php\?id=|share\/p\/)(\d+)/;
-
-		// 	// Match the UID using the pattern
-		// 	const match = text.match(facebookUrlPattern);
-		// 	const uid = match ? match[1] : null;
-		// 	console.log(uid, "uid ht");
-		// }
 
 		if (field === "uid") {
 			const uidCode = text.match(/id=(\d+)/)?.[1];
@@ -126,7 +115,9 @@ const FacebookCreate = ({ user }) => {
 		}
 	}, [response, error]);
 
-	// console.log(facebookPackages);
+	// const handleChangeNumber = () => {
+	// 	setUsNum(getUSRandomNumber());
+	// };
 
 	return (
 		<Box>

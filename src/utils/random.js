@@ -218,6 +218,14 @@ export const getRandomNumber = () => {
 	return prefix + randomNumber;
 };
 
+// export const getUSRandomNumber = () => {
+// 	const countryCode = "001"; // US country code
+// 	const areaCode = Math.floor(200 + Math.random() * 800); // Generate a random 3-digit area code (200-799)
+// 	const centralOfficeCode = Math.floor(200 + Math.random() * 800); // Generate a random 3-digit central office code (200-799)
+// 	const lineNumber = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit line number
+// 	return `${countryCode}-${areaCode}-${centralOfficeCode}-${lineNumber}`;
+// };
+
 export const getRandomPassword = () => {
 	const date = format(new Date(), "dd");
 	const fixPassword = import.meta.env.VITE_PASSWORD;

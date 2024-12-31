@@ -27,7 +27,7 @@ const Controller = () => {
 		<section className='mb-8'>
 			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
 
-			<div className='grid md:grid-cols-3 max-sm:space-y-5'>
+			<div className='grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 max-sm:space-y-5 gap-3'>
 				{/* <Message /> */}
 				{response && (
 					<>

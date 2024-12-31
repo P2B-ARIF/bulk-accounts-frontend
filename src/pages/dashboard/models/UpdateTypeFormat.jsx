@@ -76,10 +76,11 @@ const UpdateTypeFormat = ({ update, updateModel }) => {
 					zIndex={"30"}
 				>
 					<Box
-						p={6}
+						p={{ base: 3, md: 6 }}
+						pt={6}
 						bg={bgColor}
 						borderRadius='lg'
-						width='80%'
+						width={{ base: "95%", md: "80%" }}
 						maxWidth='600px'
 						boxShadow='xl'
 						position='relative'

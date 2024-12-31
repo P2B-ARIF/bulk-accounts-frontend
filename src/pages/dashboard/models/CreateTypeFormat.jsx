@@ -111,10 +111,11 @@ const CreateTypeFormat = () => {
 					zIndex={"30"}
 				>
 					<Box
-						p={6}
+						p={{ base: 3, md: 6 }}
+						pt={6}
 						bg={bgColor}
 						borderRadius='lg'
-						width='80%'
+						width={{ base: "95%", md: "80%" }}
 						maxWidth='600px'
 						boxShadow='xl'
 						position='relative'
@@ -128,7 +129,7 @@ const CreateTypeFormat = () => {
 							<X size={20} />
 						</Button>
 						<Heading size='md' mb={3}>
-							Create Package
+							<span> Create Package</span>
 						</Heading>
 
 						<FormControl mb={3} isRequired>

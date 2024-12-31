@@ -99,184 +99,190 @@ const AdminHistory = () => {
 			));
 
 	return (
-		<Box p={4} bg='gray.50'>
-			<Text fontSize='lg' fontWeight='semibold' mb={5}>
-				All Accounts History
-			</Text>
-
-			{/* Filters */}
-			<Box
-				className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-5'
-				p={3}
-				bg='white'
-				borderRadius='md'
-				shadow='sm'
-			>
-				<Select
-					placeholder='Filter by Account Type'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, accountType: e.target.value }))
-					}
-				>
-					{generateOptions("accountType")}
-				</Select>
-				<Select
-					placeholder='Filter by Account Format'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, accountFormat: e.target.value }))
-					}
-				>
-					{generateOptions("accountFormat")}
-				</Select>
-				<Select
-					placeholder='Filter by Approved'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, approved: e.target.value }))
-					}
-				>
-					<option value='true'>Approved</option>
-					<option value='false'>Not Approved</option>
-				</Select>
-				<Select
-					placeholder='Filter by Downloaded'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, downloaded: e.target.value }))
-					}
-				>
-					<option value='true'>Downloaded</option>
-					<option value='false'>Not Downloaded</option>
-				</Select>
-				<Select
-					placeholder='Filter by Correction'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, correction: e.target.value }))
-					}
-				>
-					<option value='true'>Correction</option>
-					<option value='false'>No Correction</option>
-				</Select>
-				<Select
-					placeholder='Filter by Resolved'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, resolved: e.target.value }))
-					}
-				>
-					<option value='true'>Resolved</option>
-					<option value='false'>Not Resolved</option>
-				</Select>
-				<Select
-					placeholder='Filter by Die'
-					onChange={e => setFilter(prev => ({ ...prev, die: e.target.value }))}
-				>
-					<option value='true'>Die</option>
-					<option value='false'>Not Die</option>
-				</Select>
-				<Input
-					placeholder='Search by Email or UID'
-					onChange={e =>
-						setFilter(prev => ({ ...prev, search: e.target.value }))
-					}
-				/>
-			</Box>
-
-			{/* Data Table */}
-			{loading ? (
-				<Spinner size='lg' />
-			) : error ? (
-				<Text color='red.500'>Error: {error.message}</Text>
-			) : (
-				<Table variant='striped' colorScheme='gray' size='sm'>
-					<Thead>
-						<Tr>
-							<Th>Date</Th>
-							<Th>UID</Th>
-							<Th>Email</Th>
-							<Th>Type</Th>
-							<Th>Format</Th>
-							<Th>Pass</Th>
-							<Th>Approved</Th>
-							<Th>Downloaded</Th>
-							<Th>Resolved</Th>
-							<Th>Die</Th>
-							<Th>Rate</Th>
-							<Th>Status</Th>
-							<Th>Action</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						{paginatedData?.map(item => (
-							<Tr key={item.uid}>
-								<Td>{format(new Date(item.createdAt.date), "dd-MM")}</Td>
-								<Td>{item.uid}</Td>
-								<Td>{item.email}</Td>
-								<Td>{item.accountType}</Td>
-								<Td>{item.accountFormat}</Td>
-								<Td>{item.password}</Td>
-								<Td>{item.approved ? "Yes" : "No"}</Td>
-								<Td>{item.downloaded ? "Yes" : "No"}</Td>
-								{/* <Td>{item.correction ? "Yes" : "No"}</Td> */}
-								<Td>{item.resolved ? "Yes" : "No"}</Td>
-								<Td>{item.die ? "Yes" : "No"}</Td>
-								<Td>{item.rate}</Td>
-								<Td>
-									{item.die === true ? (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
-											Disabled
-										</span>
-									) : item.resolved === true ? (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
-											Back
-										</span>
-									) : item.approved === true ? (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
-											Approved!
-										</span>
-									) : item.downloaded === true ? (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
-											Processing!
-										</span>
-									) : item.resolved === false ? (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
-											Updated!
-										</span>
-									) : (
-										<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
-											Progress!
-										</span>
-									)}
-								</Td>
-								<Td>
-									<ResolvedAccount account={item} />
-								</Td>
-							</Tr>
-						))}
-					</Tbody>
-				</Table>
-			)}
-
-			{/* Pagination */}
-			<Box className='flex justify-between items-center mt-4'>
-				<Button
-					size={"sm"}
-					colorScheme='blue'
-					onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-					isDisabled={currentPage === 1}
-				>
-					Previous
-				</Button>
-				<Text>
-					Page {currentPage} of {totalPages}
+		<div>
+			<Box p={{ base: 0, md: 4 }} bg='gray.50'>
+				<Text fontSize='lg' fontWeight='semibold' mb={5}>
+					All Accounts History
 				</Text>
-				<Button
-					size={"sm"}
-					colorScheme='teal'
-					onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-					isDisabled={currentPage === totalPages}
+
+				{/* Filters */}
+				<Box
+					className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-5'
+					p={{ base: 1, md: 3 }}
+					bg='white'
+					borderRadius='md'
+					shadow='sm'
 				>
-					Next
-				</Button>
+					<Select
+						placeholder='Account Type'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, accountType: e.target.value }))
+						}
+					>
+						{generateOptions("accountType")}
+					</Select>
+					<Select
+						placeholder='Account Format'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, accountFormat: e.target.value }))
+						}
+					>
+						{generateOptions("accountFormat")}
+					</Select>
+					<Select
+						placeholder='Approved'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, approved: e.target.value }))
+						}
+					>
+						<option value='true'>Approved</option>
+						<option value='false'>Not Approved</option>
+					</Select>
+					<Select
+						placeholder='Downloaded'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, downloaded: e.target.value }))
+						}
+					>
+						<option value='true'>Downloaded</option>
+						<option value='false'>Not Downloaded</option>
+					</Select>
+					<Select
+						placeholder='Correction'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, correction: e.target.value }))
+						}
+					>
+						<option value='true'>Correction</option>
+						<option value='false'>No Correction</option>
+					</Select>
+					<Select
+						placeholder='Resolved'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, resolved: e.target.value }))
+						}
+					>
+						<option value='true'>Resolved</option>
+						<option value='false'>Not Resolved</option>
+					</Select>
+					<Select
+						placeholder='Die'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, die: e.target.value }))
+						}
+					>
+						<option value='true'>Die</option>
+						<option value='false'>Not Die</option>
+					</Select>
+					<Input
+						placeholder='Search by Email or UID'
+						onChange={e =>
+							setFilter(prev => ({ ...prev, search: e.target.value }))
+						}
+					/>
+				</Box>
+
+				{/* Data Table */}
+				{loading ? (
+					<Spinner size='lg' />
+				) : error ? (
+					<Text color='red.500'>Error: {error.message}</Text>
+				) : (
+					<Table variant='striped' colorScheme='gray' size='sm'>
+						<Thead>
+							<Tr>
+								<Th>Date</Th>
+								<Th>UID</Th>
+								<Th>Email</Th>
+								<Th>Type</Th>
+								<Th>Format</Th>
+								<Th>Pass</Th>
+								<Th>Approved</Th>
+								<Th>Downloaded</Th>
+								<Th>Resolved</Th>
+								<Th>Die</Th>
+								<Th>Rate</Th>
+								<Th>Status</Th>
+								<Th>Action</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							{paginatedData?.map(item => (
+								<Tr key={item.uid}>
+									<Td>{format(new Date(item.createdAt.date), "dd-MM")}</Td>
+									<Td>{item.uid}</Td>
+									<Td>{item.email}</Td>
+									<Td>{item.accountType}</Td>
+									<Td>{item.accountFormat}</Td>
+									<Td>{item.password}</Td>
+									<Td>{item.approved ? "Yes" : "No"}</Td>
+									<Td>{item.downloaded ? "Yes" : "No"}</Td>
+									{/* <Td>{item.correction ? "Yes" : "No"}</Td> */}
+									<Td>{item.resolved ? "Yes" : "No"}</Td>
+									<Td>{item.die ? "Yes" : "No"}</Td>
+									<Td>{item.rate}</Td>
+									<Td>
+										{item.die === true ? (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
+												Disabled
+											</span>
+										) : item.resolved === true ? (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
+												Back
+											</span>
+										) : item.approved === true ? (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
+												Approved!
+											</span>
+										) : item.downloaded === true ? (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
+												Processing!
+											</span>
+										) : item.resolved === false ? (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
+												Updated!
+											</span>
+										) : (
+											<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
+												Progress!
+											</span>
+										)}
+									</Td>
+									<Td>
+										<ResolvedAccount account={item} />
+									</Td>
+								</Tr>
+							))}
+						</Tbody>
+					</Table>
+				)}
+
+				{/* Pagination */}
+				<Box className='flex justify-between items-center mt-4'>
+					<Button
+						size={"sm"}
+						colorScheme='blue'
+						onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+						isDisabled={currentPage === 1}
+					>
+						Previous
+					</Button>
+					<Text>
+						Page {currentPage} of {totalPages}
+					</Text>
+					<Button
+						size={"sm"}
+						colorScheme='teal'
+						onClick={() =>
+							setCurrentPage(prev => Math.min(prev + 1, totalPages))
+						}
+						isDisabled={currentPage === totalPages}
+					>
+						Next
+					</Button>
+				</Box>
 			</Box>
-		</Box>
+		</div>
 	);
 };
 
