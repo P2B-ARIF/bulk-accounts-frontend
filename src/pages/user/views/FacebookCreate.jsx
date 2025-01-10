@@ -175,7 +175,7 @@ const FacebookCreate = ({ user }) => {
 
 						{details?.email && <MailInbox email={details?.email} />}
 
-{/* 						{account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />} */}
+						{account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />}
 						{account.accountFormat.includes("cookie") ? (
 							<>
 								<PasteTempMail />
