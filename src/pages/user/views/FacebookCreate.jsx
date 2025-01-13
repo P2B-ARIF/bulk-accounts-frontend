@@ -40,21 +40,23 @@ const FacebookCreate = ({ user }) => {
 	const maintenance = useOutletContext();
 
 	useEffect(() => {
-		const getEmail = getRandomEmail(maintenance?.mailbox);
-		const girlName = getRandomName();
+		if (maintenance) {
+			const getEmail = getRandomEmail(maintenance?.mailbox);
+			const girlName = getRandomName();
 
-		const email =
-			girlName.fname.toLowerCase() +
-			getEmail.split("@")[0] +
-			"@" +
-			getEmail.split("@")[1];
+			const email =
+				girlName.fname.toLowerCase() +
+				getEmail.split("@")[0] +
+				"@" +
+				getEmail.split("@")[1];
 
-		setDetails({
-			girlName: girlName,
-			pass: user.nickname + maintenance?.password,
-			number: getRandomNumber(),
-			email: email,
-		});
+			setDetails({
+				girlName: girlName,
+				pass: user.nickname + maintenance?.password,
+				number: getRandomNumber(),
+				email: email,
+			});
+		}
 	}, []);
 
 	const chakraToast = useToast();
