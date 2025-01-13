@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const MailvnMailCode = ({ mail }) => {
-	// const [code, setCode] = useState("");
+	const [code, setCode] = useState(mail.code);
 
 	// useEffect(() => {
 	// 	if (mail?.subject) {
