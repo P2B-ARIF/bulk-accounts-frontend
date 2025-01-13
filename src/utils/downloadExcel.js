@@ -33,7 +33,7 @@ const downloadExcel = async (data, accFormat) => {
 	// Apply font size 10 to all cells
 	worksheet.eachRow(row => {
 		row.eachCell(cell => {
-			cell.font = { size: 10 }; // Set font size to 10
+			cell.font = { size: 10, name: "Arial" }; // Set font size to 10
 		});
 	});
 

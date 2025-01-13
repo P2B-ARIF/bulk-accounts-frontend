@@ -27,6 +27,8 @@ import {
 } from "../../../utils/random";
 import { fetchPackages } from "./../../../toolkit/features/packageSlice";
 import AccountsStats from "./AccountsStats";
+import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
+import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
 
 const FacebookCreate = ({ user }) => {
 	const [details, setDetails] = useState({
@@ -34,12 +36,11 @@ const FacebookCreate = ({ user }) => {
 		number: "",
 		email: "",
 	});
-	const [usNumber, setUsNum] = useState(0);
 
 	const maintenance = useOutletContext();
 
 	useEffect(() => {
-		const getEmail = getRandomEmail();
+		const getEmail = getRandomEmail(maintenance?.mailbox);
 		const girlName = getRandomName();
 
 		const email =
@@ -71,8 +72,11 @@ const FacebookCreate = ({ user }) => {
 	}, [packages, dispatch]);
 
 	const facebookPackages = packages?.packages?.filter(
-		p => p.accountType === "facebook" && p.active === true,
+		p => p.accountType === "facebook",
 	);
+	// const facebookPackages = packages?.packages?.filter(
+	// 	p => p.accountType === "facebook" && p.active === true,
+	// );
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
@@ -173,7 +177,14 @@ const FacebookCreate = ({ user }) => {
 							<DetailCardCopy key={i} field={field} />
 						))}
 
-						{details?.email && <MailInbox email={details?.email} />}
+						{details?.email && maintenance?.mailbox === "1secmail" ? (
+							<OneSecMailBox email={details.email} />
+						) : (
+							maintenance?.mailbox === "5smail" && (
+								<Mailvn email={details.email} />
+							)
+						)}
+						{/* {details?.email && <MailInbox email={details?.email} />} */}
 
 						{account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />}
 						{account.accountFormat.includes("cookie") ? (

@@ -38,7 +38,7 @@ const InstagramCreate = ({ user }) => {
 	const maintenance = useOutletContext();
 
 	useEffect(() => {
-		const getEmail = getRandomEmail();
+		const getEmail = getRandomEmail(maintenance?.mailbox);
 		const girlName = getRandomName();
 
 		const email =
@@ -79,8 +79,11 @@ const InstagramCreate = ({ user }) => {
 	}, [packages, dispatch]);
 
 	const instagramPackages = packages?.packages?.filter(
-		p => p.accountType === "instagram" && p.active === true,
+		p => p.accountType === "instagram",
 	);
+	// const instagramPackages = packages?.packages?.filter(
+	// 	p => p.accountType === "instagram" && p.active === true,
+	// );
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();

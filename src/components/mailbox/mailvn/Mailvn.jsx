@@ -3,9 +3,9 @@ import axios from "axios";
 import { RefreshCcw } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import MailCode from "./MailCode";
-// { email }
-const MailInbox = ({ email }) => {
+import MailvnMailCode from "./MailvnMailCode";
+
+const Mailvn = ({ email }) => {
 	const [loading, setLoading] = useState(false);
 	const [mailbox, setMailbox] = useState([]);
 
@@ -21,8 +21,11 @@ const MailInbox = ({ email }) => {
 				return;
 			}
 
-			const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${username}&domain=${domain}`;
+			// https://mailvn.site/checkmail.php?mail=a2add0a278a3%40mailvn.site&latest_id=0
+			const url = `https://5smail.email/mail.php?mail=${username}%40${domain}`;
+			// const url = `https://www.1secmail.com/api/v1/?action=getMessages&login=${username}&domain=${domain}`;
 			const { data } = await axios.get(url);
+			console.log(data, "5smail..");
 			setMailbox(data);
 		} catch (err) {
 			// toast.error("Failed to load messages. Try again later.");
@@ -64,9 +67,7 @@ const MailInbox = ({ email }) => {
 
 			<div className='bg-white text-slate-800 p-4 flex flex-col gap-2'>
 				{mailbox.length > 0 ? (
-					mailbox?.map((mail, i) => (
-						<MailCode key={i} email={email} mail={mail} />
-					))
+					<MailvnMailCode mail={mailbox} />
 				) : (
 					<Box bg='gray.100' p={2} borderRadius='md'>
 						<Input
@@ -78,9 +79,24 @@ const MailInbox = ({ email }) => {
 						/>
 					</Box>
 				)}
+				{/* {mailbox.length > 0 ? (
+					mailbox?.map((mail, i) => (
+						<MailvnMailCode key={i} email={email} mail={mail} />
+					))
+				) : (
+					<Box bg='gray.100' p={2} borderRadius='md'>
+						<Input
+							value='Wait for verification code'
+							readOnly
+							variant='unstyled'
+							bg='transparent'
+							color='gray.500'
+						/>
+					</Box>
+				)} */}
 			</div>
 		</Box>
 	);
 };
 
-export default MailInbox;
+export default Mailvn;

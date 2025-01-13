@@ -85,6 +85,22 @@ const AccountDownload = () => {
 			alert("No accounts match the selected criteria.");
 			return;
 		}
+		downloadExcel(filteredAccounts, selectedFormat);
+	};
+
+	const handleDownloadUpdate = async () => {
+		if (!accounts || accounts.length === 0) {
+			alert("No accounts available to download!");
+			return;
+		}
+		const filteredAccounts = accounts.filter(
+			acc => acc.accountType === type && acc.accountFormat === selectedFormat,
+		);
+
+		if (filteredAccounts.length === 0) {
+			alert("No accounts match the selected criteria.");
+			return;
+		}
 
 		const uids = filteredAccounts.map(f => f.uid);
 		await put("/api/accounts/downloaded", uids);
@@ -140,12 +156,18 @@ const AccountDownload = () => {
 					))}
 				</Select>
 
-				<div className='flex items-center gap-2 mt-2'>
+				<div className='flex items-center gap-3 mt-2'>
 					<button
 						onClick={handleDownload}
-						className='text-md text-blue-500 hover:text-blue-700 font-medium shadow-sm px-3 bg-blue-100 rounded-lg py-1.5'
+						className='text-md text-pink-500 hover:text-pink-700 font-medium shadow-sm px-3 bg-pink-100 rounded-lg py-1.5'
 					>
 						Download File
+					</button>
+					<button
+						onClick={handleDownloadUpdate}
+						className='text-md text-blue-500 hover:text-blue-700 font-medium shadow-sm px-3 bg-blue-100 rounded-lg py-1.5'
+					>
+						Download & Update File
 					</button>
 				</div>
 			</Box>

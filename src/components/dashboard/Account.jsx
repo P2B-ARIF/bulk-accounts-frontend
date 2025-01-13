@@ -5,12 +5,38 @@ import { IoMdTime } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { formatDistanceToNow, isToday } from "date-fns";
 
 const Account = ({ account }) => {
 	const { accounts } = useSelector(state => state.accounts);
 
 	const counts = accounts?.filter(acc => acc.userEmail === account.email);
 	const navigate = useNavigate();
+
+	// Format date to show relative time for today
+	const formatDate = dateString => {
+		try {
+			const date = new Date(dateString);
+			if (isNaN(date.getTime())) {
+				throw new Error("Invalid date");
+			}
+
+			// Check if the date is today
+			if (isToday(date)) {
+				return `${formatDistanceToNow(date, { addSuffix: true })}`;
+			}
+
+			// Format for older dates
+			return new Intl.DateTimeFormat("en-US", {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			}).format(date);
+		} catch (error) {
+			console.error("Invalid date string:", dateString, error.message);
+			return "Invalid Date";
+		}
+	};
 
 	return (
 		<div
@@ -23,11 +49,11 @@ const Account = ({ account }) => {
 				<span>{account?.name}</span>
 				<b>{counts?.length}</b>
 			</h3>
-			<div className='text-xs md:text-sm flex items-center gap-1 text-blue-500 mt-2'>
+			<div className='text-xs md:text-sm flex items-center gap-1 text-blue-500 mt-1'>
 				{account?.email}
 			</div>
 
-			<hr className='my-2 border-gray-300' />
+			<hr className='my-1 border-gray-300' />
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
 				<RiLockPasswordFill /> {account?.nickname}
 			</div>
@@ -39,11 +65,12 @@ const Account = ({ account }) => {
 			</div>
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
 				{/* <IoMdTime /> {account?.createdAt?.date} */}
-				<IoMdTime /> Registered-{" "}
-				{format(account?.createdAt?.date, "dd-MM-yyyy")}
+				<IoMdTime /> Registered- {formatDate(account?.createdAt?.date ?? "N/A")}
+				{/* {format(account?.createdAt?.date, "dd-MM-yyyy")} */}
 			</div>
 			<div className='text-xs md:text-sm flex items-center gap-1 text-slate-700'>
-				<FaUserClock /> Last Login- {format(account?.lastLogin, "dd-MM-yyyy")}
+				<FaUserClock /> Last Login- {formatDate(account?.lastLogin ?? "N/A")}
+				{/* <FaUserClock /> Last Login- {format(account?.lastLogin, "dd-MM-yyyy")} */}
 			</div>
 		</div>
 	);

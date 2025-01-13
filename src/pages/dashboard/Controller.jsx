@@ -9,6 +9,7 @@ import AccountsPassword from "./views/AccountsPassword";
 import Maintenance from "./views/Maintenance";
 import UpdatePassword from "./views/UpdatePassword";
 import UserBlock from "./views/UserBlock";
+import UpdateMailBox from "./views/UpdateMailBox";
 
 const Controller = () => {
 	const { get, response, error, loading } = useCrud();
@@ -27,11 +28,17 @@ const Controller = () => {
 		<section className='mb-8'>
 			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
 
-			<div className='grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 max-sm:space-y-5 gap-3'>
+			<div className='grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 max-sm:space-y-5 gap-3 items-start'>
 				{/* <Message /> */}
 				{response && (
 					<>
-						<AccountsPassword getResponse={response} func={fetchMaintenance} />
+						<div className='space-y-5'>
+							<AccountsPassword
+								getResponse={response}
+								func={fetchMaintenance}
+							/>
+							<UpdateMailBox getResponse={response} func={fetchMaintenance} />
+						</div>
 						<Maintenance getResponse={response} func={fetchMaintenance} />
 					</>
 				)}

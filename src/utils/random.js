@@ -205,11 +205,29 @@ export const getRandomName = () => ({
 	lname: getRandomItem(lastNames),
 });
 
-export const getRandomEmail = () => {
-	const providers = ["1secmail.com", "1secmail.org"];
-	const randomName = Math.random().toString(12).substring(2, 7); // Random string
+const generateRandomEmail = providers => {
+	const randomName = Math.random().toString(36).substring(2, 7); // Use base 36 for better randomness
 	const domain = providers[Math.floor(Math.random() * providers.length)];
 	return `${randomName}@${domain}`;
+};
+
+export const getRandomEmail = mailbox => {
+	const emailProviders = {
+		"1secmail": ["1secmail.com", "1secmail.org", "1secmail.net"],
+		mailvn: ["mailvn.site"],
+		"5smail": ["1secmail.site", "5smail.site", "5smail.email"],
+	};
+
+	const providers = emailProviders[mailbox];
+
+	if (!providers) {
+		console.error(`Invalid mailbox type: ${mailbox}`);
+		return null; // Return null for invalid mailbox types
+	}
+
+	const email = generateRandomEmail(providers);
+	console.log(`Generated email for ${mailbox}: ${email}`);
+	return email;
 };
 
 export const getRandomNumber = () => {

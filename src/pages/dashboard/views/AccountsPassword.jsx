@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useCrud from "../../../hook/useCrud";
 
-const AccountsPassword = ({ getResponse }) => {
+const AccountsPassword = ({ getResponse, func }) => {
 	const [password, setPassword] = useState("");
 
 	const { put, response, error, loading } = useCrud();
@@ -16,7 +16,7 @@ const AccountsPassword = ({ getResponse }) => {
 
 	useEffect(() => {
 		if (response) {
-			console.log(response, "change password");
+			func();
 			toast.success("successfully updated password!");
 		}
 		if (error) {
@@ -25,7 +25,7 @@ const AccountsPassword = ({ getResponse }) => {
 	}, [response, error]);
 
 	return (
-		<div className='md:p-5 space-y-3'>
+		<div className='m-5 md:p-5 space-y-3 border rounded-md shadow-md'>
 			<h3 className='font-medium'>Accounts Password</h3>
 
 			<Input

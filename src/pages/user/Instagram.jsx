@@ -40,20 +40,20 @@ const Instagram = () => {
 		return acc;
 	}, {});
 
-	if (
-		!packages?.packages?.some(p => p.accountType === "instagram" && p.active)
-	) {
-		return (
-			<div className='flex flex-col h-screen items-center justify-center bg-gray-50 text-center'>
-				<h1 className='text-lg md:text-xl font-bold text-gray-800 mb-2'>
-					No Active Instagram Packages Available
-				</h1>
-				<p className='text-gray-600 mb-4'>
-					Please check other tasks or contact your administrator for assistance.
-				</p>
-			</div>
-		);
-	}
+	// if (
+	// 	!packages?.packages?.some(p => p.accountType === "instagram" && p.active)
+	// ) {
+	// 	return (
+	// 		<div className='flex flex-col h-screen items-center justify-center bg-gray-50 text-center'>
+	// 			<h1 className='text-lg md:text-xl font-bold text-gray-800 mb-2'>
+	// 				No Active Instagram Packages Available
+	// 			</h1>
+	// 			<p className='text-gray-600 mb-4'>
+	// 				Please check other tasks or contact your administrator for assistance.
+	// 			</p>
+	// 		</div>
+	// 	);
+	// }
 	return (
 		<section>
 			<h1 className='text-lg font-bold md:pl-5 mb-3'>Instagram Work Station</h1>

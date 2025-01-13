@@ -3,9 +3,10 @@ import axios from "axios";
 import { RefreshCcw } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import MailCode from "./MailCode";
+import OneMailCode from "./OneMailCode";
+
 // { email }
-const MailInbox = ({ email }) => {
+const OneSecMailBox = ({ email }) => {
 	const [loading, setLoading] = useState(false);
 	const [mailbox, setMailbox] = useState([]);
 
@@ -65,7 +66,7 @@ const MailInbox = ({ email }) => {
 			<div className='bg-white text-slate-800 p-4 flex flex-col gap-2'>
 				{mailbox.length > 0 ? (
 					mailbox?.map((mail, i) => (
-						<MailCode key={i} email={email} mail={mail} />
+						<OneMailCode key={i} email={email} mail={mail} />
 					))
 				) : (
 					<Box bg='gray.100' p={2} borderRadius='md'>
@@ -83,4 +84,4 @@ const MailInbox = ({ email }) => {
 	);
 };
 
-export default MailInbox;
+export default OneSecMailBox;

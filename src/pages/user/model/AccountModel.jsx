@@ -14,7 +14,13 @@ const AccountModel = ({ account }) => {
 
 	const wrapperRef = useRef(null);
 
+	console.log(account, "accountsss");
+
+	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
+
+	// const bgColorInActive = useColorModeValue("red", "gray.800");
+	// const borderColorInActive = useColorModeValue("red.200", "red.700");
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -84,7 +90,6 @@ const AccountModel = ({ account }) => {
 
 	// console.log(accountStat);
 
-	const bgColor = useColorModeValue("white", "gray.800");
 	const dispatch = useDispatch();
 
 	return (

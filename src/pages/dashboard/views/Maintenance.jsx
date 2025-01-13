@@ -34,47 +34,49 @@ const Maintenance = ({ getResponse, func }) => {
 	}
 
 	return (
-		<Box padding='4' boxShadow='lg' borderRadius='lg'>
-			<h3 className='font-medium text-xl mb-4'>Maintenance Settings</h3>
+		<div>
+			<Box padding='4' boxShadow='lg' borderRadius='lg'>
+				<h3 className='font-medium text-xl mb-4'>Maintenance Settings</h3>
 
-			<div className='flex items-center justify-between mb-4'>
-				<span>Enable Maintenance:</span>
-				<Switch
-					isChecked={isEnabled}
-					onChange={e => setIsEnabled(e.target.checked)}
-					colorScheme='blue'
+				<div className='flex items-center justify-between mb-4'>
+					<span>Enable Maintenance:</span>
+					<Switch
+						isChecked={isEnabled}
+						onChange={e => setIsEnabled(e.target.checked)}
+						colorScheme='blue'
+						isDisabled={loading}
+					/>
+				</div>
+
+				<Textarea
+					placeholder='Enter maintenance message'
+					value={message}
+					onChange={e => setMessage(e.target.value)}
 					isDisabled={loading}
+					minHeight='120px'
+					resize='none'
+					mb='4'
 				/>
-			</div>
 
-			<Textarea
-				placeholder='Enter maintenance message'
-				value={message}
-				onChange={e => setMessage(e.target.value)}
-				isDisabled={loading}
-				minHeight='120px'
-				resize='none'
-				mb='4'
-			/>
+				<Button
+					colorScheme='blue'
+					onClick={handleUpdate} // Fix: Call the function here
+					isDisabled={loading}
+					width='full'
+					isLoading={loading}
+				>
+					{isEnabled ? "Update Maintenance" : "Set Maintenance"}
+				</Button>
 
-			<Button
-				colorScheme='blue'
-				onClick={handleUpdate} // Fix: Call the function here
-				isDisabled={loading}
-				width='full'
-				isLoading={loading}
-			>
-				{isEnabled ? "Update Maintenance" : "Set Maintenance"}
-			</Button>
-
-			{getResponse && (
-				<Box mt='4' p='3' bg='gray.100' borderRadius='md'>
-					<h4 className='font-bold'>Current Status:</h4>
-					<p>Maintenance Active: {getResponse.enabled ? "Yes" : "No"}</p>
-					<p>Message: {getResponse.message || "No message set"}</p>
-				</Box>
-			)}
-		</Box>
+				{getResponse && (
+					<Box mt='4' p='3' bg='gray.100' borderRadius='md'>
+						<h4 className='font-bold'>Current Status:</h4>
+						<p>Maintenance Active: {getResponse.enabled ? "Yes" : "No"}</p>
+						<p>Message: {getResponse.message || "No message set"}</p>
+					</Box>
+				)}
+			</Box>
+		</div>
 	);
 };
 

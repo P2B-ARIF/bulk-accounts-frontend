@@ -2,6 +2,7 @@ import { Td, Tr, useColorModeValue } from "@chakra-ui/react";
 import { formatDistanceToNow, isToday } from "date-fns";
 import React from "react";
 import SeeDisabledModel from "../model/SeeDisabledModel";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const HistoryTable = ({ item, index }) => {
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
@@ -44,13 +45,17 @@ const HistoryTable = ({ item, index }) => {
 					item.accountType === "facebook" ? "text-blue-500" : "text-pink-500"
 				}`}
 			>
-				{item.accountType}
+				{item.accountType === "facebook" ? (
+					<FaFacebook size={20} />
+				) : (
+					<FaInstagram size={20} />
+				)}
 			</Td>
 			<Td className='uppercase'>{item.accountFormat}</Td>
 			<Td>{item.rate.toFixed(2)} BDT</Td>
 			<Td>
 				{item.die === true ? (
-					<div className='flex items-center gap-3'>
+					<div className='md:flex items-center space-y-2 md:space-y-0 md:gap-3'>
 						<a
 							href={`https://www.facebook.com/profile.php?id=${item.uid}`}
 							target='_blank'

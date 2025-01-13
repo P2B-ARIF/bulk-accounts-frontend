@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import MailCode from "./MailCode";
 // { email }
-const MailInbox = ({ email }) => {
+const FivesMailBox = ({ email }) => {
 	const [loading, setLoading] = useState(false);
 	const [mailbox, setMailbox] = useState([]);
 
@@ -83,4 +83,4 @@ const MailInbox = ({ email }) => {
 	);
 };
 
-export default MailInbox;
+export default FivesMailBox;

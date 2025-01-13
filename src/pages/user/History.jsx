@@ -49,7 +49,7 @@ export default function History() {
 						<Thead>
 							<Tr>
 								<Th>Date</Th>
-								<Th>Account Type</Th>
+								<Th>Type</Th>
 								<Th>Format</Th>
 								<Th>Rate</Th>
 								<Th>Status</Th>

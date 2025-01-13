@@ -21,7 +21,7 @@ const SideBar = () => {
 		{ url: "/user", icon: FaFacebook, name: "Facebook" },
 		{ url: "/user/instagram", icon: FaInstagram, name: "Instagram" },
 		{ url: "/user/history", icon: MdManageHistory, name: "History" },
-		{ url: "/user/payment", icon: MdPayments, name: "Payment" },
+		{ url: "/user/payment", icon: MdPayments, name: "Withdraw" },
 	];
 
 	useEffect(() => {

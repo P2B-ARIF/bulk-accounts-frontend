@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
-import LoadingPage from "../LoadingPage";
 import Account from "./../../components/dashboard/Account";
 import useCrud from "./../../hook/useCrud";
+import AccountSkeleton from "../../components/skeleton/AccountSkeleton";
 
 const Accounts = () => {
-	const { get, response, error, loading } = useCrud();
+	const { get, response, loading } = useCrud();
 
 	const { accounts: allAccounts } = useSelector(state => state.accounts);
 	const dispatch = useDispatch();
@@ -23,9 +23,9 @@ const Accounts = () => {
 		}
 	}, []);
 
-	if (loading) {
-		return <LoadingPage />;
-	}
+	// if (loading) {
+	// 	return <LoadingPage />;
+	// }
 
 	return (
 		<section>
@@ -34,7 +34,9 @@ const Accounts = () => {
 			</h1>
 
 			<div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2'>
+				{loading && [1, 2, 3, 4, 5].map(acc => <AccountSkeleton key={acc} />)}
 				{response &&
+					!loading &&
 					response
 						?.sort((a, b) => new Date(b?.lastLogin) - new Date(a?.lastLogin))
 						?.map((account, i) => <Account key={i} account={account} />)}
