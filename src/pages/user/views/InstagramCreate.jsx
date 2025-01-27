@@ -26,6 +26,8 @@ import {
 	getRandomNumber,
 } from "../../../utils/random";
 import AccountsStats from "./AccountsStats";
+import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
+import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
 
 const InstagramCreate = ({ user }) => {
 	const [details, setDetails] = useState({
@@ -35,12 +37,16 @@ const InstagramCreate = ({ user }) => {
 		email: "",
 	});
 
+	const [isMailBoxOn, setIsMailBoxOn] = useState(false);
+
 	const maintenance = useOutletContext();
 
 	useEffect(() => {
 		if (maintenance) {
 			const getEmail = getRandomEmail(maintenance?.mailbox);
 			const girlName = getRandomName();
+
+			setIsMailBoxOn(maintenance?.mailboxToggle);
 
 			const email =
 				girlName.fname.toLowerCase() +
@@ -164,14 +170,29 @@ const InstagramCreate = ({ user }) => {
 							},
 							{ title: "Number", value: details.number },
 							{ title: "Email", value: details.email },
-						].map((field, i) => (
-							<DetailCardCopy key={i} field={field} />
-						))}
+						].map((field, i) => {
+							if (isMailBoxOn === false && field.title === "Email") {
+								return null;
+							}
 
-						{details?.email && <MailInbox email={details?.email} />}
+							return <DetailCardCopy key={i} field={field} />;
+						})}
+
+						{maintenance?.mailboxToggle && details?.email ? (
+							maintenance.mailbox === "1secmail" ? (
+								<OneSecMailBox email={details.email} />
+							) : maintenance.mailbox === "5smail" ? (
+								<Mailvn email={details.email} />
+							) : null
+						) : null}
+
+						{/* {details?.email && <MailInbox email={details?.email} />} */}
 
 						<FactorCode />
-						<PasteTempMail />
+
+						{maintenance?.tempmail && <PasteTempMail />}
+
+						{/* <PasteTempMail /> */}
 						<Box
 							borderWidth={1}
 							borderRadius='lg'

@@ -37,12 +37,16 @@ const FacebookCreate = ({ user }) => {
 		email: "",
 	});
 
+	const [isMailBoxOn, setIsMailBoxOn] = useState(false);
+
 	const maintenance = useOutletContext();
 
 	useEffect(() => {
 		if (maintenance) {
 			const getEmail = getRandomEmail(maintenance?.mailbox);
 			const girlName = getRandomName();
+
+			setIsMailBoxOn(maintenance?.mailboxToggle);
 
 			const email =
 				girlName.fname.toLowerCase() +
@@ -125,6 +129,8 @@ const FacebookCreate = ({ user }) => {
 	// 	setUsNum(getUSRandomNumber());
 	// };
 
+	// console.log(maintenance);
+
 	return (
 		<Box>
 			<SimpleGrid columns={{ base: 1, lg: 5 }} spacing={6}>
@@ -175,23 +181,30 @@ const FacebookCreate = ({ user }) => {
 							},
 							{ title: "Number", value: details.number },
 							{ title: "Email", value: details.email },
-						].map((field, i) => (
-							<DetailCardCopy key={i} field={field} />
-						))}
+						].map((field, i) => {
+							if (isMailBoxOn === false && field.title === "Email") {
+								return null;
+							}
 
-						{details?.email && maintenance?.mailbox === "1secmail" ? (
-							<OneSecMailBox email={details.email} />
-						) : (
-							maintenance?.mailbox === "5smail" && (
+							return <DetailCardCopy key={i} field={field} />;
+						})}
+
+						{maintenance?.mailboxToggle && details?.email ? (
+							maintenance.mailbox === "1secmail" ? (
+								<OneSecMailBox email={details.email} />
+							) : maintenance.mailbox === "5smail" ? (
 								<Mailvn email={details.email} />
-							)
-						)}
-						{/* {details?.email && <MailInbox email={details?.email} />} */}
+							) : null
+						) : null}
 
-						{account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />}
+						{/* {details?.email && <MailInbox email={details?.email} />} */}
+						{/* {account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />} */}
+
+						{maintenance?.tempmail && <PasteTempMail />}
+
 						{account.accountFormat.includes("cookie") ? (
 							<>
-								<PasteTempMail />
+								{/* <PasteTempMail /> */}
 								<CookieUrl />
 							</>
 						) : (

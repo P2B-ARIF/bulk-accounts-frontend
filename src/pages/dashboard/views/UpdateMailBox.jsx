@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Box, Select, Button, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Select,
+	Button,
+	VStack,
+	FormControl,
+	FormLabel,
+} from "@chakra-ui/react";
 import useCrud from "../../../hook/useCrud";
 import toast from "react-hot-toast";
+import { Switch } from "@chakra-ui/react";
 
 const UpdateMailBox = ({ getResponse, func }) => {
 	const { put, response, error, loading } = useCrud();
+	const [isTempMailOn, setIsTempMailOn] = useState(getResponse?.tempmail);
+	const [isMailBoxOn, setIsMailBoxOn] = useState(getResponse?.mailboxToggle);
 
 	const lists = [
 		{ name: "1secMail", label: "1secmail" },
@@ -40,12 +50,78 @@ const UpdateMailBox = ({ getResponse, func }) => {
 		}
 	}, [response, error]);
 
+	const handleTempMailToggle = async () => {
+		try {
+			await put("/api/maintenance/mailbox", { tempmail: !isTempMailOn });
+		} catch (err) {
+			console.error(err.message);
+			toast.error("Failed to update tempmail");
+		}
+	};
+
+	const handleMailBoxToggle = async () => {
+		try {
+			await put("/api/maintenance/mailbox", { mailboxToggle: !isMailBoxOn });
+		} catch (err) {
+			console.error(err.message);
+			toast.error("Failed to update tempmail");
+		}
+	};
+
 	return (
 		<div className='lg:ml-5 lg:mr-2.5 p-3 md:p-5 border rounded-md shadow-md'>
 			<Box mx='auto'>
-				<h3 className='mb-2'>
-					Email Selection | <b>{getResponse?.mailbox}</b>
-				</h3>
+				<div className='flex flex-col items-start justify-between mb-2'>
+					<h3 className='mb-2'>
+						Email Selection | <b>{getResponse?.mailbox}</b>
+					</h3>
+					<div className='flex items-center gap-5'>
+						<div className='bg-slate-700 rounded-full text-slate-200 py-1 px-3 text-sm'>
+							<FormControl display='flex' alignItems='center'>
+								<FormLabel
+									htmlFor='mailbox'
+									mb='0'
+									fontSize={"sm"}
+									cursor={"pointer"}
+								>
+									MailBox Is{" "}
+									<span
+										className={isMailBoxOn ? "text-green-400" : "text-red-400"}
+									>
+										{isMailBoxOn ? "On" : "Off"}
+									</span>
+								</FormLabel>
+								<Switch
+									onChange={handleMailBoxToggle}
+									id='mailbox'
+									isChecked={isMailBoxOn}
+								/>
+							</FormControl>
+						</div>
+						<div className='bg-slate-700 rounded-full text-slate-200 py-1 px-3 text-sm'>
+							<FormControl display='flex' alignItems='center'>
+								<FormLabel
+									htmlFor='tempmail'
+									mb='0'
+									fontSize={"sm"}
+									cursor={"pointer"}
+								>
+									Tempmail Is{" "}
+									<span
+										className={isTempMailOn ? "text-green-400" : "text-red-400"}
+									>
+										{isTempMailOn ? "On" : "Off"}
+									</span>
+								</FormLabel>
+								<Switch
+									onChange={handleTempMailToggle}
+									id='tempmail'
+									isChecked={isTempMailOn}
+								/>
+							</FormControl>
+						</div>
+					</div>
+				</div>
 				<VStack spacing={4}>
 					<Select
 						placeholder='Select a mailbox'
@@ -59,13 +135,14 @@ const UpdateMailBox = ({ getResponse, func }) => {
 						))}
 					</Select>
 					<Button
-						w='full'
+						width={"100%"}
 						colorScheme='blue'
 						onClick={handleUpdate}
 						isLoading={loading} // Disable button while loading
 						loadingText='Updating'
+						isDisabled={selectedMail?.length > 0 ? false : true}
 					>
-						Update
+						<span>Update</span>
 					</Button>
 				</VStack>
 			</Box>

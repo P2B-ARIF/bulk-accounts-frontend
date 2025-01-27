@@ -11,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import LoadingPage from "../LoadingPage";
 import HistoryTable from "./views/HistoryTable";
+import HistoryStatusModal from "./model/HistoryStatusModal";
 
 export default function History() {
 	const { everything, loading, error } = useSelector(state => state.everything);
@@ -26,7 +27,10 @@ export default function History() {
 
 	return (
 		<section>
-			<h1 className='text-lg font-bold md:pl-5 mb-2'>History</h1>
+			<div className='flex items-center gap-3'>
+				<h1 className='text-lg font-bold md:pl-5 mb-2'>History</h1>
+				<HistoryStatusModal />
+			</div>
 
 			<Box
 				ml={{ base: 0, md: 5 }}

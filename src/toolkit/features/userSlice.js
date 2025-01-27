@@ -27,6 +27,30 @@ export const fetchCheckUser = createAsyncThunk(
 	},
 );
 
+// Async thunk for fetching user data
+export const fetchAllUser = createAsyncThunk(
+	"user/fetchAllUser",
+	async (endpoint, { rejectWithValue }) => {
+		const serverUrl = import.meta.env.VITE_SERVER_LINK;
+		try {
+			const response = await axios.get(`${serverUrl}/api/auth/get-allUsers`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+				},
+			});
+			return response.data;
+		} catch (error) {
+			if (!error.response.data.access) {
+				localStorage.removeItem("authToken");
+			}
+
+			return rejectWithValue(
+				error.response?.data?.message || "Error fetching user data",
+			);
+		}
+	},
+);
+
 // Create the slice
 const userSlice = createSlice({
 	name: "user",
@@ -34,6 +58,7 @@ const userSlice = createSlice({
 		user: null, // Initially, no user data is set
 		loading: false, // Track loading state
 		error: null, // Track any errors during the fetch
+		allUsers: null,
 	},
 	reducers: {},
 	extraReducers: builder => {
@@ -49,6 +74,20 @@ const userSlice = createSlice({
 			.addCase(fetchCheckUser.rejected, (state, action) => {
 				state.loading = false; // Set loading to false when the request fails
 				state.error = action.payload; // Set the error message from the rejected action
+			})
+
+			// Handling fetchAllUser
+			.addCase(fetchAllUser.pending, state => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchAllUser.fulfilled, (state, action) => {
+				state.loading = false;
+				state.allUsers = action.payload;
+			})
+			.addCase(fetchAllUser.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload;
 			});
 	},
 });
