@@ -26,12 +26,10 @@ const Controller = () => {
 
 	return (
 		<section className='mb-8'>
-			<h1 className='text-lg font-bold md:pl-5'>Controller </h1>
+			<h1 className='text-lg font-bold lg:pl-5 mb-3'>Controller </h1>
 
-			<div className='grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 max-sm:space-y-5 gap-3 items-start'>
-				{/* <Message /> */}
 				{response && (
-					<>
+			<div className='grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 max-sm:space-y-5 gap-3 items-start'>
 						<div className='space-y-5'>
 							<AccountsPassword
 								getResponse={response}
@@ -40,11 +38,10 @@ const Controller = () => {
 							<UpdateMailBox getResponse={response} func={fetchMaintenance} />
 						</div>
 						<Maintenance getResponse={response} func={fetchMaintenance} />
-					</>
-				)}
 			</div>
+				)}
 
-			<div className='md:flex justify-around gap-2 md:p-5 max-sm:space-y-5'>
+			<div className='sm:flex justify-around gap-3 md:gap-5 pt-5 lg:p-5 max-sm:space-y-5'>
 				<UpdatePassword />
 				<UserBlock />
 			</div>

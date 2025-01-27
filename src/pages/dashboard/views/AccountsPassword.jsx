@@ -25,7 +25,7 @@ const AccountsPassword = ({ getResponse, func }) => {
 	}, [response, error]);
 
 	return (
-		<div className='m-5 md:p-5 space-y-3 border rounded-md shadow-md'>
+		<div className='lg:ml-5 lg:mr-2.5 p-3 md:p-5 space-y-3 border rounded-md shadow-md'>
 			<h3 className='font-medium'>Accounts Password</h3>
 
 			<Input

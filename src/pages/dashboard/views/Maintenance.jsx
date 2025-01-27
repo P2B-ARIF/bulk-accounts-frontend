@@ -34,8 +34,8 @@ const Maintenance = ({ getResponse, func }) => {
 	}
 
 	return (
-		<div>
-			<Box padding='4' boxShadow='lg' borderRadius='lg'>
+		<div className="border rounded-lg lg:mr-5">
+			<Box padding='4' boxShadow='lg' borderRadius='lg' >
 				<h3 className='font-medium text-xl mb-4'>Maintenance Settings</h3>
 
 				<div className='flex items-center justify-between mb-4'>

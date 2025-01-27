@@ -41,7 +41,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 	}, [response, error]);
 
 	return (
-		<div className='m-5 p-4 border rounded-md shadow-md'>
+		<div className='lg:ml-5 lg:mr-2.5 p-3 md:p-5 border rounded-md shadow-md'>
 			<Box mx='auto'>
 				<h3 className='mb-2'>
 					Email Selection | <b>{getResponse?.mailbox}</b>
