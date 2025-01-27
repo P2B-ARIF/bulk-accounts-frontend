@@ -126,27 +126,29 @@ const UpdateTypeFormat = ({ update, updateModel }) => {
 							/>
 						</FormControl>
 
-						<FormControl mb={3} isRequired>
-							<FormLabel>Rate (Taka)</FormLabel>
-							<Input
-								name='rate'
-								type='number'
-								value={accountData.rate}
-								onChange={handleInputChange}
-								placeholder='Enter Rate'
-							/>
-						</FormControl>
+						<div className='max-md:flex gap-2'>
+							<FormControl mb={3} isRequired>
+								<FormLabel>Rate (Taka)</FormLabel>
+								<Input
+									name='rate'
+									type='number'
+									value={accountData.rate}
+									onChange={handleInputChange}
+									placeholder='Enter Rate'
+								/>
+							</FormControl>
 
-						<FormControl mb={3} isRequired>
-							<FormLabel>Time</FormLabel>
-							<Input
-								name='time'
-								type='number'
-								value={accountData.time}
-								onChange={handleInputChange}
-								placeholder='Enter Time'
-							/>
-						</FormControl>
+							<FormControl mb={3} isRequired>
+								<FormLabel>Time</FormLabel>
+								<Input
+									name='time'
+									type='number'
+									value={accountData.time}
+									onChange={handleInputChange}
+									placeholder='Enter Time'
+								/>
+							</FormControl>
+						</div>
 
 						<FormControl mb={3} isRequired>
 							<FormLabel htmlFor='active'>Account Status</FormLabel>

@@ -75,7 +75,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 					<h3 className='mb-2'>
 						Email Selection | <b>{getResponse?.mailbox}</b>
 					</h3>
-					<div className='flex items-center gap-5'>
+					<div className='flex items-center justify-between gap-2 md:gap-5'>
 						<div className='bg-slate-700 rounded-full text-slate-200 py-1 px-3 text-sm'>
 							<FormControl display='flex' alignItems='center'>
 								<FormLabel
@@ -84,7 +84,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 									fontSize={"sm"}
 									cursor={"pointer"}
 								>
-									MailBox Is{" "}
+									MailBox{" "}
 									<span
 										className={isMailBoxOn ? "text-green-400" : "text-red-400"}
 									>
@@ -106,7 +106,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 									fontSize={"sm"}
 									cursor={"pointer"}
 								>
-									Tempmail Is{" "}
+									Tempmail{" "}
 									<span
 										className={isTempMailOn ? "text-green-400" : "text-red-400"}
 									>
