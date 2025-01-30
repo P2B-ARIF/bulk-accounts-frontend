@@ -56,7 +56,7 @@ const TiktokCreate = ({ user }) => {
 
 			setDetails({
 				girlName: girlName,
-				pass: user.nickname + "GZ@" + maintenance?.password, // Generate password based on user nickname and maintenance password
+				pass: user.nickname + "gz@" + maintenance?.password, // Generate password based on user nickname and maintenance password
 				number: getRandomNumber(),
 				email: email,
 			});
