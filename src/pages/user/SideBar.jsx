@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import useCrud from "../../hook/useCrud";
 import ShowMessage from "./model/ShowMessage";
+import { IoLogoTiktok } from "react-icons/io5";
 
 const SideBar = () => {
 	const { user, loading, error } = useSelector(state => state.user);
@@ -20,6 +21,7 @@ const SideBar = () => {
 		// { url: "/user", icon: TbLayoutDashboard, name: "Dashboard" },
 		{ url: "/user", icon: FaFacebook, name: "Facebook" },
 		{ url: "/user/instagram", icon: FaInstagram, name: "Instagram" },
+		{ url: "/user/tiktok", icon: IoLogoTiktok, name: "Tiktok" },
 		{ url: "/user/history", icon: MdManageHistory, name: "History" },
 		{ url: "/user/payment", icon: MdPayments, name: "Withdraw" },
 	];

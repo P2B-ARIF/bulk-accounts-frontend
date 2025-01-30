@@ -100,8 +100,17 @@ const NorApprovedDownload = ({ allAccounts }) => {
 			_hover={{ boxShadow: "lg" }}
 			transition='all 0.3s'
 		>
-			<h3 className='text-lg font-medium mb-5 text-blue-800'>
-				DOWNLOAD ACCOUNTS ---- Available <b>{accounts?.length || 0}</b> accounts
+			<h3
+				className={`text-lg font-medium mb-5 ${
+					accounts && accounts[0]?.accountType === "facebook"
+						? "text-blue-700"
+						: accounts && accounts[0]?.accountType === "instagram"
+						? "text-pink-600"
+						: "text-pink-950"
+				}`}
+			>
+				{accounts && accounts[0]?.accountType?.toUpperCase()} DOWNLOAD ACCOUNTS
+				---- Available <b>{accounts?.length || 0}</b> accounts
 			</h3>
 
 			<Box maxW='sm' className='space-y-3'>

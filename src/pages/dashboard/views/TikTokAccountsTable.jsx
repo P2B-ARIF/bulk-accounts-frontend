@@ -16,8 +16,9 @@ import useCrud from "../../../hook/useCrud";
 import LoadingPage from "../../LoadingPage";
 import ResolvedAccount from "../models/ResolvedAccount";
 
-const FacebookAccountsTable = () => {
+const TikTokAccountsTable = () => {
 	const { get, response, error, loading } = useCrud();
+
 	const [accounts, setAccounts] = useState([]);
 
 	const fetchAccounts = async () => {
@@ -28,15 +29,11 @@ const FacebookAccountsTable = () => {
 		fetchAccounts();
 	}, []);
 
-	// console.log(accounts, "acounts");
-
 	useEffect(() => {
 		if (response) {
-			// Filter and sort accounts
 			const uniqueFormats = response
-				?.filter(acc => acc.accountType === "facebook")
+				?.filter(acc => acc.accountType === "tiktok")
 				?.sort((a, b) => {
-					// Sorting in ascending order
 					if (a.accountFormat < b.accountFormat) return -1;
 					if (a.accountFormat > b.accountFormat) return 1;
 					return 0;
@@ -65,6 +62,7 @@ const FacebookAccountsTable = () => {
 			</div>
 		);
 	}
+
 	return (
 		<div>
 			{accounts && <NorApprovedDownload allAccounts={accounts} />}
@@ -84,7 +82,7 @@ const FacebookAccountsTable = () => {
 					>
 						<span>Fixing Accounts</span>
 					</Heading>
-					<Table variant='simple' size={"sm"}>
+					<Table variant='simple' size={{ base: "sm", md: "md" }}>
 						<Thead>
 							<Tr>
 								<Th>Date</Th>
@@ -94,7 +92,6 @@ const FacebookAccountsTable = () => {
 								<Th>Email</Th>
 								<Th>Password</Th>
 								<Th>Status</Th>
-								<Th>Action</Th>
 							</Tr>
 						</Thead>
 						<Tbody>
@@ -124,33 +121,6 @@ const FacebookAccountsTable = () => {
 											<Td>{item.email}</Td>
 											<Td>{item.password}</Td>
 											<Td>
-												{item.die === true ? (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-red-400'>
-														Disabled
-													</span>
-												) : item.resolved === true ? (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-blue-400'>
-														Back
-													</span>
-												) : item.approved === true ? (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-green-400'>
-														Approved!
-													</span>
-												) : item.downloaded === true ? (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-purple-400'>
-														Processing!
-													</span>
-												) : item.resolved === false ? (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-orange-500'>
-														Updated!
-													</span>
-												) : (
-													<span className='text-white px-2 py-1 rounded-xl text-sm bg-yellow-500'>
-														Progress!
-													</span>
-												)}
-											</Td>
-											<Td>
 												<ResolvedAccount
 													account={item}
 													fetchAccounts={fetchAccounts}
@@ -167,4 +137,4 @@ const FacebookAccountsTable = () => {
 	);
 };
 
-export default FacebookAccountsTable;
+export default TikTokAccountsTable;

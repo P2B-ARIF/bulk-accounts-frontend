@@ -89,6 +89,36 @@ const Payment = () => {
 					</div>
 				)}
 
+				{rateSummary?.tiktok ? (
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
+								{rateSummary?.tiktok?.accountType}
+							</span>
+							<span className='text-md font-medium text-muted-foreground'>
+								{rateSummary?.tiktok?.rate.toFixed(2)} BDT
+							</span>
+							<span className='text-md font-medium text-muted-foreground'>
+								{rateSummary?.tiktok?.count} TOTAL
+							</span>
+						</div>
+					</div>
+				) : (
+					<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-3 md:p-5 transition-all duration-300 hover:shadow-lg'>
+						<div className='flex flex-col gap-1 md:gap-2'>
+							<span className='text-md md:text-xl font-semibold md:font-bold uppercase tracking-tight'>
+								Tiktok
+							</span>
+							<span className='text-md font-medium text-muted-foreground'>
+								0
+							</span>
+							<span className='text-md font-medium text-muted-foreground'>
+								0
+							</span>
+						</div>
+					</div>
+				)}
+
 				{/* Total Earnings Section */}
 				<div className='rounded-lg border bg-card text-card-foreground shadow-sm p-5 flex flex-col gap-2 transition-all duration-300 hover:shadow-lg'>
 					<span className='text-lg md:text-2xl font-semibold md:font-bold tracking-tight'>

@@ -4,6 +4,7 @@ import {
 	FormErrorMessage,
 	FormLabel,
 	Input,
+	Select,
 	Textarea,
 } from "@chakra-ui/react";
 import { X } from "lucide-react";
@@ -181,6 +182,33 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 										>
 											Account Name
 										</FormLabel>
+										<Select
+											id='accountName'
+											name='accountName'
+											placeholder='Select account type'
+											value={formData.accountName}
+											onChange={handleChange}
+											bg='gray.100'
+										>
+											<option value='bkash'>Bkash</option>
+											{/* <option value='nagod'>Nagod</option> */}
+											{/* <option value='rocket'>Rocket</option> */}
+										</Select>
+										<p className='flex items-start gap-1 text-red-500 text-sm mt-1'>
+											<IoIosWarning size={18} /> লিমিটের কারণে যদি VAT কাটা হয়,
+											তবে সেই পরিমাণ আপনার কাছ থেকে কর্তন করা হবে।
+										</p>
+										<FormErrorMessage>{errors.accountName}</FormErrorMessage>
+									</FormControl>
+
+									{/* <FormControl isInvalid={errors.accountName}>
+										<FormLabel
+											htmlFor='accountName'
+											fontSize='sm'
+											color='gray.700'
+										>
+											Account Name
+										</FormLabel>
 										<Input
 											id='accountName'
 											name='accountName'
@@ -195,7 +223,7 @@ const WithdrawMoney = ({ approvedAccounts, amount }) => {
 											তবে সেই পরিমাণ আপনার কাছ থেকে কর্তন করা হবে।
 										</p>
 										<FormErrorMessage>{errors.accountName}</FormErrorMessage>
-									</FormControl>
+									</FormControl> */}
 
 									{/* Notes */}
 									<FormControl>

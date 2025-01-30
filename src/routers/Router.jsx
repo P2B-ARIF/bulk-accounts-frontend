@@ -27,6 +27,8 @@ import Contact from "./../pages/Contact";
 import AboutUs from "./../views/AboutUs";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
+import TikTok from "../pages/user/Tiktok";
+import AdminTikTok from "../pages/dashboard/AdminTiktok";
 
 export const router = createBrowserRouter([
 	{
@@ -57,6 +59,7 @@ export const router = createBrowserRouter([
 			// }, // Default route for "/user"
 			{ index: true, element: <Facebook /> },
 			{ path: "instagram", element: <Instagram /> },
+			{ path: "tiktok", element: <TikTok /> },
 			{ path: "history", element: <History /> },
 			{ path: "payment", element: <Payment /> },
 			{ path: "*", element: <NotFoundPage /> },
@@ -76,6 +79,7 @@ export const router = createBrowserRouter([
 			{ path: "user/:email", element: <UserHistoryTable /> },
 			{ path: "facebook", element: <AdminFacebook /> },
 			{ path: "instagram", element: <AdminInstagram /> },
+			{ path: "tiktok", element: <AdminTikTok /> },
 			{ path: "history", element: <AdminHistory /> },
 			{ path: "payment", element: <AdminPayment /> },
 			{ path: "sale-hole", element: <SaleHole /> },

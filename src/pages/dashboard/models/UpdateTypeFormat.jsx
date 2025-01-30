@@ -126,7 +126,7 @@ const UpdateTypeFormat = ({ update, updateModel }) => {
 							/>
 						</FormControl>
 
-						<div className='max-md:flex gap-2'>
+						<div className='flex gap-2'>
 							<FormControl mb={3} isRequired>
 								<FormLabel>Rate (Taka)</FormLabel>
 								<Input

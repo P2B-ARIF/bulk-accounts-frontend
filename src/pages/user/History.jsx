@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import LoadingPage from "../LoadingPage";
-import HistoryTable from "./views/HistoryTable";
 import HistoryStatusModal from "./model/HistoryStatusModal";
+import HistoryTable from "./views/HistoryTable";
 
 export default function History() {
 	const { everything, loading, error } = useSelector(state => state.everything);
@@ -55,6 +55,7 @@ export default function History() {
 								<Th>Date</Th>
 								<Th>Type</Th>
 								<Th>Format</Th>
+								<Th>Password</Th>
 								<Th>Rate</Th>
 								<Th>Status</Th>
 								{/* <Th>Action</Th> */}

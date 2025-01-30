@@ -1,8 +1,8 @@
 import { Td, Tr, useColorModeValue } from "@chakra-ui/react";
 import { formatDistanceToNow, isToday } from "date-fns";
 import React from "react";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import SeeDisabledModel from "../model/SeeDisabledModel";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const HistoryTable = ({ item, index }) => {
 	const stripedBg = useColorModeValue("gray.50", "gray.700");
@@ -42,28 +42,44 @@ const HistoryTable = ({ item, index }) => {
 			<Td
 				fontWeight='medium'
 				className={`uppercase ${
-					item.accountType === "facebook" ? "text-blue-500" : "text-pink-500"
+					item.accountType === "facebook"
+						? "text-blue-500"
+						: item.accountType === "instagram"
+						? "text-pink-500"
+						: "text-pink-900"
 				}`}
 			>
 				{item.accountType === "facebook" ? (
 					<FaFacebook size={20} />
-				) : (
+				) : item.accountType === "instagram" ? (
 					<FaInstagram size={20} />
+				) : (
+					<FaTiktok size={20} />
 				)}
 			</Td>
 			<Td className='uppercase'>{item.accountFormat}</Td>
+			<Td className='uppercase'>{item.password}</Td>
 			<Td>{item.rate.toFixed(2)} BDT</Td>
 			<Td>
 				{item.die === true ? (
 					<div className='md:flex items-center space-y-2 md:space-y-0 md:gap-3'>
 						<a
-							href={`https://www.facebook.com/profile.php?id=${item.uid}`}
+							href={
+								item.accountType === "facebook"
+									? `https://www.facebook.com/profile.php?id=${item.uid}`
+									: item.accountType === "instagram"
+									? `https://www.instagram.com/${item.uid}/`
+									: item.accountType === "tiktok"
+									? `https://www.tiktok.com/@${item.uid}`
+									: "#"
+							}
 							target='_blank'
 							rel='noopener noreferrer'
 							className='text-blue-500 underline'
 						>
 							Check ID
 						</a>
+
 						<SeeDisabledModel account={item} />
 					</div>
 				) : // <span

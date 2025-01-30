@@ -14,7 +14,7 @@ const AccountModel = ({ account }) => {
 
 	const wrapperRef = useRef(null);
 
-	console.log(account, "accountsss");
+	// console.log(account, "accountsss");
 
 	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");

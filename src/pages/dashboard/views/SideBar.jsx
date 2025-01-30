@@ -13,6 +13,7 @@ import {
 import { TbMessages, TbPackages } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { IoLogoTiktok } from "react-icons/io5";
 
 const SideBar = () => {
 	const { user, loading, error } = useSelector(state => state.user);
@@ -26,6 +27,7 @@ const SideBar = () => {
 		{ url: "/admin/accounts", icon: MdOutlineManageAccounts, name: "Accounts" },
 		{ url: "/admin/facebook", icon: FaFacebook, name: "Facebook" },
 		{ url: "/admin/instagram", icon: FaInstagram, name: "Instagram" },
+		{ url: "/admin/tiktok", icon: IoLogoTiktok, name: "Tiktok" },
 		{ url: "/admin/history", icon: MdManageHistory, name: "History" },
 		{ url: "/admin/payment", icon: MdPayments, name: "Payment" },
 		{ url: "/admin/sale-hole", icon: MdBusAlert, name: "Sale & BlackHole" },
