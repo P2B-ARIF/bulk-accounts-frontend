@@ -29,7 +29,7 @@ import {
 import DetailCardCopy from "./../../../components/user/DetailCardCopy";
 import AccountsStats from "./AccountsStats";
 
-const TikTokCreate = ({ user }) => {
+const TiktokCreate = ({ user }) => {
 	const [details, setDetails] = useState({
 		girlName: { fname: "", lname: "" },
 		number: "",
@@ -227,4 +227,4 @@ const TikTokCreate = ({ user }) => {
 	);
 };
 
-export default TikTokCreate;
+export default TiktokCreate;

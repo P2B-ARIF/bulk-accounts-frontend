@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPackages } from "../../toolkit/features/packageSlice";
 import LoadingPage from "../LoadingPage";
-import TikTokCreate from "./views/TikTokCreate";
+import TiktokCreate from "./views/TiktokCreate";
 
 const TikTok = () => {
 	// Extracting necessary state values from Redux store
@@ -74,7 +74,7 @@ const TikTok = () => {
 				</div>
 
 				{/* Render TikTokCreate component if user has a nickname */}
-				{user?.nickname && <TikTokCreate user={user} />}
+				{user?.nickname && <TiktokCreate user={user} />}
 			</div>
 		</section>
 	);
