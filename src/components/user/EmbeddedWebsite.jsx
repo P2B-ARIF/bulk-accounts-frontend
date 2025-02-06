@@ -9,6 +9,7 @@ const EmbeddedWebsite = ({ href }) => {
 				height: "350px",
 				border: "1px solid #ccc",
 				borderRadius: "5px",
+				overflow: "hidden",
 			}}
 		>
 			<Iframe

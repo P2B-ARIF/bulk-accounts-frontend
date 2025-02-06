@@ -84,6 +84,12 @@ const FacebookCreate = ({ user }) => {
 	// 	p => p.accountType === "facebook" && p.active === true,
 	// );
 
+	// https://www.facebook.com/profile.php?id=61572878882553
+	// 61572763267903
+	// 6a3bb95f9cae@5smail.email
+	// nasib@06
+	// FHH4 4NR7 QKLG XIAM JHVP R7NX 4W3X 6GJI
+
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
 
@@ -130,6 +136,17 @@ const FacebookCreate = ({ user }) => {
 	// };
 
 	// console.log(maintenance);
+
+	useEffect(() => {
+		if (account.uid && account.email && account.password) {
+			if (account.cookie || account.key) {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth",
+				});
+			}
+		}
+	}, [account]);
 
 	return (
 		<Box>
@@ -232,13 +249,14 @@ const FacebookCreate = ({ user }) => {
 										placeholder='Enter profile URL'
 									/>
 									<Button
-										onClick={() => {
-											handleCopy("uid");
-											window.scrollTo({
-												top: 0,
-												behavior: "smooth",
-											});
-										}}
+										// onClick={() => {
+										// 	handleCopy("uid");
+										// 	window.scrollTo({
+										// 		top: 0,
+										// 		behavior: "smooth",
+										// 	});
+										// }}
+										onClick={() => handleCopy("uid")}
 										colorScheme='blue'
 										leftIcon={<ClipboardCheck size={20} />}
 										width='full'
