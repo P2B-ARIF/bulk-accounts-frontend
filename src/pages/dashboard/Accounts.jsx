@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AccountSkeleton from "../../components/skeleton/AccountSkeleton";
 import { fetchAccounts } from "../../toolkit/features/dashboard/accountsSlice";
 import Account from "./../../components/dashboard/Account";
 import useCrud from "./../../hook/useCrud";
-import AccountSkeleton from "../../components/skeleton/AccountSkeleton";
 
 const Accounts = () => {
 	const { get, response, loading } = useCrud();
@@ -26,6 +26,8 @@ const Accounts = () => {
 	// if (loading) {
 	// 	return <LoadingPage />;
 	// }
+
+	console.log(response && response[0]);
 
 	return (
 		<section>

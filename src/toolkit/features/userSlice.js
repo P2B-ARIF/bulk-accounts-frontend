@@ -1,5 +1,5 @@
 // src/features/user/userSlice.js
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Async thunk for fetching user data
@@ -38,7 +38,7 @@ export const fetchAllUser = createAsyncThunk(
 					Authorization: `Bearer ${localStorage.getItem("authToken")}`,
 				},
 			});
-			return response.data;
+			return response.data.filter(acc => acc.role !== "admin");
 		} catch (error) {
 			if (!error.response.data.access) {
 				localStorage.removeItem("authToken");

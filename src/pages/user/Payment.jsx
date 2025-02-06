@@ -23,7 +23,7 @@ const Payment = () => {
 		return acc;
 	}, {});
 
-	console.log(rateSummary, "accounts");
+	// console.log(rateSummary, "accounts");
 	const money = accounts?.reduce((prev, next) => prev + next.rate, 0);
 
 	return (

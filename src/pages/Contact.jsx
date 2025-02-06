@@ -48,7 +48,7 @@ const Contact = () => {
 					</div>
 					<div className='flex items-center text-gray-700'>
 						<FaPhoneAlt className='text-primary mr-2' size={18} />
-						<p>+880 1953424319</p>
+						<p>+880 1648340837</p>
 					</div>
 					<div className='flex space-x-3 text-primary'>
 						<a

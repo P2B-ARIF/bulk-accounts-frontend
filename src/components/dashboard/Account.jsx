@@ -1,11 +1,10 @@
-import { format } from "date-fns";
+import { formatDistanceToNow, isToday } from "date-fns";
 import React from "react";
 import { FaPhoneAlt, FaUserClock } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { formatDistanceToNow, isToday } from "date-fns";
 
 const Account = ({ account }) => {
 	const { accounts } = useSelector(state => state.accounts);
@@ -42,7 +41,11 @@ const Account = ({ account }) => {
 		<div
 			onClick={() => navigate(`/admin/user/${account?.email}`)}
 			className={`cursor-pointer border rounded-lg p-2 md:p-4 transition-all duration-300 ${
-				account?.gender === "male" ? "bg-blue-100" : "bg-pink-100"
+				account?.isBlocked
+					? "bg-red-400"
+					: account?.gender === "male"
+					? "bg-blue-100"
+					: "bg-pink-100"
 			} hover:shadow-lg border-gray-200`}
 		>
 			<h3 className='text-md md:text-lg flex justify-between font-medium text-slate-800'>

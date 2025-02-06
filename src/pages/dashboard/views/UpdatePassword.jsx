@@ -1,18 +1,10 @@
-import {
-	Box,
-	Button,
-	Input,
-	Menu,
-	MenuItem,
-	MenuList,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Input, useColorModeValue } from "@chakra-ui/react";
 import { UploadIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { MdOutlinePassword } from "react-icons/md";
-import useCrud from "../../../hook/useCrud";
 import { useDispatch, useSelector } from "react-redux";
+import useCrud from "../../../hook/useCrud";
 import { fetchAllUser } from "../../../toolkit/features/userSlice";
 
 const UpdatePassword = () => {
@@ -50,7 +42,7 @@ const UpdatePassword = () => {
 		}
 	}, [response, error]);
 
-	console.log(allUsers, "all");
+	// console.log(allUsers, "all");
 
 	return (
 		<Box

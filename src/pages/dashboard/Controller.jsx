@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-
 import AccountAction from "../../components/dashboard/AccountAction";
 import AccountDownload from "../../components/dashboard/AccountDownload";
-import AccountFixing from "../../components/dashboard/AccountFixing";
-import AttemptDownload from "../../components/dashboard/AttemptDownload";
 import useCrud from "../../hook/useCrud";
 import AccountsPassword from "./views/AccountsPassword";
 import Maintenance from "./views/Maintenance";
+import UpdateMailBox from "./views/UpdateMailBox";
 import UpdatePassword from "./views/UpdatePassword";
 import UserBlock from "./views/UserBlock";
-import UpdateMailBox from "./views/UpdateMailBox";
 
 const Controller = () => {
 	const { get, response, error, loading } = useCrud();
+
+	const isEditor = window.location.href.includes("/editor");
 
 	const fetchMaintenance = async () => {
 		await get("/api/maintenance");
@@ -40,9 +39,9 @@ const Controller = () => {
 
 			<div className='grid md:grid-cols-2 gap-5 max-sm:space-y-5 mt-5 lg:m-5'>
 				<AccountDownload />
-				<AttemptDownload />
-				<AccountAction />
-				<AccountFixing />
+				{/* <AttemptDownload /> */}
+				{!isEditor && <AccountAction />}
+				{/* <AccountFixing /> */}
 			</div>
 
 			<div className='sm:flex justify-around gap-3 md:gap-5 pt-5 lg:p-5 max-sm:space-y-5'>

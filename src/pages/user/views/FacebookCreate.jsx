@@ -14,9 +14,11 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import FactorCode from "../../../components/FactorCode";
-import MailInbox from "../../../components/MailBox";
+import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
+import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
 import CookieUrl from "../../../components/user/CookieUrl";
 import DetailCardCopy from "../../../components/user/DetailCardCopy";
+import EmbeddedWebsite from "../../../components/user/EmbeddedWebsite";
 import PasteTempMail from "../../../components/user/PasteTempMail";
 import useCrud from "../../../hook/useCrud";
 import { updateAccount } from "../../../toolkit/features/accountSlice";
@@ -27,8 +29,6 @@ import {
 } from "../../../utils/random";
 import { fetchPackages } from "./../../../toolkit/features/packageSlice";
 import AccountsStats from "./AccountsStats";
-import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
-import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
 
 const FacebookCreate = ({ user }) => {
 	const [details, setDetails] = useState({
@@ -201,6 +201,10 @@ const FacebookCreate = ({ user }) => {
 						{/* {account.accountFormat.includes("00fnd+2fa") && <PasteTempMail />} */}
 
 						{maintenance?.tempmail && <PasteTempMail />}
+
+						{maintenance?.embedMailToggle && (
+							<EmbeddedWebsite href={maintenance?.embedmail} />
+						)}
 
 						{account.accountFormat.includes("cookie") ? (
 							<>

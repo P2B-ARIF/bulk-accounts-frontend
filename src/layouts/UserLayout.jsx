@@ -75,7 +75,7 @@ const UserLayout = () => {
 	}
 
 	// if (user) {
-	console.log(user);
+	// console.log(user);
 	// 	return <NicknameModel />;
 	// }
 	return (

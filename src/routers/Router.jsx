@@ -19,16 +19,16 @@ import AdminHistory from "../pages/dashboard/AdminHistory";
 import AdminInstagram from "../pages/dashboard/AdminInstagram";
 import AdminPackages from "../pages/dashboard/AdminPackages";
 import AdminPayment from "../pages/dashboard/AdminPayment";
+import AdminTikTok from "../pages/dashboard/AdminTiktok";
 import Controller from "../pages/dashboard/Controller";
 import Messages from "../pages/dashboard/Messages";
 import SaleHole from "../pages/dashboard/SaleHole";
 import UserHistoryTable from "../pages/dashboard/views/UserHistoryTable";
+import TikTok from "../pages/user/Tiktok";
 import Contact from "./../pages/Contact";
 import AboutUs from "./../views/AboutUs";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
-import TikTok from "../pages/user/Tiktok";
-import AdminTikTok from "../pages/dashboard/AdminTiktok";
 
 export const router = createBrowserRouter([
 	{
@@ -84,6 +84,30 @@ export const router = createBrowserRouter([
 			{ path: "payment", element: <AdminPayment /> },
 			{ path: "sale-hole", element: <SaleHole /> },
 			{ path: "packages", element: <AdminPackages /> },
+			{ path: "messages", element: <Messages /> },
+			{ path: "*", element: <NotFoundPage /> },
+		],
+	},
+
+	{
+		path: "/editor",
+		element: (
+			<ProtectedAdminRoute>
+				<AdminLayout />
+			</ProtectedAdminRoute>
+		),
+		children: [
+			// { index: true, element: <AdminDashboard /> }, // Default route for "/admin"
+			{ index: true, element: <Controller /> },
+			{ path: "accounts", element: <Accounts /> },
+			{ path: "user/:email", element: <UserHistoryTable /> },
+			// { path: "facebook", element: <AdminFacebook /> },
+			// { path: "instagram", element: <AdminInstagram /> },
+			// { path: "tiktok", element: <AdminTikTok /> },
+			// { path: "history", element: <AdminHistory /> },
+			{ path: "payment", element: <AdminPayment /> },
+			{ path: "sale-hole", element: <SaleHole /> },
+			// { path: "packages", element: <AdminPackages /> },
 			{ path: "messages", element: <Messages /> },
 			{ path: "*", element: <NotFoundPage /> },
 		],

@@ -17,7 +17,7 @@ const ApprovedAccounts = () => {
 
 		if (response) {
 			setApproved(response);
-			console.log(response, "response");
+			// console.log(response, "response");
 		}
 
 		if (error) {

@@ -3,7 +3,7 @@ import { CgClose } from "react-icons/cg";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { IoMdSettings } from "react-icons/io";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogoTiktok, IoLogOut } from "react-icons/io5";
 import {
 	MdBusAlert,
 	MdManageHistory,
@@ -13,13 +13,14 @@ import {
 import { TbMessages, TbPackages } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { IoLogoTiktok } from "react-icons/io5";
 
 const SideBar = () => {
 	const { user, loading, error } = useSelector(state => state.user);
 
 	const [show, setShow] = useState(false);
 	const location = useLocation();
+
+	const isEditor = window.location.href.includes("/editor");
 
 	const navLists = [
 		// { url: "/admin", icon: TbLayoutDashboard, name: "Dashboard" },
@@ -33,6 +34,23 @@ const SideBar = () => {
 		{ url: "/admin/sale-hole", icon: MdBusAlert, name: "Sale & BlackHole" },
 		{ url: "/admin/packages", icon: TbPackages, name: "Packages" },
 		{ url: "/admin/messages", icon: TbMessages, name: "Messages" },
+	];
+	const editorNavLists = [
+		// { url: "/admin", icon: TbLayoutDashboard, name: "Dashboard" },
+		{ url: "/editor", icon: IoMdSettings, name: "Controller" },
+		{
+			url: "/editor/accounts",
+			icon: MdOutlineManageAccounts,
+			name: "Accounts",
+		},
+		// { url: "/editor/facebook", icon: FaFacebook, name: "Facebook" },
+		// { url: "/editor/instagram", icon: FaInstagram, name: "Instagram" },
+		// { url: "/editor/tiktok", icon: IoLogoTiktok, name: "Tiktok" },
+		// { url: "/editor/history", icon: MdManageHistory, name: "History" },
+		{ url: "/editor/payment", icon: MdPayments, name: "Payment" },
+		{ url: "/editor/sale-hole", icon: MdBusAlert, name: "Sale & BlackHole" },
+		// { url: "/editor/packages", icon: TbPackages, name: "Packages" },
+		{ url: "/editor/messages", icon: TbMessages, name: "Messages" },
 	];
 
 	return (
@@ -65,21 +83,37 @@ const SideBar = () => {
 
 					<div className='flex flex-col'>
 						<ul className='space-y-2 font-medium'>
-							{navLists?.map((nav, index) => (
-								<li key={index} onClick={() => setShow(false)}>
-									<Link
-										to={nav.url}
-										className={`flex items-center p-2 rounded-lg transition-all duration-300 ease-linear group ${
-											location.pathname === nav.url
-												? "bg-primary text-white" // Active styling
-												: "text-gray-700 hover:bg-gray-200" // Default styling
-										}`}
-									>
-										<nav.icon size={22} />
-										<span className='ms-3'>{nav.name}</span>
-									</Link>
-								</li>
-							))}
+							{isEditor
+								? editorNavLists?.map((nav, index) => (
+										<li key={index} onClick={() => setShow(false)}>
+											<Link
+												to={nav.url}
+												className={`flex items-center p-2 rounded-lg transition-all duration-300 ease-linear group ${
+													location.pathname === nav.url
+														? "bg-primary text-white" // Active styling
+														: "text-gray-700 hover:bg-gray-200" // Default styling
+												}`}
+											>
+												<nav.icon size={22} />
+												<span className='ms-3'>{nav.name}</span>
+											</Link>
+										</li>
+								  ))
+								: navLists?.map((nav, index) => (
+										<li key={index} onClick={() => setShow(false)}>
+											<Link
+												to={nav.url}
+												className={`flex items-center p-2 rounded-lg transition-all duration-300 ease-linear group ${
+													location.pathname === nav.url
+														? "bg-primary text-white" // Active styling
+														: "text-gray-700 hover:bg-gray-200" // Default styling
+												}`}
+											>
+												<nav.icon size={22} />
+												<span className='ms-3'>{nav.name}</span>
+											</Link>
+										</li>
+								  ))}
 						</ul>
 
 						<button

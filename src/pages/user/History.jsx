@@ -21,6 +21,8 @@ export default function History() {
 
 	const accounts = everything?.allAccounts;
 
+	console.log(accounts, "everything?.allAccounts");
+
 	if (loading) {
 		return <LoadingPage />;
 	}
