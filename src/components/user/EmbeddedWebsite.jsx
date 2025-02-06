@@ -3,7 +3,14 @@ import Iframe from "react-iframe";
 
 const EmbeddedWebsite = ({ href }) => {
 	return (
-		<div style={{ width: "100%", height: "400px", border: "1px solid #ccc" }}>
+		<div
+			style={{
+				width: "100%",
+				height: "350px",
+				border: "1px solid #ccc",
+				borderRadius: "5px",
+			}}
+		>
 			<Iframe
 				url={href}
 				width='100%'
