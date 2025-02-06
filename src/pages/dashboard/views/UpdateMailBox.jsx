@@ -153,7 +153,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 							isLoading={loading}
 							isDisabled={embedmail === getResponse?.embedmail}
 						>
-							Set Embed
+							Set
 						</Button>
 					</div>
 
