@@ -88,7 +88,7 @@ const UpdateMailBox = ({ getResponse, func }) => {
 					Email Selection | <b>{getResponse?.mailbox}</b>
 				</h3>
 
-				<div className='flex items-center gap-3 mb-4'>
+				<div className='flex items-center flex-wrap gap-3 mb-4'>
 					{[
 						{
 							label: "MailBox",
