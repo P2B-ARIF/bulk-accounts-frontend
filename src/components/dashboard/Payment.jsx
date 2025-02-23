@@ -1,8 +1,8 @@
 import { Td, Text, Tr, useColorModeValue } from "@chakra-ui/react";
+import { Eye } from "lucide-react";
 import React, { useCallback, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
 import UploadImage from "../../pages/dashboard/models/UploadImage";
-import { Eye } from "lucide-react";
 
 const Payment = ({ order }) => {
 	const hoverBg = useColorModeValue("gray.50", "gray.700");
@@ -39,6 +39,7 @@ const Payment = ({ order }) => {
 			</Td>
 			<Td>{order.notes}</Td>
 			<Td>{order.totalAccounts}</Td>
+			<Td>{order?.profit?.toFixed(2)}</Td>
 			<Td>
 				{order.amount.toFixed(2)} <small>BDT</small>
 			</Td>

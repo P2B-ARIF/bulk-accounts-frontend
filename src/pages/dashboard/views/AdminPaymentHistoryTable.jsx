@@ -18,6 +18,8 @@ const AdminPaymentHistoryTable = ({ payments }) => {
 	const bgColor = useColorModeValue("white", "gray.800");
 	const borderColor = useColorModeValue("gray.200", "gray.700");
 
+	console.log(payments, "payments");
+
 	return (
 		<Box
 			borderWidth='1px'
@@ -41,6 +43,7 @@ const AdminPaymentHistoryTable = ({ payments }) => {
 						{/* <Th>Reference By</Th> */}
 						<Th>Notes</Th>
 						<Th>Total A</Th>
+						<Th>Profit</Th>
 						<Th>Amount</Th>
 						<Th>Payment</Th>
 					</Tr>

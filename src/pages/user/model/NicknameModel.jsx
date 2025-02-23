@@ -71,7 +71,7 @@ const NicknameModel = () => {
 				<form onSubmit={handleSubmit}>
 					<ModalBody>
 						<FormControl isInvalid={!!error}>
-							<FormLabel>Nickname</FormLabel>
+							<FormLabel>Nickname (small letters)</FormLabel>
 							<Input
 								type='text'
 								placeholder='Enter your nickname'
@@ -83,7 +83,20 @@ const NicknameModel = () => {
 					</ModalBody>
 					<ModalFooter>
 						<Button
-							colorScheme='pink'
+							colorScheme='red'
+							size={"sm"}
+							onClick={() => {
+								localStorage.removeItem("authToken");
+								window.location.reload();
+							}}
+							isLoading={loading}
+							isDisabled={loading}
+							mr={3}
+						>
+							Log Out
+						</Button>
+						<Button
+							colorScheme='blue'
 							size={"sm"}
 							type='submit'
 							isLoading={loading}
