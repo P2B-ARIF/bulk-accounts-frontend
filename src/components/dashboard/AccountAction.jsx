@@ -18,23 +18,27 @@ const AccountAction = () => {
 	const handleAccount = async action => {
 		setActionName(action);
 
-		let rate;
-		while (true) {
-			const input = window.prompt("Are you sure? Please enter a number:");
-			if (input === null) return; // User clicked cancel
+		if (action == "approved") {
+			let rate;
+			while (true) {
+				const input = window.prompt("Are you sure? Please enter a number:");
+				if (input === null) return; // User clicked cancel
 
-			rate = parseFloat(input);
-			if (!isNaN(rate)) {
-				break; // Valid number entered, exit the loop
-			} else {
-				alert("Please enter a valid number.");
+				rate = parseFloat(input);
+				if (!isNaN(rate)) {
+					break; // Valid number entered, exit the loop
+				} else {
+					alert("Please enter a valid number.");
+				}
 			}
-		}
 
-		await put(
-			`/api/accounts?action=${action}&rate=${rate}`,
-			accountUIDs.split(","),
-		);
+			await put(
+				`/api/accounts?action=${action}&rate=${rate}`,
+				accountUIDs.split(","),
+			);
+		} else {
+			await put(`/api/accounts?action=${action}`, accountUIDs.split(","));
+		}
 	};
 
 	useEffect(() => {
