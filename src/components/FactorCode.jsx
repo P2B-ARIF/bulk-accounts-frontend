@@ -28,7 +28,6 @@ const FactorCode = () => {
 
 		if (secret.length < 20) {
 			return toast({
-				title: "Error",
 				description:
 					"আপনি সঠিক ভাবে ২ ফেক্টর কোড দিচ্ছেন না। অনুগ্রহ করে পুনরায় চেক করুন।",
 				status: "error",
