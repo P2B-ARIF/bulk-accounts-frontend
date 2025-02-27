@@ -26,6 +26,19 @@ const FactorCode = () => {
 		const url = import.meta.env.VITE_SERVER_LINK;
 		const secret = inputValue.match(/[a-zA-Z0-9]/g).join("");
 
+		if (secret.length < 20) {
+			return toast({
+				title: "Error",
+				description:
+					"আপনি সঠিক ভাবে ২ ফেক্টর কোড দিচ্ছেন না। অনুগ্রহ করে পুনরায় চেক করুন।",
+				status: "error",
+				duration: 5000,
+				isClosable: true,
+			});
+		}
+
+		// console.log(secret, secret.length, "secret");
+
 		dispatch(updateAccount({ ["key"]: inputValue }));
 
 		try {
@@ -36,7 +49,7 @@ const FactorCode = () => {
 					Authorization: `Bearer ${localStorage.getItem("token")}`,
 				},
 			});
-			console.log(res, "response");
+			// console.log(res, "response");
 
 			setInputValue(res.data);
 			setCode(res.data);
