@@ -27,6 +27,7 @@ import {
 	getRandomName,
 	getRandomNumber,
 } from "../../../utils/random";
+import DirectIdCreateModel from "../model/DirectIdCreateModel";
 import { fetchPackages } from "./../../../toolkit/features/packageSlice";
 import AccountsStats from "./AccountsStats";
 
@@ -166,21 +167,26 @@ const FacebookCreate = ({ user }) => {
 						minHeight='120px'
 						resize='none'
 					/>
+					<div className='flex items-center mr-auto gap-5'>
+						<DirectIdCreateModel />
 
-					<Button
-						onClick={handleSubmit}
-						rounded={"lg"}
-						fontWeight={"medium"}
-						leftIcon={<UploadIcon size={18} />}
-						isLoading={loading}
-						isDisabled={!account?.email || !account?.password || !account?.uid}
-						colorScheme='blue'
-						mr='auto'
-						px='20px'
-						width={{ base: "full", sm: "auto" }}
-					>
-						Submit Account
-					</Button>
+						<Button
+							onClick={handleSubmit}
+							rounded={"lg"}
+							fontWeight={"medium"}
+							leftIcon={<UploadIcon size={18} />}
+							isLoading={loading}
+							isDisabled={
+								!account?.email || !account?.password || !account?.uid
+							}
+							colorScheme='blue'
+							mr='auto'
+							px='20px'
+							width={{ base: "full", sm: "auto" }}
+						>
+							Submit Account
+						</Button>
+					</div>
 				</VStack>
 
 				{/* Right Section */}

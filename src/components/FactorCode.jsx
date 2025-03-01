@@ -10,11 +10,12 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { GiClick } from "react-icons/gi";
+import { IoIosSwitch } from "react-icons/io";
 import { SiPastebin } from "react-icons/si";
 import { useDispatch } from "react-redux";
 import { updateAccount } from "../toolkit/features/accountSlice";
 
-const FactorCode = () => {
+const FactorCode = ({ setSwitch2fa }) => {
 	const [code, setCode] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [inputValue, setInputValue] = useState(""); // Initialize with email
@@ -84,8 +85,24 @@ const FactorCode = () => {
 
 	return (
 		<Box borderWidth={1} borderRadius='lg' overflow='hidden' bg={bgColor}>
-			<Box p={3} px={4} bg='gray.200'>
+			<Box
+				p={3}
+				px={4}
+				bg='gray.200'
+				className={`${setSwitch2fa && "flex items-center gap-2"}`}
+			>
 				<h3 className='font-medium'>Two Factor Verification</h3>
+				{setSwitch2fa && (
+					<Button
+						size={"sm"}
+						onClick={() => setSwitch2fa(true)}
+						colorScheme='teal'
+						gap={2}
+					>
+						<IoIosSwitch />
+						Switch
+					</Button>
+				)}
 			</Box>
 
 			<Box p={4}>

@@ -73,6 +73,14 @@ export default function Hero() {
 					flexDirection={{ base: "column", md: "row" }}
 					h='full'
 				>
+					{localStorage.getItem("authToken") && (
+						<Link
+							to='/user'
+							className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+						>
+							Dashboard
+						</Link>
+					)}
 					{/* Text Section */}
 					<Stack
 						spacing={6}
