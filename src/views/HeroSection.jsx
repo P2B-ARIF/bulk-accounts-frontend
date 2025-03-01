@@ -76,7 +76,7 @@ export default function Hero() {
 					{localStorage.getItem("authToken") && (
 						<Link
 							to='/user'
-							className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+							className='bg-primary md:hidden text-white_c px-8 py-4 rounded-full text-sm'
 						>
 							Dashboard
 						</Link>
