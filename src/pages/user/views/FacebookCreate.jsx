@@ -167,7 +167,7 @@ const FacebookCreate = ({ user }) => {
 						minHeight='120px'
 						resize='none'
 					/>
-					<div className='flex items-center mr-auto gap-5'>
+					<div className='flex items-center mr-auto gap-2 md:gap-5'>
 						<DirectIdCreateModel />
 
 						<Button

@@ -25,7 +25,7 @@ const DirectIdCreateModel = () => {
 				} text-white font-medium px-4 py-2 rounded-lg whitespace-nowrap hover:opacity-90 transition-opacity`}
 				disabled={!account?.accountType}
 			>
-				Hot Create
+				Direct
 			</button>
 			<SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
 		</>

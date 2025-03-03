@@ -73,14 +73,31 @@ export default function Hero() {
 					flexDirection={{ base: "column", md: "row" }}
 					h='full'
 				>
-					{localStorage.getItem("authToken") && (
-						<Link
-							to='/user'
-							className='bg-primary md:hidden text-white_c px-8 py-4 rounded-full text-sm'
-						>
-							Dashboard
-						</Link>
-					)}
+					<div className='flex flex-col items-center gap-5'>
+						{localStorage.getItem("authToken") ? (
+							<Link
+								to='/user'
+								className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+							>
+								Dashboard
+							</Link>
+						) : (
+							<>
+								<Link
+									to='/register'
+									className='bg-black text-white_c px-7 py-3 rounded-full text-sm'
+								>
+									REGISTER
+								</Link>
+								<Link
+									to='/login'
+									className='bg-primary text-white_c px-8 py-4 rounded-full text-sm'
+								>
+									LOGIN
+								</Link>
+							</>
+						)}
+					</div>
 					{/* Text Section */}
 					<Stack
 						spacing={6}
