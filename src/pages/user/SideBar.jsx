@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { HiMenuAlt2 } from "react-icons/hi";
-import { IoLogOut } from "react-icons/io5";
+import { IoLogoTiktok, IoLogOut } from "react-icons/io5";
 import { MdManageHistory, MdPayments } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import useCrud from "../../hook/useCrud";
 import ShowMessage from "./model/ShowMessage";
-import { IoLogoTiktok } from "react-icons/io5";
 
 const SideBar = () => {
 	const { user, loading, error } = useSelector(state => state.user);
@@ -23,7 +22,7 @@ const SideBar = () => {
 		{ url: "/user/instagram", icon: FaInstagram, name: "Instagram" },
 		{ url: "/user/tiktok", icon: IoLogoTiktok, name: "Tiktok" },
 		{ url: "/user/history", icon: MdManageHistory, name: "History" },
-		{ url: "/user/payment", icon: MdPayments, name: "Withdraw" },
+		{ url: "/user/payment", icon: MdPayments, name: "Wallet" },
 	];
 
 	useEffect(() => {
