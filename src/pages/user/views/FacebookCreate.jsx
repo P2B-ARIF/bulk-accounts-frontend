@@ -22,6 +22,7 @@ import EmbeddedWebsite from "../../../components/user/EmbeddedWebsite";
 import PasteTempMail from "../../../components/user/PasteTempMail";
 import useCrud from "../../../hook/useCrud";
 import { updateAccount } from "../../../toolkit/features/accountSlice";
+import { profileUrlGenerator } from "../../../utils/profile_url";
 import {
 	getRandomEmail,
 	getRandomName,
@@ -39,6 +40,7 @@ const FacebookCreate = ({ user }) => {
 	});
 
 	const [isMailBoxOn, setIsMailBoxOn] = useState(false);
+	const [urlLoading, setUrlLoading] = useState(false);
 
 	const maintenance = useOutletContext();
 
@@ -90,6 +92,7 @@ const FacebookCreate = ({ user }) => {
 	// 6a3bb95f9cae@5smail.email
 	// nasib@06
 	// FHH4 4NR7 QKLG XIAM JHVP R7NX 4W3X 6GJI
+	// https://profile-uid.vercel.app/api?url=https://www.facebook.com/share/1RrjbPqqWr/
 
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
@@ -98,6 +101,20 @@ const FacebookCreate = ({ user }) => {
 			const uidCode = text.match(/id=(\d+)/)?.[1];
 			if (uidCode) {
 				dispatch(updateAccount({ [field]: uidCode }));
+			} else if (text.includes("share")) {
+				try {
+					setUrlLoading(true);
+					const data = await profileUrlGenerator(text);
+					dispatch(updateAccount({ [field]: data.uid }));
+				} catch (err) {
+					chakraToast({
+						title: "Error",
+						description: "Invalid UID" + err.m,
+						status: "error",
+					});
+				} finally {
+					setUrlLoading(false);
+				}
 			} else {
 				chakraToast({
 					title: "Error",
@@ -262,6 +279,8 @@ const FacebookCreate = ({ user }) => {
 										// 		behavior: "smooth",
 										// 	});
 										// }}
+										isLoading={urlLoading}
+										isDisabled={urlLoading}
 										onClick={() => handleCopy("uid")}
 										colorScheme='blue'
 										leftIcon={<ClipboardCheck size={20} />}

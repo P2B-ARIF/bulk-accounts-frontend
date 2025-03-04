@@ -1,4 +1,4 @@
-import { Button, Input, Text, useToast } from "@chakra-ui/react";
+import { Button, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { UploadIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import { useOutletContext } from "react-router-dom";
 import FactorCode from "../../../components/FactorCode";
 import useCrud from "../../../hook/useCrud";
 import { updateAccount } from "../../../toolkit/features/accountSlice";
+import { profileUrlGenerator } from "../../../utils/profile_url";
 
 const DirectIdCreateModel = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,7 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 	const dispatch = useDispatch();
 	const maintenance = useOutletContext();
 	const toast = useToast();
+	const [urlLoading, setUrlLoading] = useState(false);
 	const { get, post, loading, error, response } = useCrud();
 
 	// Update account password when maintenance or user changes
@@ -76,15 +78,29 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 
 		if (field === "uid") {
 			const uidCode = value.match(/id=(\d+)/)?.[1];
-			if (!uidCode) {
-				return toast({
-					description: "Invalid UID code.",
+			if (uidCode) {
+				dispatch(updateAccount({ [field]: uidCode }));
+			} else if (value.includes("share")) {
+				try {
+					setUrlLoading(true);
+					const data = await profileUrlGenerator(value);
+					dispatch(updateAccount({ [field]: data.uid }));
+				} catch (err) {
+					toast({
+						title: "Error",
+						description: "Invalid UID" + err.m,
+						status: "error",
+					});
+				} finally {
+					setUrlLoading(false);
+				}
+			} else {
+				toast({
+					title: "Error",
+					description: "Invalid UID",
 					status: "error",
-					duration: 3000,
-					isClosable: true,
 				});
 			}
-			dispatch(updateAccount({ [field]: uidCode }));
 		} else {
 			dispatch(updateAccount({ [field]: value }));
 		}
@@ -176,12 +192,18 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 							<Text mb='0px' color={"white"}>
 								Profile URL
 							</Text>
-							<Input
-								bg='gray.100'
-								value={account.uid}
-								onChange={e => handleCopy("uid", e.target.value)}
-								placeholder='Enter profile URL'
-							/>
+							{urlLoading ? (
+								<div className='bg-slate-100 py-2 px-4 rounded-lg flex items-center gap-2'>
+									<Spinner size={"sm"} /> Loading...
+								</div>
+							) : (
+								<Input
+									bg='gray.100'
+									value={account.uid}
+									onChange={e => handleCopy("uid", e.target.value)}
+									placeholder='Enter profile URL'
+								/>
+							)}
 
 							{/* Two Factor Verification */}
 							{switch2fa ? (
