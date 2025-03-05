@@ -100,11 +100,29 @@ const FacebookCreate = ({ user }) => {
 		if (field === "uid") {
 			const uidCode = text.match(/id=(\d+)/)?.[1];
 			if (uidCode) {
+				if (uidCode.length < 10) {
+					return toast({
+						title: "Error",
+						description: "Invalid UID.",
+						status: "error",
+					});
+				}
+
 				dispatch(updateAccount({ [field]: uidCode }));
 			} else if (text.includes("share")) {
 				try {
 					setUrlLoading(true);
 					const data = await profileUrlGenerator(text);
+					// console.log(data, "data");
+
+					if (data.uid.length < 10) {
+						return toast({
+							title: "Error",
+							description: "Invalid UID.",
+							status: "error",
+						});
+					}
+
 					dispatch(updateAccount({ [field]: data.uid }));
 				} catch (err) {
 					chakraToast({

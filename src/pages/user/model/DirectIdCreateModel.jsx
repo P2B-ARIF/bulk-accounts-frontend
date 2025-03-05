@@ -79,16 +79,34 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 		if (field === "uid") {
 			const uidCode = value.match(/id=(\d+)/)?.[1];
 			if (uidCode) {
+				if (uidCode.length < 10) {
+					return toast({
+						title: "Error",
+						description: "Invalid UID.",
+						status: "error",
+					});
+				}
+
 				dispatch(updateAccount({ [field]: uidCode }));
 			} else if (value.includes("share")) {
 				try {
 					setUrlLoading(true);
 					const data = await profileUrlGenerator(value);
+					// console.log(data, "data");
+
+					if (data.uid.length < 10) {
+						return toast({
+							title: "Error",
+							description: "Invalid UID.",
+							status: "error",
+						});
+					}
+
 					dispatch(updateAccount({ [field]: data.uid }));
 				} catch (err) {
 					toast({
 						title: "Error",
-						description: "Invalid UID" + err.m,
+						description: "Invalid UID" + err.message,
 						status: "error",
 					});
 				} finally {
@@ -256,9 +274,7 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 								fontWeight={"medium"}
 								leftIcon={<UploadIcon size={18} />}
 								isLoading={loading}
-								isDisabled={
-									!account?.email || !account?.password || !account?.uid
-								}
+								isDisabled={!account?.email || !account?.uid}
 								colorScheme='blue'
 								mr='auto'
 								px='20px'
