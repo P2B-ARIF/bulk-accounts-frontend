@@ -79,7 +79,21 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 		}
 
 		if (field === "uid") {
-			if (account?.accountType === "instagram" && value.length > 5) {
+			if (account?.accountType === "instagram") {
+				if (value.includes("@")) {
+					return toast({
+						title: "Error",
+						description: "Invalid UID.",
+						status: "error",
+					});
+				}
+				if (value.length < 8) {
+					return toast({
+						title: "Error",
+						description: "Invalid UID.",
+						status: "error",
+					});
+				}
 				return dispatch(updateAccount({ [field]: value }));
 			}
 

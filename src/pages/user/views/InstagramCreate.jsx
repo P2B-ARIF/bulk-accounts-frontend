@@ -96,6 +96,24 @@ const InstagramCreate = ({ user }) => {
 	const handleCopy = async field => {
 		const text = await navigator.clipboard.readText();
 
+		if (field === "uid") {
+			if (text.includes("@")) {
+				return chakraToast({
+					title: "Error",
+					description: "Invalid UID.",
+					status: "error",
+				});
+			}
+			if (text.length < 8) {
+				return chakraToast({
+					title: "Error",
+					description: "Invalid UID.",
+					status: "error",
+				});
+			}
+			return dispatch(updateAccount({ [field]: text }));
+		}
+
 		dispatch(updateAccount({ [field]: text }));
 		chakraToast({
 			title: "Copied! -" + field.value,
