@@ -162,7 +162,6 @@ const FacebookCreate = ({ user }) => {
 		}
 		if (error) {
 			console.log(error);
-
 			toast.error(error);
 		}
 	}, [response, error]);

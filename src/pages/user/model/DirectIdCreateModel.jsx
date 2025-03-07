@@ -52,6 +52,8 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 		}
 	}, [maintenance, user, dispatch, isOpen]);
 
+	console.log(account, "account");
+
 	// Handle copying and validation for different fields
 	const handleCopy = async (field, value) => {
 		if (field === "email" && (!value.includes("@") || !value.includes("."))) {
@@ -77,6 +79,10 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 		}
 
 		if (field === "uid") {
+			if (account?.accountType === "instagram" && value.length > 5) {
+				return dispatch(updateAccount({ [field]: value }));
+			}
+
 			const uidCode = value.match(/id=(\d+)/)?.[1];
 			if (uidCode) {
 				if (uidCode.length < 10) {
@@ -208,7 +214,9 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 
 							{/* Profile URL Input */}
 							<Text mb='0px' color={"white"}>
-								Profile URL
+								{account.accountType === "instagram"
+									? "Username"
+									: "Profile URL"}
 							</Text>
 							{urlLoading ? (
 								<div className='bg-slate-100 py-2 px-4 rounded-lg flex items-center gap-2'>
@@ -219,7 +227,11 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
 									bg='gray.100'
 									value={account.uid}
 									onChange={e => handleCopy("uid", e.target.value)}
-									placeholder='Enter profile URL'
+									placeholder={
+										account.accountType === "instagram"
+											? "Enter Username"
+											: "Enter profile URL"
+									}
 								/>
 							)}
 

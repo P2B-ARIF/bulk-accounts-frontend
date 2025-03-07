@@ -14,7 +14,8 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 import FactorCode from "../../../components/FactorCode";
-import MailInbox from "../../../components/MailBox";
+import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
+import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
 import DetailCardCopy from "../../../components/user/DetailCardCopy";
 import PasteTempMail from "../../../components/user/PasteTempMail";
 import useCrud from "../../../hook/useCrud";
@@ -25,9 +26,8 @@ import {
 	getRandomName,
 	getRandomNumber,
 } from "../../../utils/random";
+import DirectIdCreateModel from "../model/DirectIdCreateModel";
 import AccountsStats from "./AccountsStats";
-import OneSecMailBox from "../../../components/mailbox/onesecmail/OneSecMailBox";
-import Mailvn from "../../../components/mailbox/mailvn/Mailvn";
 
 const InstagramCreate = ({ user }) => {
 	const [details, setDetails] = useState({
@@ -116,7 +116,6 @@ const InstagramCreate = ({ user }) => {
 		}
 		if (error) {
 			console.log(error);
-
 			toast.error(error);
 		}
 	}, [response, error]);
@@ -126,7 +125,9 @@ const InstagramCreate = ({ user }) => {
 			<SimpleGrid columns={{ base: 1, lg: 5 }} spacing={6}>
 				{/* Left Section */}
 				<VStack spacing={6} gridColumn={{ lg: "span 2" }}>
-					<AccountsStats accounts={instagramPackages} />
+					{instagramPackages?.length > 0 && (
+						<AccountsStats accounts={instagramPackages} />
+					)}
 
 					<Textarea
 						borderColor={"pink.400"}
@@ -139,20 +140,26 @@ const InstagramCreate = ({ user }) => {
 						resize='none'
 					/>
 
-					<Button
-						onClick={handleSubmit}
-						rounded={"lg"}
-						fontWeight={"medium"}
-						leftIcon={<UploadIcon size={18} />}
-						isLoading={loading}
-						isDisabled={!account?.email || !account?.password || !account?.uid}
-						colorScheme='pink'
-						mr='auto'
-						px='20px'
-						width={{ base: "full", sm: "auto" }}
-					>
-						Submit Account
-					</Button>
+					<div className='flex items-center mr-auto gap-2 md:gap-5'>
+						<DirectIdCreateModel />
+
+						<Button
+							onClick={handleSubmit}
+							rounded={"lg"}
+							fontWeight={"medium"}
+							leftIcon={<UploadIcon size={18} />}
+							isLoading={loading}
+							isDisabled={
+								!account?.email || !account?.password || !account?.uid
+							}
+							colorScheme='pink'
+							mr='auto'
+							px='20px'
+							width={{ base: "full", sm: "auto" }}
+						>
+							Submit Account
+						</Button>
+					</div>
 				</VStack>
 
 				{/* Right Section */}

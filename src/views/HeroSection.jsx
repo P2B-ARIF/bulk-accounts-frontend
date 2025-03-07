@@ -73,7 +73,7 @@ export default function Hero() {
 					flexDirection={{ base: "column", md: "row" }}
 					h='full'
 				>
-					<div className='flex flex-col items-center gap-5'>
+					<div className='flex flex-col items-center gap-5 md:hidden'>
 						{localStorage.getItem("authToken") ? (
 							<Link
 								to='/user'
